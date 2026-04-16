@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swahili Negation – Kukanusha</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #f7f3ee;
+    --surface:  #ffffff;
+    --ink:      #1a1410;
+    --muted:    #8a7f74;
+    --border:   #e0d8cf;
+
+    --p1-color: #c0392b;   /* 1st person — red */
+    --p1-light: #fdf0ef;
+    --p1-mid:   #f5c6c2;
+
+    --p2-color: #1a6fa8;   /* 2nd person — blue */
+    --p2-light: #eef5fc;
+    --p2-mid:   #b8d8f0;
+
+    --p3-color: #1e7c52;   /* 3rd person — green */
+    --p3-light: #eef8f3;
+    --p3-mid:   #b2e0ca;
+
+    --neg-color:#7c3fa8;   /* negation highlight */
+    --gold:     #d4a017;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.65;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ───────────────────────────────────── */
+  header {
+    background: var(--ink);
+    color: #f7f3ee;
+    padding: 56px 40px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::after {
+    content: 'HAPANA';
+    position: absolute;
+    right: -20px; bottom: -24px;
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(100px, 20vw, 200px);
+    font-weight: 800;
+    color: rgba(255,255,255,0.04);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: -0.02em;
+  }
+  .header-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
+  .header-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 4px;
+    padding: 4px 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 7vw, 72px);
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+  header h1 em { font-style: normal; color: var(--p1-color); }
+  header p { font-size: 16px; color: rgba(255,255,255,0.55); max-width: 560px; font-weight: 300; }
+
+  /* ── PERSON TABS ──────────────────────────────── */
+  .tab-row {
+    display: flex;
+    gap: 0;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 32px 40px 0;
+    border-bottom: 2px solid var(--border);
+    overflow-x: auto;
+  }
+  .tab {
+    padding: 12px 24px;
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+    letter-spacing: 0.03em;
+  }
+  .tab.p1.active, .tab.p1:hover { color: var(--p1-color); border-color: var(--p1-color); }
+  .tab.p2.active, .tab.p2:hover { color: var(--p2-color); border-color: var(--p2-color); }
+  .tab.p3.active, .tab.p3:hover { color: var(--p3-color); border-color: var(--p3-color); }
+  .tab.all.active, .tab.all:hover { color: var(--ink); border-color: var(--ink); }
+
+  /* ── MAIN ─────────────────────────────────────── */
+  main { max-width: 860px; margin: 0 auto; padding: 40px 40px 80px; }
+
+  /* ── FORMULA BOX ─────────────────────────────── */
+  .formula-box {
+    background: var(--ink);
+    color: #f7f3ee;
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .formula-box h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #f7f3ee;
+  }
+  .formula {
+    font-family: 'DM Mono', monospace;
+    font-size: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+  .fpart {
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 13px;
+  }
+  .fpart.neg { background: #c0392b; color: #fff; }
+  .fpart.sub { background: rgba(255,255,255,0.12); color: #f7f3ee; }
+  .fpart.ten { background: rgba(255,209,102,0.2); color: #ffd166; }
+  .fpart.vrb { background: rgba(255,255,255,0.08); color: #aaa; }
+  .fpart.plus { background: transparent; color: #555; font-size: 18px; padding: 0 2px; }
+  .formula-note { font-size: 13px; color: rgba(255,255,255,0.4); margin-top: 8px; font-weight: 300; }
+
+  .key-rule {
+    background: rgba(255,209,102,0.12);
+    border: 1px solid rgba(255,209,102,0.3);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 13px;
+    color: #ffd166;
+    font-weight: 500;
+    max-width: 260px;
+    line-height: 1.5;
+  }
+  .key-rule strong { display: block; margin-bottom: 4px; font-family: 'Syne', sans-serif; font-size: 14px; }
+
+  /* ── PERSON SECTION ───────────────────────────── */
+  .person-section { display: none; }
+  .person-section.visible { display: block; }
+
+  .person-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .person-badge {
+    border-radius: 12px;
+    padding: 16px 20px;
+    min-width: 130px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .person-badge .number {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .person-badge .persons {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+  .person-description { flex: 1; min-width: 200px; }
+  .person-description h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .person-description p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  /* ── NEG PREFIX CHIPS ─────────────────────────── */
+  .prefix-chips {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .chip {
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    border: 1px solid;
+  }
+  .chip .ch-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.6; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+  .chip .ch-val { font-size: 18px; font-weight: 500; }
+
+  /* ── TENSE TABLE ──────────────────────────────── */
+  .tense-block { margin-bottom: 36px; }
+  .tense-block-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 0.01em;
+  }
+  .tense-block-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .neg-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .neg-table thead tr { background: #f0ebe4; }
+  .neg-table th {
+    padding: 10px 14px;
+    text-align: left;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 2px solid var(--border);
+  }
+  .neg-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .neg-table tr:last-child td { border-bottom: none; }
+  .neg-table tr:hover td { background: rgba(0,0,0,0.015); }
+
+  .pronoun-col {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .pos-col { color: var(--ink); font-weight: 500; }
+  .neg-col { font-weight: 700; }
+
+  /* Highlight the negative prefix inside the neg word */
+  .neg-prefix { border-radius: 3px; padding: 1px 3px; font-weight: 700; }
+
+  .eg-col { font-size: 13px; color: var(--muted); font-weight: 300; line-height: 1.5; }
+  .eg-col .sw { color: var(--ink); font-weight: 500; display: block; }
+  .eg-col .en { color: var(--muted); display: block; font-size: 12px; }
+
+  .marker-badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+
+  /* ── ALL VIEW ─────────────────────────────────── */
+  .all-section { display: none; }
+  .all-section.visible { display: block; }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  .summary-card {
+    border-radius: 16px;
+    padding: 22px;
+    border: 1px solid;
+  }
+  .summary-card h3 { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 800; margin-bottom: 14px; }
+  .summary-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(0,0,0,0.07); font-size: 13px; gap: 10px; }
+  .summary-row:last-child { border-bottom: none; }
+  .sr-pronoun { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); flex: 0 0 90px; }
+  .sr-pos { color: var(--ink); font-weight: 500; font-size: 13px; flex: 1; }
+  .sr-neg { font-weight: 700; font-size: 13px; flex: 1; text-align: right; }
+
+  /* ── TIPS ─────────────────────────────────────── */
+  .tip-strip {
+    background: linear-gradient(135deg, #fffbf0, #fff8e7);
+    border: 1px solid #f0d98a;
+    border-left: 4px solid var(--gold);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 18px;
+    font-size: 14px;
+    color: #5a4a1a;
+    line-height: 1.6;
+  }
+  .tip-strip strong { color: #8a6200; }
+
+  /* ── CONVERSATION BOX ─────────────────────────── */
+  .convo-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 28px;
+    margin-bottom: 32px;
+  }
+  .convo-box h3 { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 800; margin-bottom: 16px; color: var(--ink); }
+  .bubble { display: flex; flex-direction: column; margin-bottom: 10px; }
+  .bubble .sw { font-size: 15px; font-weight: 600; color: var(--ink); }
+  .bubble .en { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .bubble.q { align-items: flex-start; }
+  .bubble.a { align-items: flex-end; }
+  .bubble.q .sw, .bubble.q .en { background: #f0ebe4; padding: 8px 14px; border-radius: 12px 12px 12px 2px; }
+  .bubble.a .sw, .bubble.a .en { background: var(--ink); color: #f7f3ee; padding: 8px 14px; border-radius: 12px 12px 2px 12px; }
+  .bubble.a .en { color: rgba(255,255,255,0.5); }
+
+  @media (max-width: 600px) {
+    header { padding: 40px 20px 36px; }
+    .tab-row { padding: 24px 20px 0; }
+    main { padding: 28px 20px 60px; }
+    .formula-box { flex-direction: column; gap: 16px; }
+    .key-rule { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="header-tag">Sarufi · Grammar</div>
+    <h1>Kukanusha —<br><em>Negation</em> in Swahili</h1>
+    <p>How to say "I don't…", "She isn't…", "They won't…" across all persons and tenses.</p>
+  </div>
+</header>
+
+<!-- TABS -->
+<div class="tab-row">
+  <button class="tab all active" onclick="showTab('all')">🗂 All Persons</button>
+  <button class="tab p1" onclick="showTab('p1')">1st Person · Mimi / Sisi</button>
+  <button class="tab p2" onclick="showTab('p2')">2nd Person · Wewe / Ninyi</button>
+  <button class="tab p3" onclick="showTab('p3')">3rd Person · Yeye / Wao</button>
+</div>
+
+<main>
+
+  <!-- FORMULA -->
+  <div class="formula-box">
+    <div>
+      <h2>The Negation Formula</h2>
+      <div class="formula">
+        <span class="fpart neg">NEG prefix</span>
+        <span class="fpart plus">+</span>
+        <span class="fpart ten">tense marker</span>
+        <span class="fpart plus">+</span>
+        <span class="fpart vrb">verb stem</span>
+      </div>
+      <div class="formula-note" style="margin-top:12px;">
+        Positive: Ni + <span style="color:#ffd166">na</span> + soma → <strong style="color:#fff">Ninasoma</strong> (I am reading)<br>
+        Negative: <span style="color:#c0392b">Si</span> + <span style="color:#ffd166">—</span> + soma → <strong style="color:#fff">Sisomi</strong> (I am not reading)
+      </div>
+    </div>
+    <div class="key-rule">
+      <strong>⚠️ Key Rule</strong>
+      In negation, the present tense <strong style="color:#ffd166">-na-</strong> marker <strong style="color:#ffd166">disappears</strong> and the verb often gains an <strong style="color:#ffd166">-i</strong> ending.<br><br>
+      Also: <strong style="color:#ffd166">-ja-</strong> = "not yet" (perfect neg)
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       ALL PERSONS VIEW
+  ═══════════════════════════════════ -->
+  <div class="all-section visible" id="view-all">
+
+    <div class="tip-strip">
+      In Swahili, negation works by <strong>replacing the subject prefix</strong> with a special <strong>negative prefix</strong>. Think of it as swapping "Ni-" for "Si-", "A-" for "Ha-", etc. The rest of the sentence follows a pattern. <strong>Tense markers also change</strong> — some disappear, some become new negative-only markers!
+    </div>
+
+    <!-- SUMMARY GRID -->
+    <div class="summary-grid">
+
+      <!-- 1st person -->
+      <div class="summary-card" style="background:var(--p1-light);border-color:var(--p1-mid);">
+        <h3 style="color:var(--p1-color)">1st Person</h3>
+        <div class="summary-row">
+          <span class="sr-pronoun">Mimi (I)</span>
+          <span class="sr-pos">Ni–</span>
+          <span class="sr-neg" style="color:var(--p1-color)">Si–</span>
+        </div>
+        <div class="summary-row">
+          <span class="sr-pronoun">Sisi (We)</span>
+          <span class="sr-pos">Tu–</span>
+          <span class="sr-neg" style="color:var(--p1-color)">Hatu–</span>
+        </div>
+        <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--p1-mid);font-size:12px;color:var(--p1-color);font-weight:600">
+          Ninakula → <strong>Sisomi</strong><br>
+          Tunakula → <strong>Hatukuli</strong>
+        </div>
+      </div>
+
+      <!-- 2nd person -->
+      <div class="summary-card" style="background:var(--p2-light);border-color:var(--p2-mid);">
+        <h3 style="color:var(--p2-color)">2nd Person</h3>
+        <div class="summary-row">
+          <span class="sr-pronoun">Wewe (You)</span>
+          <span class="sr-pos">U–</span>
+          <span class="sr-neg" style="color:var(--p2-color)">Hu–</span>
+        </div>
+        <div class="summary-row">
+          <span class="sr-pronoun">Ninyi (You all)</span>
+          <span class="sr-pos">M–</span>
+          <span class="sr-neg" style="color:var(--p2-color)">Ham–</span>
+        </div>
+        <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--p2-mid);font-size:12px;color:var(--p2-color);font-weight:600">
+          Unasoma → <strong>Husomi</strong><br>
+          Mnasoma → <strong>Hamsomi</strong>
+        </div>
+      </div>
+
+      <!-- 3rd person -->
+      <div class="summary-card" style="background:var(--p3-light);border-color:var(--p3-mid);">
+        <h3 style="color:var(--p3-color)">3rd Person</h3>
+        <div class="summary-row">
+          <span class="sr-pronoun">Yeye (He/She)</span>
+          <span class="sr-pos">A–</span>
+          <span class="sr-neg" style="color:var(--p3-color)">Ha–</span>
+        </div>
+        <div class="summary-row">
+          <span class="sr-pronoun">Wao (They)</span>
+          <span class="sr-pos">Wa–</span>
+          <span class="sr-neg" style="color:var(--p3-color)">Hawa–</span>
+        </div>
+        <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--p3-mid);font-size:12px;color:var(--p3-color);font-weight:600">
+          Anasoma → <strong>Hasomi</strong><br>
+          Wanasoma → <strong>Hawasomi</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- BIG ALL-TENSES TABLE -->
+    <div class="tense-block">
+      <div class="tense-block-title">Complete Negation Table — All Persons × All Tenses</div>
+      <table class="neg-table">
+        <thead>
+          <tr>
+            <th>Person</th>
+            <th>Tense</th>
+            <th>Positive ✅</th>
+            <th>Negative ❌</th>
+            <th>Example Sentence</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- MIMI -->
+          <tr style="background:rgba(192,57,43,0.04)">
+            <td class="pronoun-col" rowspan="5" style="color:var(--p1-color);font-weight:700;vertical-align:top;padding-top:16px">Mimi<br>(I)</td>
+            <td><span class="marker-badge" style="background:#f5e6e5;color:var(--p1-color)">Present</span></td>
+            <td class="pos-col">Ninasoma</td>
+            <td class="neg-col" style="color:var(--p1-color)"><span class="neg-prefix" style="background:var(--p1-mid);color:var(--p1-color)">Si</span>somi</td>
+            <td class="eg-col"><span class="sw">Sisomi kitabu.</span><span class="en">I am not reading a book.</span></td>
+          </tr>
+          <tr style="background:rgba(192,57,43,0.04)">
+            <td><span class="marker-badge" style="background:#f5e6e5;color:var(--p1-color)">Past (-li-)</span></td>
+            <td class="pos-col">Nilisoma</td>
+            <td class="neg-col" style="color:var(--p1-color)"><span class="neg-prefix" style="background:var(--p1-mid);color:var(--p1-color)">Siku</span>soma</td>
+            <td class="eg-col"><span class="sw">Sikuona rafiki yangu.</span><span class="en">I did not see my friend.</span></td>
+          </tr>
+          <tr style="background:rgba(192,57,43,0.04)">
+            <td><span class="marker-badge" style="background:#f5e6e5;color:var(--p1-color)">Perfect (-me-)</span></td>
+            <td class="pos-col">Nimesoma</td>
+            <td class="neg-col" style="color:var(--p1-color)"><span class="neg-prefix" style="background:var(--p1-mid);color:var(--p1-color)">Sija</span>soma</td>
+            <td class="eg-col"><span class="sw">Sijala chakula.</span><span class="en">I have not yet eaten food.</span></td>
+          </tr>
+          <tr style="background:rgba(192,57,43,0.04)">
+            <td><span class="marker-badge" style="background:#f5e6e5;color:var(--p1-color)">Future (-ta-)</span></td>
+            <td class="pos-col">Nitasoma</td>
+            <td class="neg-col" style="color:var(--p1-color)"><span class="neg-prefix" style="background:var(--p1-mid);color:var(--p1-color)">Sita</span>soma</td>
+            <td class="eg-col"><span class="sw">Sitakwenda kesho.</span><span class="en">I will not go tomorrow.</span></td>
+          </tr>
+          <tr style="background:rgba(192,57,43,0.04)">
+            <td><span class="marker-badge" style="background:#f5e6e5;color:var(--p1-color)">Habitual (-hu-)</span></td>
+            <td class="pos-col">Husoma</td>
+            <td class="neg-col" style="color:var(--p1-color)"><span class="neg-prefix" style="background:var(--p1-mid);color:var(--p1-color)">Si</span>somi</td>
+            <td class="eg-col"><span class="sw">Sisomi asubuhi.</span><span class="en">I don't usually read in the morning.</span></td>
+          </tr>
+
+          <!-- divider -->
+          <tr><td colspan="5" style="padding:6px;background:var(--border)"></td></tr>
+
+          <!-- SISI -->
+          <tr style="background:rgba(192,57,43,0.025)">
+            <td class="pronoun-col" rowspan="5" style="color:var(--p1-color);font-weight:700;vertical-align:top;padding-top:16px">Sisi<br>(We)</td>
+            <td><span class="marker-badge" style="background:#f5e6e5;color:var(--p1-color)">Present</span></td>
+            <td class="pos-col">Tunasoma</td>
+            <td class="neg-col" style="color:var(--p1-color)"><span class="neg-prefix" style="background:var(--p1-mid);color:var(--p1-color)">Hatu</span>somi</td>
+            <td class="eg-col"><span class="sw">Hatusomi leo.</span><span class="en">We are not reading today.</span></td>
+          </tr>
+          <tr style="background:rgba(192,57,43,0.025)">
+            <td><span class="marker-badge" style="background:#f5e6e5;color:var(--p1-color)">Past (-li-)</span></td>
+            <td class="pos-col">Tulisoma</td>
+            <td class="neg-col" style="color:var(--p1-color)"><span class="neg-prefix" style="background:var(--p1-mid);color:var(--p1-color)">Hatuku</span>soma</td>
+            <td class="eg-col"><span class="sw">Hatukula jana.</span><span class="en">We did not eat yesterday.</span></td>
+          </tr>
+          <tr style="background:rgba(192,57,43,0.025)">
+            <td><span class="marker-badge" style="background:#f5e6e5;color:var(--p1-color)">Perfect (-me-)</span></td>
+            <td class="pos-col">Tumesoma</td>
+            <td class="neg-col" style="color:var(--p1-color)"><span class="neg-prefix" style="background:var(--p1-mid);color:var(--p1-color)">Hatuja</span>soma</td>
+            <td class="eg-col"><span class="sw">Hatujalipa pesa.</span><span class="en">We have not yet paid money.</span></td>
+          </tr>
+          <tr style="background:rgba(192,57,43,0.025)">
+            <td><span class="marker-badge" style="background:#f5e6e5;color:var(--p1-color)">Future (-ta-)</span></td>
+            <td class="pos-col">Tutasoma</td>
+            <td class="neg-col" style="color:var(--p1-color)"><span class="neg-prefix" style="background:var(--p1-mid);color:var(--p1-color)">Hatuta</span>soma</td>
+            <td class="eg-col"><span class="sw">Hatutakwenda shuleni.</span><span class="en">We will not go to school.</span></td>
+          </tr>
+          <tr style="background:rgba(192,57,43,0.025)">
+            <td><span class="marker-badge" style="background:#f5e6e5;color:var(--p1-color)">Habitual (-hu-)</span></td>
+            <td class="pos-col">Husoma</td>
+            <td class="neg-col" style="color:var(--p1-color)"><span class="neg-prefix" style="background:var(--p1-mid);color:var(--p1-color)">Hatu</span>somi</td>
+            <td class="eg-col"><span class="sw">Hatusomi usiku.</span><span class="en">We don't usually read at night.</span></td>
+          </tr>
+
+          <!-- divider -->
+          <tr><td colspan="5" style="padding:6px;background:var(--border)"></td></tr>
+
+          <!-- WEWE -->
+          <tr style="background:rgba(26,111,168,0.04)">
+            <td class="pronoun-col" rowspan="5" style="color:var(--p2-color);font-weight:700;vertical-align:top;padding-top:16px">Wewe<br>(You)</td>
+            <td><span class="marker-badge" style="background:#ddeef8;color:var(--p2-color)">Present</span></td>
+            <td class="pos-col">Unasoma</td>
+            <td class="neg-col" style="color:var(--p2-color)"><span class="neg-prefix" style="background:var(--p2-mid);color:var(--p2-color)">Hu</span>somi</td>
+            <td class="eg-col"><span class="sw">Husomi vizuri.</span><span class="en">You are not reading well.</span></td>
+          </tr>
+          <tr style="background:rgba(26,111,168,0.04)">
+            <td><span class="marker-badge" style="background:#ddeef8;color:var(--p2-color)">Past (-li-)</span></td>
+            <td class="pos-col">Ulisoma</td>
+            <td class="neg-col" style="color:var(--p2-color)"><span class="neg-prefix" style="background:var(--p2-mid);color:var(--p2-color)">Huku</span>soma</td>
+            <td class="eg-col"><span class="sw">Hukula chakula.</span><span class="en">You did not eat food.</span></td>
+          </tr>
+          <tr style="background:rgba(26,111,168,0.04)">
+            <td><span class="marker-badge" style="background:#ddeef8;color:var(--p2-color)">Perfect (-me-)</span></td>
+            <td class="pos-col">Umesoma</td>
+            <td class="neg-col" style="color:var(--p2-color)"><span class="neg-prefix" style="background:var(--p2-mid);color:var(--p2-color)">Huja</span>soma</td>
+            <td class="eg-col"><span class="sw">Hujalala bado.</span><span class="en">You have not yet slept.</span></td>
+          </tr>
+          <tr style="background:rgba(26,111,168,0.04)">
+            <td><span class="marker-badge" style="background:#ddeef8;color:var(--p2-color)">Future (-ta-)</span></td>
+            <td class="pos-col">Utasoma</td>
+            <td class="neg-col" style="color:var(--p2-color)"><span class="neg-prefix" style="background:var(--p2-mid);color:var(--p2-color)">Huta</span>soma</td>
+            <td class="eg-col"><span class="sw">Hutaenda sokoni.</span><span class="en">You will not go to the market.</span></td>
+          </tr>
+          <tr style="background:rgba(26,111,168,0.04)">
+            <td><span class="marker-badge" style="background:#ddeef8;color:var(--p2-color)">Habitual (-hu-)</span></td>
+            <td class="pos-col">Husoma</td>
+            <td class="neg-col" style="color:var(--p2-color)"><span class="neg-prefix" style="background:var(--p2-mid);color:var(--p2-color)">Hu</span>somi</td>
+            <td class="eg-col"><span class="sw">Husomi vitabu vingi.</span><span class="en">You don't usually read many books.</span></td>
+          </tr>
+
+          <!-- divider -->
+          <tr><td colspan="5" style="padding:6px;background:var(--border)"></td></tr>
+
+          <!-- NINYI -->
+          <tr style="background:rgba(26,111,168,0.025)">
+            <td class="pronoun-col" rowspan="5" style="color:var(--p2-color);font-weight:700;vertical-align:top;padding-top:16px">Ninyi<br>(You all)</td>
+            <td><span class="marker-badge" style="background:#ddeef8;color:var(--p2-color)">Present</span></td>
+            <td class="pos-col">Mnasoma</td>
+            <td class="neg-col" style="color:var(--p2-color)"><span class="neg-prefix" style="background:var(--p2-mid);color:var(--p2-color)">Ham</span>somi</td>
+            <td class="eg-col"><span class="sw">Hamsomi pamoja.</span><span class="en">You all are not reading together.</span></td>
+          </tr>
+          <tr style="background:rgba(26,111,168,0.025)">
+            <td><span class="marker-badge" style="background:#ddeef8;color:var(--p2-color)">Past (-li-)</span></td>
+            <td class="pos-col">Mlisoma</td>
+            <td class="neg-col" style="color:var(--p2-color)"><span class="neg-prefix" style="background:var(--p2-mid);color:var(--p2-color)">Hamku</span>soma</td>
+            <td class="eg-col"><span class="sw">Hamkuimba nyimbo.</span><span class="en">You all did not sing songs.</span></td>
+          </tr>
+          <tr style="background:rgba(26,111,168,0.025)">
+            <td><span class="marker-badge" style="background:#ddeef8;color:var(--p2-color)">Perfect (-me-)</span></td>
+            <td class="pos-col">Mmesoma</td>
+            <td class="neg-col" style="color:var(--p2-color)"><span class="neg-prefix" style="background:var(--p2-mid);color:var(--p2-color)">Hamja</span>soma</td>
+            <td class="eg-col"><span class="sw">Hamjafika bado.</span><span class="en">You all have not yet arrived.</span></td>
+          </tr>
+          <tr style="background:rgba(26,111,168,0.025)">
+            <td><span class="marker-badge" style="background:#ddeef8;color:var(--p2-color)">Future (-ta-)</span></td>
+            <td class="pos-col">Mtasoma</td>
+            <td class="neg-col" style="color:var(--p2-color)"><span class="neg-prefix" style="background:var(--p2-mid);color:var(--p2-color)">Hamta</span>soma</td>
+            <td class="eg-col"><span class="sw">Hamtaona filamu.</span><span class="en">You all will not watch the film.</span></td>
+          </tr>
+          <tr style="background:rgba(26,111,168,0.025)">
+            <td><span class="marker-badge" style="background:#ddeef8;color:var(--p2-color)">Habitual (-hu-)</span></td>
+            <td class="pos-col">Husoma</td>
+            <td class="neg-col" style="color:var(--p2-color)"><span class="neg-prefix" style="background:var(--p2-mid);color:var(--p2-color)">Ham</span>somi</td>
+            <td class="eg-col"><span class="sw">Hamsomi kila siku.</span><span class="en">You all don't usually read every day.</span></td>
+          </tr>
+
+          <!-- divider -->
+          <tr><td colspan="5" style="padding:6px;background:var(--border)"></td></tr>
+
+          <!-- YEYE -->
+          <tr style="background:rgba(30,124,82,0.04)">
+            <td class="pronoun-col" rowspan="5" style="color:var(--p3-color);font-weight:700;vertical-align:top;padding-top:16px">Yeye<br>(He/She)</td>
+            <td><span class="marker-badge" style="background:#d4f0e4;color:var(--p3-color)">Present</span></td>
+            <td class="pos-col">Anasoma</td>
+            <td class="neg-col" style="color:var(--p3-color)"><span class="neg-prefix" style="background:var(--p3-mid);color:var(--p3-color)">Ha</span>somi</td>
+            <td class="eg-col"><span class="sw">Hasomi sasa hivi.</span><span class="en">He/She is not reading right now.</span></td>
+          </tr>
+          <tr style="background:rgba(30,124,82,0.04)">
+            <td><span class="marker-badge" style="background:#d4f0e4;color:var(--p3-color)">Past (-li-)</span></td>
+            <td class="pos-col">Alisoma</td>
+            <td class="neg-col" style="color:var(--p3-color)"><span class="neg-prefix" style="background:var(--p3-mid);color:var(--p3-color)">Haku</span>soma</td>
+            <td class="eg-col"><span class="sw">Hakukimbia mbio.</span><span class="en">He/She did not run fast.</span></td>
+          </tr>
+          <tr style="background:rgba(30,124,82,0.04)">
+            <td><span class="marker-badge" style="background:#d4f0e4;color:var(--p3-color)">Perfect (-me-)</span></td>
+            <td class="pos-col">Amesoma</td>
+            <td class="neg-col" style="color:var(--p3-color)"><span class="neg-prefix" style="background:var(--p3-mid);color:var(--p3-color)">Haja</span>soma</td>
+            <td class="eg-col"><span class="sw">Hajakula bado.</span><span class="en">He/She has not yet eaten.</span></td>
+          </tr>
+          <tr style="background:rgba(30,124,82,0.04)">
+            <td><span class="marker-badge" style="background:#d4f0e4;color:var(--p3-color)">Future (-ta-)</span></td>
+            <td class="pos-col">Atasoma</td>
+            <td class="neg-col" style="color:var(--p3-color)"><span class="neg-prefix" style="background:var(--p3-mid);color:var(--p3-color)">Hata</span>soma</td>
+            <td class="eg-col"><span class="sw">Hatakuja kesho.</span><span class="en">He/She will not come tomorrow.</span></td>
+          </tr>
+          <tr style="background:rgba(30,124,82,0.04)">
+            <td><span class="marker-badge" style="background:#d4f0e4;color:var(--p3-color)">Habitual (-hu-)</span></td>
+            <td class="pos-col">Husoma</td>
+            <td class="neg-col" style="color:var(--p3-color)"><span class="neg-prefix" style="background:var(--p3-mid);color:var(--p3-color)">Ha</span>somi</td>
+            <td class="eg-col"><span class="sw">Hasomi vitabu.</span><span class="en">He/She doesn't usually read books.</span></td>
+          </tr>
+
+          <!-- divider -->
+          <tr><td colspan="5" style="padding:6px;background:var(--border)"></td></tr>
+
+          <!-- WAO -->
+          <tr style="background:rgba(30,124,82,0.025)">
+            <td class="pronoun-col" rowspan="5" style="color:var(--p3-color);font-weight:700;vertical-align:top;padding-top:16px">Wao<br>(They)</td>
+            <td><span class="marker-badge" style="background:#d4f0e4;color:var(--p3-color)">Present</span></td>
+            <td class="pos-col">Wanasoma</td>
+            <td class="neg-col" style="color:var(--p3-color)"><span class="neg-prefix" style="background:var(--p3-mid);color:var(--p3-color)">Hawa</span>somi</td>
+            <td class="eg-col"><span class="sw">Hawasomi darasani.</span><span class="en">They are not reading in class.</span></td>
+          </tr>
+          <tr style="background:rgba(30,124,82,0.025)">
+            <td><span class="marker-badge" style="background:#d4f0e4;color:var(--p3-color)">Past (-li-)</span></td>
+            <td class="pos-col">Walisoma</td>
+            <td class="neg-col" style="color:var(--p3-color)"><span class="neg-prefix" style="background:var(--p3-mid);color:var(--p3-color)">Hawaku</span>soma</td>
+            <td class="eg-col"><span class="sw">Hawakucheza mpira.</span><span class="en">They did not play football.</span></td>
+          </tr>
+          <tr style="background:rgba(30,124,82,0.025)">
+            <td><span class="marker-badge" style="background:#d4f0e4;color:var(--p3-color)">Perfect (-me-)</span></td>
+            <td class="pos-col">Wamesoma</td>
+            <td class="neg-col" style="color:var(--p3-color)"><span class="neg-prefix" style="background:var(--p3-mid);color:var(--p3-color)">Hawaja</span>soma</td>
+            <td class="eg-col"><span class="sw">Hawajafika bado.</span><span class="en">They have not yet arrived.</span></td>
+          </tr>
+          <tr style="background:rgba(30,124,82,0.025)">
+            <td><span class="marker-badge" style="background:#d4f0e4;color:var(--p3-color)">Future (-ta-)</span></td>
+            <td class="pos-col">Watasoma</td>
+            <td class="neg-col" style="color:var(--p3-color)"><span class="neg-prefix" style="background:var(--p3-mid);color:var(--p3-color)">Hawata</span>soma</td>
+            <td class="eg-col"><span class="sw">Hawatalala mapema.</span><span class="en">They will not sleep early.</span></td>
+          </tr>
+          <tr style="background:rgba(30,124,82,0.025)">
+            <td><span class="marker-badge" style="background:#d4f0e4;color:var(--p3-color)">Habitual (-hu-)</span></td>
+            <td class="pos-col">Husoma</td>
+            <td class="neg-col" style="color:var(--p3-color)"><span class="neg-prefix" style="background:var(--p3-mid);color:var(--p3-color)">Hawa</span>somi</td>
+            <td class="eg-col"><span class="sw">Hawasomi magazetini.</span><span class="en">They don't usually read newspapers.</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TIPS -->
+    <div class="tip-strip">
+      <strong>🔵 -ja- = "not yet"</strong> — The perfect negative uses <strong>-ja-</strong> instead of the positive <strong>-me-</strong>. This specifically means the action <em>hasn't happened yet</em> but might still happen.<br>
+      <em>Nimekula</em> (I have eaten) → <em>Sijala</em> (I have not yet eaten)
+    </div>
+    <div class="tip-strip">
+      <strong>🔴 -ku- in past negative</strong> — When negating the past tense, <strong>-ku-</strong> replaces <strong>-li-</strong>.<br>
+      <em>Nilikimbia</em> (I ran) → <em>Sikukimbia</em> (I did not run)
+    </div>
+    <div class="tip-strip">
+      <strong>🟢 Present drops -na- and adds -i</strong> — Present continuous negatives drop the <strong>-na-</strong> marker and the verb gains an <strong>-i</strong> ending.<br>
+      <em>Ninakula</em> (I am eating) → <em>Sikuli</em> (I am not eating)
+    </div>
+
+    <!-- CONVERSATION -->
+    <div class="convo-box">
+      <h3>💬 See it in real conversation</h3>
+      <div class="bubble q"><span class="sw">Umekula leo asubuhi?</span><span class="en">Have you eaten this morning?</span></div>
+      <div class="bubble a"><span class="sw">Sijala bado, nilikuwa na haraka.</span><span class="en">I haven't eaten yet, I was in a hurry.</span></div>
+      <div class="bubble q"><span class="sw">Watoto hawakwenda shuleni?</span><span class="en">The children didn't go to school?</span></div>
+      <div class="bubble a"><span class="sw">Hapana, hawatakwenda leo kwa sababu ya mvua.</span><span class="en">No, they will not go today because of rain.</span></div>
+      <div class="bubble q"><span class="sw">Je, mnasoma Kiswahili?</span><span class="en">Are you all studying Swahili?</span></div>
+      <div class="bubble a"><span class="sw">Ndiyo! Lakini hatusomi kila siku.</span><span class="en">Yes! But we don't study every day.</span></div>
+    </div>
+
+  </div><!-- /all-section -->
+
+  <!-- ═══════════════════════════════════
+       INDIVIDUAL PERSON SECTIONS (tabs)
+  ═══════════════════════════════════ -->
+
+  <!-- 1ST PERSON -->
+  <div class="person-section" id="view-p1">
+    <div class="person-header">
+      <div class="person-badge" style="background:var(--p1-light);border:2px solid var(--p1-mid)">
+        <div class="number" style="color:var(--p1-color)">1st</div>
+        <div class="persons" style="color:var(--p1-color)">Mimi · Sisi</div>
+      </div>
+      <div class="person-description">
+        <h2>First Person</h2>
+        <p>Used when <em>you yourself</em> are the speaker (<strong>Mimi</strong> = I) or when speaking on behalf of a group that includes you (<strong>Sisi</strong> = We). The negative prefixes are <strong>Si–</strong> for singular and <strong>Hatu–</strong> for plural.</p>
+      </div>
+    </div>
+    <div class="prefix-chips">
+      <div class="chip" style="background:var(--p1-light);border-color:var(--p1-mid);color:var(--p1-color)">
+        <span class="ch-label">Mimi (I) — neg prefix</span>
+        <span class="ch-val">Si–</span>
+      </div>
+      <div class="chip" style="background:var(--p1-light);border-color:var(--p1-mid);color:var(--p1-color)">
+        <span class="ch-label">Sisi (We) — neg prefix</span>
+        <span class="ch-val">Hatu–</span>
+      </div>
+      <div class="chip" style="background:#fff8e7;border-color:#f0d98a;color:#8a6200">
+        <span class="ch-label">Past neg marker</span>
+        <span class="ch-val">–ku–</span>
+      </div>
+      <div class="chip" style="background:#fff8e7;border-color:#f0d98a;color:#8a6200">
+        <span class="ch-label">Perfect neg marker</span>
+        <span class="ch-val">–ja–</span>
+      </div>
+    </div>
+    <div class="tense-block">
+      <div class="tense-block-title" style="color:var(--p1-color)">Mimi (I) — all tenses</div>
+      <table class="neg-table">
+        <thead><tr><th>Tense</th><th>Positive ✅</th><th>Negative ❌</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><span class="marker-badge" style="background:var(--p1-light);color:var(--p1-color)">Present</span></td><td class="pos-col">Ninakula</td><td class="neg-col" style="color:var(--p1-color)">Si<strong>kuli</strong></td><td class="eg-col"><span class="sw">Sikuli nyama.</span><span class="en">I am not eating meat.</span></td></tr>
+          <tr><td><span class="marker-badge" style="background:var(--p1-light);color:var(--p1-color)">Past</span></td><td class="pos-col">Nilikula</td><td class="neg-col" style="color:var(--p1-color)">Si<strong>ku</strong>kula</td><td class="eg-col"><span class="sw">Sikukula jana.</span><span class="en">I did not eat yesterday.</span></td></tr>
+          <tr><td><span class="marker-badge" style="background:var(--p1-light);color:var(--p1-color)">Perfect</span></td><td class="pos-col">Nimekula</td><td class="neg-col" style="color:var(--p1-color)">Si<strong>ja</strong>kula</td><td class="eg-col"><span class="sw">Sijakula bado.</span><span class="en">I have not yet eaten.</span></td></tr>
+          <tr><td><span class="marker-badge" style="background:var(--p1-light);color:var(--p1-color)">Future</span></td><td class="pos-col">Nitakula</td><td class="neg-col" style="color:var(--p1-color)">Si<strong>ta</strong>kula</td><td class="eg-col"><span class="sw">Sitakula usiku.</span><span class="en">I will not eat at night.</span></td></tr>
+          <tr><td><span class="marker-badge" style="background:var(--p1-light);color:var(--p1-color)">Habitual</span></td><td class="pos-col">Hukula</td><td class="neg-col" style="color:var(--p1-color)">Si<strong>kuli</strong></td><td class="eg-col"><span class="sw">Sikuli samaki.</span><span class="en">I don't usually eat fish.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tense-block">
+      <div class="tense-block-title" style="color:var(--p1-color)">Sisi (We) — all tenses</div>
+      <table class="neg-table">
+        <thead><tr><th>Tense</th><th>Positive ✅</th><th>Negative ❌</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><span class="marker-badge" style="background:var(--p1-light);color:var(--p1-color)">Present</span></td><td class="pos-col">Tunakula</td><td class="neg-col" style="color:var(--p1-color)">Hatu<strong>kuli</strong></td><td class="eg-col"><span class="sw">Hatukuli sasa.</span><span class="en">We are not eating now.</span></td></tr>
+          <tr><td><span class="marker-badge" style="background:var(--p1-light);color:var(--p1-color)">Past</span></td><td class="pos-col">Tulikula</td><td class="neg-col" style="color:var(--p1-color)">Hatu<strong>ku</strong>kula</td><td class="eg-col"><span class="sw">Hatukukula jana.</span><span class="en">We did not eat yesterday.</span></td></tr>
+          <tr><td><span class="marker-badge" style="background:var(--p1-light);color:var(--p1-color)">Perfect</span></td><td class="pos-col">Tumekula</td><td class="neg-col" style="color:var(--p1-color)">Hatu<strong>ja</strong>kula</td><td class="eg-col"><span class="sw">Hatujakula leo.</span><span class="en">We have not yet eaten today.</span></td></tr>
+          <tr><td><span class="marker-badge" style="background:var(--p1-light);color:var(--p1-color)">Future</span></td><td class="pos-col">Tutakula</td><td class="neg-col" style="color:var(--p1-color)">Hatu<strong>ta</strong>kula</td><td class="eg-col"><span class="sw">Hatutakula nje.</span><span class="en">We will not eat outside.</span></td></tr>
+          <tr><td><span class="marker-badge" style="background:var(--p1-light);color:var(--p1-color)">Habitual</span></td><td class="pos-col">Hukula</td><td class="neg-col" style="color:var(--p1-color)">Hatu<strong>kuli</strong></td><td class="eg-col"><span class="sw">Hatukuli asubuhi.</span><span class="en">We don't usually eat in the morning.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tip-strip"><strong>Memory trick for 1st person:</strong> <em>Mimi</em> positive starts with <strong>Ni–</strong>, negative swaps to <strong>Si–</strong>. For <em>Sisi</em>, positive is <strong>Tu–</strong>, negative becomes <strong>Hatu–</strong>. Just add <em>Ha</em> in front!</div>
+  </div>
+
+  <!-- 2ND PERSON -->
+  <div class="person-section" id="view-p2">
+    <div class="person-header">
+      <div class="person-badge" style="background:var(--p2-light);border:2px solid var(--p2-mid)">
+        <div class="number" style="color:var(--p2-color)">2nd</div>
+        <div class="persons" style="color:var(--p2-color)">Wewe · Ninyi</div>
+      </div>
+      <div class="person-description">
+        <h2>Second Person</h2>
+        <p>Used when addressing someone directly. <strong>Wewe</strong> = You (one person). <strong>Ninyi</strong> = You all (group). Negative prefixes are <strong>Hu–</strong> for singular and <strong>Ham–</strong> for plural.</p>
+      </div>
+    </div>
+    <div class="prefix-chips">
+      <div class="chip" style="background:var(--p2-light);border-color:var(--p2-mid);color:var(--p2-color)">
+        <span class="ch-label">Wewe (You) — neg prefix</span>
+        <span class="ch-val">Hu–</span>
+      </div>
+      <div class="chip" style="background:var(--p2-light);border-color:var(--p2-mid);color:var(--p2-color)">
+        <span class="ch-label">Ninyi (You all) — neg prefix</span>
+        <span class="ch-val">Ham–</span>
+      </div>
+      <div class="chip" style="background:#fff8e7;border-color:#f0d98a;color:#8a6200">
+        <span class="ch-label">Past neg marker</span>
+        <span class="ch-val">–ku–</span>
+      </div>
+      <div class="chip" style="background:#fff8e7;border-color:#f0d98a;color:#8a6200">
+        <span class="ch-label">Perfect neg marker</span>
+        <span class="ch-val">–ja–</span>
+      </div>
+    </div>
+    <div class="tense-block">
+      <div class="tense-block-title" style="color:var(--p2-color)">Wewe (You) — all tenses</div>
+      <table class="neg-table">
+        <thead><tr><th>Tense</th><th>Positive ✅</th><th>Negative ❌</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><span class="marker-badge" style="background:var(--p2-light);color:var(--p2-color)">Present</span></td><td class="pos-col">Unasoma</td><td class="neg-col" style="color:var(--p2-color)">Hu<strong>somi</strong></td><td class="eg-col"><span class="sw">Husomi Kiswahili?</span><span class="en">Are you not studying Swahili?</span></td></tr>
+          <tr><td><span class="marker-badge" style="background:var(--p2-light);color:var(--p2-color)">Past</span></td><td class="pos-col">Ulisoma</td><td class="neg-col" style="color:var(--p2-color)">Hu<strong>ku</strong>soma</td><td class="eg-col"><span class="sw">Hukusoma jana usiku.</span><span class="en">You did not study last night.</span></td></tr>
+          <tr><td><span class="marker-badge" style="background:var(--p2-light);color:var(--p2-color)">Perfect</span></td><td class="pos-col">Umesoma</td><td class="neg-col" style="color:var(--p2-color)">Hu<strong>ja</strong>soma</td><td class="eg-col"><span class="sw">Hujasoma somo hili.</span><span class="en">You have not yet studied this lesson.</span></td></tr>
+          <tr><td><span class="marker-badge" style="background:var(--p2-light);color:var(--p2-color)">Future</span></td><td class="pos-col">Utasoma</td><td class="neg-col" style="color:var(--p2-color)">Hu<strong>ta</strong>soma</td><td class="eg-col"><span class="sw">Hutasoma kesho?</span><span class="en">You will not study tomorrow?</span></td></tr>
+          <tr><td><span class="marker-badge" style="background:var(--p2-light);color:var(--p2-color)">Habitual</span></td><td class="pos-col">Husoma</td><td class="neg-col" style="color:var(--p2-color)">Hu<strong>somi</strong></td><td class="eg-col"><span class="sw">Husomi kila siku.</span><span class="en">You don't usually study every day.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tense-block">
+      <div class="tense-block-title" style="color:var(--p2-color)">Ninyi (You all) — all tenses</div>
+      <table class="neg-table">
+        <thead><tr><th>Tense</th><th>Positive ✅</th><th>Negative ❌</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><span class="marker-badge" style="background:var(--p2-light);color:var(--p2-color)">Present</span></td><td class="pos-col">Mnasoma</td><td class="neg-col" style="color:var(--p2-color)">Ham<strong>somi</strong></td><td class="eg-col"><span class="sw">Hamsomi pamoja?</span><span class="en">Are you all not studying together?</span></td></tr>
+          <tr><td><span class="marker-badge" style="background:var(--p2-light);color:var(--p2-color)">Past</span></td><td class="pos-col">Mlisoma</td><td class="neg-col" style="color:var(--p2-color)">Ham<strong>ku</strong>soma</td><td class="eg-col"><span class="sw">Hamkusoma vizuri.</span><span class="en">You all did not study well.</span></td></tr>
+          <tr><td><span class="marker-badge" style="background:var(--p2-light);color:var(--p2-color)">Perfect</span></td><td class="pos-col">Mmesoma</td><td class="neg-col" style="color:var(--p2-color)">Ham<strong>ja</strong>soma</td><td class="eg-col"><span class="sw">Hamjasoma vitabu vyote.</span><span class="en">You all have not yet read all the books.</span></td></tr>
+          <tr><td><span class="marker-badge" style="background:var(--p2-light);color:var(--p2-color)">Future</span></td><td class="pos-col">Mtasoma</td><td class="neg-col" style="color:var(--p2-color)">Ham<strong>ta</strong>soma</td><td class="eg-col"><span class="sw">Hamtasoma mtihani?</span><span class="en">You all will not study for the exam?</span></td></tr>
+          <tr><td><span class="marker-badge" style="background:var(--p2-light);color:var(--p2-color)">Habitual</span></td><td class="pos-col">Husoma</td><td class="neg-col" style="color:var(--p2-color)">Ham<strong>somi</strong></td><td class="eg-col"><span class="sw">Hamsomi Jumapili.</span><span class="en">You all don't usually study on Sundays.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tip-strip"><strong>Memory trick for 2nd person:</strong> <em>Wewe</em> positive is <strong>U–</strong>, negative is <strong>Hu–</strong> (just add H!). <em>Ninyi</em> positive is <strong>M–</strong>, negative is <strong>Ham–</strong> (add Ha before the M).</div>
+  </div>
+
+  <!-- 3RD PERSON -->
+  <div class="person-section" id="view-p3">
+    <div class="person-header">
+      <div class="person-badge" style="background:var(--p3-light);border:2px solid var(--p3-mid)">
+        <div class="number" style="color:var(--p3-color)">3rd</div>
+        <div class="persons" style="color:var(--p3-color)">Yeye · Wao</div>
+      </div>
+      <div class="person-description">
+        <h2>Third Person</h2>
+        <p>Used when talking <em>about</em> someone else. <strong>Yeye</strong> = He / She. <strong>Wao</strong> = They. Negative prefixes are <strong>Ha–</strong> for singular and <strong>Hawa–</strong> for plural.</p>
+      </div>
+    </div>
+    <div class="prefix-chips">
+      <div class="chip" style="background:var(--p3-light);border-color:var(--p3-mid);color:var(--p3-color)">
+        <span class="ch-label">Yeye (He/She) — neg prefix</span>
+        <span class="ch-val">Ha–</span>
+      </div>
+      <div class="chip" style="background:var(--p3-light);border-color:var(--p3-mid);color:var(--p3-color)">
+        <span class="ch-label">Wao (They) — neg prefix</span>
+        <span class="ch-val">Hawa–</span>
+      </div>
+      <div class="chip" style="background:#fff8e7;border-color:#f0d98a;color:#8a6200">
+        <span class="ch-label">Past neg marker</span>
+        <span class="ch-val">–ku–</span>
+      </div>
+      <div class="chip" style="background:#fff8e7;border-color:#f0d98a;color:#8a6200">
+        <span class="ch-label">Perfect neg marker</span>
+        <span class="ch-val">–ja–</span>
+      </div>
+    </div>
+    <div class="tense-block">
+      <div class="tense-block-title" style="color:var(--p3-color)">Yeye (He/She) — all tenses</div>
+      <table class="neg-table">
+        <thead><tr><th>Tense</th><th>Positive ✅</th><th>Negative ❌</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><span class="marker-badge" style="background:var(--p3-light);color:var(--p3-color)">Present</span></td><td class="pos-col">Anakimbia</td><td class="neg-col" style="color:var(--p3-color)">Ha<strong>kimbi</strong></td><td class="eg-col"><span class="sw">Hakimbi haraka.</span><span class="en">He/She is not running fast.</span></td></tr>
+          <tr><td><span class="marker-badge" style="background:var(--p3-light);color:var(--p3-color)">Past</span></td><td class="pos-col">Alikimbia</td><td class="neg-col" style="color:var(--p3-color)">Ha<strong>ku</strong>kimbia</td><td class="eg-col"><span class="sw">Hakukimbia jana.</span><span class="en">He/She did not run yesterday.</span></td></tr>
+          <tr><td><span class="marker-badge" style="background:var(--p3-light);color:var(--p3-color)">Perfect</span></td><td class="pos-col">Amekimbia</td><td class="neg-col" style="color:var(--p3-color)">Ha<strong>ja</strong>kimbia</td><td class="eg-col"><span class="sw">Hajakimbia bado.</span><span class="en">He/She has not yet run.</span></td></tr>
+          <tr><td><span class="marker-badge" style="background:var(--p3-light);color:var(--p3-color)">Future</span></td><td class="pos-col">Atakimbia</td><td class="neg-col" style="color:var(--p3-color)">Ha<strong>ta</strong>kimbia</td><td class="eg-col"><span class="sw">Hatakimbia kesho.</span><span class="en">He/She will not run tomorrow.</span></td></tr>
+          <tr><td><span class="marker-badge" style="background:var(--p3-light);color:var(--p3-color)">Habitual</span></td><td class="pos-col">Hukimbia</td><td class="neg-col" style="color:var(--p3-color)">Ha<strong>kimbi</strong></td><td class="eg-col"><span class="sw">Hakimbi asubuhi.</span><span class="en">He/She doesn't usually run in the morning.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tense-block">
+      <div class="tense-block-title" style="color:var(--p3-color)">Wao (They) — all tenses</div>
+      <table class="neg-table">
+        <thead><tr><th>Tense</th><th>Positive ✅</th><th>Negative ❌</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><span class="marker-badge" style="background:var(--p3-light);color:var(--p3-color)">Present</span></td><td class="pos-col">Wanakimbia</td><td class="neg-col" style="color:var(--p3-color)">Hawa<strong>kimbi</strong></td><td class="eg-col"><span class="sw">Hawakimbi leo.</span><span class="en">They are not running today.</span></td></tr>
+          <tr><td><span class="marker-badge" style="background:var(--p3-light);color:var(--p3-color)">Past</span></td><td class="pos-col">Walikimbia</td><td class="neg-col" style="color:var(--p3-color)">Hawa<strong>ku</strong>kimbia</td><td class="eg-col"><span class="sw">Hawakukimbia mbio.</span><span class="en">They did not run fast.</span></td></tr>
+          <tr><td><span class="marker-badge" style="background:var(--p3-light);color:var(--p3-color)">Perfect</span></td><td class="pos-col">Wamekimbia</td><td class="neg-col" style="color:var(--p3-color)">Hawa<strong>ja</strong>kimbia</td><td class="eg-col"><span class="sw">Hawajakimbia bado.</span><span class="en">They have not yet run.</span></td></tr>
+          <tr><td><span class="marker-badge" style="background:var(--p3-light);color:var(--p3-color)">Future</span></td><td class="pos-col">Watakimbia</td><td class="neg-col" style="color:var(--p3-color)">Hawa<strong>ta</strong>kimbia</td><td class="eg-col"><span class="sw">Hawatakimbia kesho.</span><span class="en">They will not run tomorrow.</span></td></tr>
+          <tr><td><span class="marker-badge" style="background:var(--p3-light);color:var(--p3-color)">Habitual</span></td><td class="pos-col">Hukimbia</td><td class="neg-col" style="color:var(--p3-color)">Hawa<strong>kimbi</strong></td><td class="eg-col"><span class="sw">Hawakimbi usiku.</span><span class="en">They don't usually run at night.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tip-strip"><strong>Memory trick for 3rd person:</strong> <em>Yeye</em> positive is <strong>A–</strong>, negative is <strong>Ha–</strong>. <em>Wao</em> positive is <strong>Wa–</strong>, negative is <strong>Hawa–</strong>. The pattern is simple — all third-person negatives start with <strong>Ha</strong>!</div>
+  </div>
+
+</main>
+
+<script>
+function showTab(person) {
+  // update tabs
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelector(`.tab.${person}`).classList.add('active');
+
+  // hide all
+  document.querySelectorAll('.all-section, .person-section').forEach(s => {
+    s.classList.remove('visible');
+  });
+
+  // show target
+  if (person === 'all') {
+    document.getElementById('view-all').classList.add('visible');
+  } else {
+    document.getElementById('view-' + person).classList.add('visible');
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

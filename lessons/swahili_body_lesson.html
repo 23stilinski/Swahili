@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mwili Wangu – My Body</title>
+<link href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Quicksand:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fef9f0;
+    --ink: #1e1a14;
+    --muted: #9a8c7a;
+    --border: #e8dece;
+    --surface: #ffffff;
+
+    --face-color:   #e8594a;
+    --face-light:   #fef0ee;
+    --body-color:   #3a86d4;
+    --body-light:   #eef4fd;
+    --limb-color:   #2cb67d;
+    --limb-light:   #edfaf3;
+    --inner-color:  #9b72ff;
+    --inner-light:  #f3eeff;
+
+    --gold: #f5a623;
+    --gold-light: #fff8ec;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    line-height: 1.6;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    padding: 52px 24px 44px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '🫀';
+    position: absolute;
+    font-size: 200px;
+    opacity: 0.04;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .header-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 5px 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  header h1 {
+    font-family: 'Boogaloo', cursive;
+    font-size: clamp(48px, 10vw, 88px);
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 8px;
+    letter-spacing: 0.01em;
+  }
+  header h1 span { color: var(--gold); }
+  header p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.5);
+    max-width: 480px;
+    margin: 0 auto;
+    font-weight: 400;
+  }
+
+  /* ── BODY DIAGRAM ── */
+  .diagram-section {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 24px 0;
+    text-align: center;
+  }
+  .diagram-title {
+    font-family: 'Boogaloo', cursive;
+    font-size: 28px;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+  .diagram-sub {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+
+  .body-figure {
+    position: relative;
+    display: inline-block;
+    margin: 0 auto;
+  }
+  .body-svg { width: min(340px, 85vw); height: auto; }
+
+  /* labels that float around the figure */
+  .label-wrap {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .label-wrap:hover { transform: scale(1.05); }
+  .label-wrap.left { flex-direction: row-reverse; }
+
+  .label-pill {
+    background: #fff;
+    border: 2px solid;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-family: 'Boogaloo', cursive;
+    font-size: 15px;
+    line-height: 1.2;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: background 0.2s;
+  }
+  .label-wrap:hover .label-pill { background: var(--gold-light); }
+  .label-en {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    display: block;
+    font-weight: 400;
+  }
+  .label-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    border: 2px solid;
+    flex-shrink: 0;
+    background: #fff;
+  }
+  .label-line {
+    height: 1px;
+    background: currentColor;
+    opacity: 0.3;
+    flex-shrink: 0;
+  }
+
+  /* ── SECTIONS ── */
+  .main { max-width: 860px; margin: 0 auto; padding: 48px 24px 80px; }
+
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    margin-top: 56px;
+  }
+  .section-head:first-child { margin-top: 0; }
+  .section-emoji { font-size: 36px; }
+  .section-head h2 {
+    font-family: 'Boogaloo', cursive;
+    font-size: 28px;
+    line-height: 1;
+  }
+  .section-head::after { content: ''; flex: 1; height: 2px; border-radius: 1px; }
+
+  /* ── WORD CARDS ── */
+  .word-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .word-card {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 18px;
+    padding: 18px 16px 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .word-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.2s;
+    border-radius: 16px;
+  }
+  .word-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.1); }
+  .word-card:hover::before { opacity: 1; }
+
+  .wc-emoji { font-size: 44px; display: block; margin-bottom: 10px; }
+  .wc-swahili {
+    font-family: 'Boogaloo', cursive;
+    font-size: 22px;
+    line-height: 1.1;
+    margin-bottom: 3px;
+  }
+  .wc-english {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .wc-pronunciation {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    margin-top: 6px;
+    padding: 3px 8px;
+    border-radius: 8px;
+    display: inline-block;
+    font-weight: 500;
+  }
+  .wc-tip {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 8px;
+    font-style: italic;
+    line-height: 1.4;
+    display: none;
+  }
+  .word-card.revealed .wc-tip { display: block; }
+  .wc-tap {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 6px;
+    font-family: 'DM Mono', monospace;
+  }
+  .word-card.revealed .wc-tap { display: none; }
+
+  /* colour themes per section */
+  .face-card { border-color: var(--face-light); }
+  .face-card::before { background: var(--face-light); }
+  .face-card .wc-swahili { color: var(--face-color); }
+  .face-card .wc-pronunciation { background: var(--face-light); color: var(--face-color); }
+
+  .body-card-cls { border-color: var(--body-light); }
+  .body-card-cls::before { background: var(--body-light); }
+  .body-card-cls .wc-swahili { color: var(--body-color); }
+  .body-card-cls .wc-pronunciation { background: var(--body-light); color: var(--body-color); }
+
+  .limb-card { border-color: var(--limb-light); }
+  .limb-card::before { background: var(--limb-light); }
+  .limb-card .wc-swahili { color: var(--limb-color); }
+  .limb-card .wc-pronunciation { background: var(--limb-light); color: var(--limb-color); }
+
+  .inner-card { border-color: var(--inner-light); }
+  .inner-card::before { background: var(--inner-light); }
+  .inner-card .wc-swahili { color: var(--inner-color); }
+  .inner-card .wc-pronunciation { background: var(--inner-light); color: var(--inner-color); }
+
+  /* ── MEMORY TRICKS BOX ── */
+  .trick-box {
+    background: var(--gold-light);
+    border: 2px solid #f5c84a;
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .trick-icon { font-size: 28px; flex-shrink: 0; }
+  .trick-box h3 {
+    font-family: 'Boogaloo', cursive;
+    font-size: 18px;
+    color: #8a5c00;
+    margin-bottom: 4px;
+  }
+  .trick-box p { font-size: 14px; color: #6a4400; line-height: 1.6; }
+  .trick-box strong { color: #8a5c00; }
+
+  /* ── PATTERN BOX ── */
+  .pattern-box {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 28px;
+  }
+  .pattern-box h3 {
+    font-family: 'Boogaloo', cursive;
+    font-size: 22px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .pattern-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .pat-prefix {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 8px;
+    min-width: 60px;
+    text-align: center;
+  }
+  .pat-arrow { font-size: 18px; color: var(--muted); }
+  .pat-words { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pat-word {
+    font-family: 'Boogaloo', cursive;
+    font-size: 16px;
+    padding: 3px 10px;
+    border-radius: 8px;
+    border: 1px solid;
+  }
+
+  /* ── SENTENCE EXAMPLES ── */
+  .sentence-section {
+    background: var(--ink);
+    color: #fff;
+    border-radius: 20px;
+    padding: 28px 28px;
+    margin-bottom: 32px;
+  }
+  .sentence-section h3 {
+    font-family: 'Boogaloo', cursive;
+    font-size: 24px;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sentence-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .sentence-item:last-child { border-bottom: none; }
+  .sw-sentence {
+    font-family: 'Boogaloo', cursive;
+    font-size: 20px;
+    color: #fff;
+    line-height: 1.2;
+  }
+  .sw-sentence .highlight { color: var(--gold); }
+  .en-sentence { font-size: 13px; color: rgba(255,255,255,0.45); font-weight: 400; }
+  .sentence-note { font-size: 12px; color: rgba(255,255,255,0.3); font-family: 'DM Mono', monospace; margin-top: 2px; }
+
+  /* ── QUICK REFERENCE TABLE ── */
+  .ref-table { width: 100%; border-collapse: collapse; font-size: 14px; margin-bottom: 32px; }
+  .ref-table thead tr { background: var(--ink); color: #fff; }
+  .ref-table th {
+    padding: 12px 14px;
+    text-align: left;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .ref-table td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .ref-table tr:last-child td { border-bottom: none; }
+  .ref-table tr:hover td { background: #faf7f2; }
+  .ref-sw { font-family: 'Boogaloo', cursive; font-size: 18px; }
+  .ref-en { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+  .ref-pro { font-family: 'DM Mono', monospace; font-size: 12px; color: #888; }
+  .ref-tip { font-size: 12px; color: var(--ink); font-style: italic; }
+
+  /* ── SING ALONG ── */
+  .song-box {
+    background: linear-gradient(135deg, #667eea22, #764ba222);
+    border: 2px solid #9b72ff44;
+    border-radius: 20px;
+    padding: 28px;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+  .song-box h3 {
+    font-family: 'Boogaloo', cursive;
+    font-size: 26px;
+    color: var(--inner-color);
+    margin-bottom: 6px;
+  }
+  .song-box p { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+  .song-lines { text-align: left; max-width: 460px; margin: 0 auto; }
+  .song-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 20px;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--border);
+    flex-wrap: wrap;
+  }
+  .song-line:last-child { border-bottom: none; }
+  .song-sw {
+    font-family: 'Boogaloo', cursive;
+    font-size: 19px;
+    color: var(--inner-color);
+  }
+  .song-en { font-size: 13px; color: var(--muted); }
+
+  /* ── QUIZ ── */
+  .quiz-box {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    margin-bottom: 16px;
+  }
+  .quiz-box h3 {
+    font-family: 'Boogaloo', cursive;
+    font-size: 24px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .quiz-q { margin-bottom: 24px; }
+  .q-text { font-size: 16px; font-weight: 700; margin-bottom: 12px; }
+  .q-text .em { font-family: 'Boogaloo', cursive; font-size: 20px; color: var(--face-color); }
+  .q-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .q-opt {
+    background: #f7f3ee;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-family: 'Boogaloo', cursive;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.18s;
+    text-align: center;
+    color: var(--ink);
+  }
+  .q-opt:hover { border-color: var(--gold); background: var(--gold-light); }
+  .q-opt.correct { border-color: var(--limb-color); background: var(--limb-light); color: var(--limb-color); }
+  .q-opt.wrong { border-color: var(--face-color); background: var(--face-light); color: var(--face-color); }
+  .q-opt.disabled { pointer-events: none; opacity: 0.6; }
+  .q-opt.correct.disabled { opacity: 1; }
+  .q-feedback {
+    margin-top: 10px;
+    font-size: 14px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    display: none;
+    font-weight: 600;
+  }
+  .q-feedback.show { display: block; }
+  .q-feedback.ok { background: var(--limb-light); color: var(--limb-color); }
+  .q-feedback.no { background: var(--face-light); color: var(--face-color); }
+
+  /* fill blank */
+  .fill-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+  .fill-in {
+    background: #f7f3ee;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    color: var(--ink);
+    outline: none;
+    width: 180px;
+    transition: border-color 0.2s;
+  }
+  .fill-in:focus { border-color: var(--gold); }
+  .fill-in.ok { border-color: var(--limb-color); color: var(--limb-color); }
+  .fill-in.no { border-color: var(--face-color); color: var(--face-color); }
+  .check-btn {
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-family: 'Boogaloo', cursive;
+    font-size: 16px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .check-btn:hover { opacity: 0.8; }
+
+  /* score */
+  .score-pill {
+    position: fixed;
+    bottom: 20px; right: 20px;
+    background: var(--ink);
+    color: #fff;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-family: 'Boogaloo', cursive;
+    font-size: 18px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .score-val { color: var(--gold); font-size: 22px; }
+
+  @media(max-width:560px){
+    .word-grid { grid-template-columns: repeat(2,1fr); }
+    .q-opts { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-tag">Somo · Lesson</div>
+  <h1>Mwili <span>Wangu</span> 🫀</h1>
+  <p>My Body — learn every part with fun tricks, silly sentences, and a song!</p>
+</header>
+
+<!-- BODY DIAGRAM -->
+<div class="diagram-section">
+  <div class="diagram-title">👆 Tap any label to hear the word!</div>
+  <div class="diagram-sub">Hover over the labels to explore the body</div>
+
+  <!-- SVG human figure with floating labels -->
+  <div class="body-figure" style="width:min(340px,85vw);margin:0 auto;">
+    <svg class="body-svg" viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg">
+      <!-- Shadow -->
+      <ellipse cx="100" cy="392" rx="40" ry="6" fill="#0002"/>
+      <!-- Legs -->
+      <rect x="72" y="268" width="22" height="100" rx="10" fill="#ffcba4"/>
+      <rect x="106" y="268" width="22" height="100" rx="10" fill="#ffcba4"/>
+      <!-- Shoes -->
+      <ellipse cx="83" cy="370" rx="16" ry="7" fill="#5c4033"/>
+      <ellipse cx="117" cy="370" rx="16" ry="7" fill="#5c4033"/>
+      <!-- Body/torso -->
+      <rect x="62" y="150" width="76" height="124" rx="18" fill="#ffcba4"/>
+      <!-- Shirt -->
+      <rect x="62" y="150" width="76" height="80" rx="18" fill="#4a9ae8"/>
+      <!-- Arms -->
+      <rect x="28" y="152" width="38" height="18" rx="9" fill="#4a9ae8" transform="rotate(15 28 160)"/>
+      <rect x="134" y="152" width="38" height="18" rx="9" fill="#4a9ae8" transform="rotate(-15 172 160)"/>
+      <!-- Hands -->
+      <ellipse cx="22" cy="196" rx="14" ry="10" fill="#ffcba4"/>
+      <ellipse cx="178" cy="196" rx="14" ry="10" fill="#ffcba4"/>
+      <!-- Neck -->
+      <rect x="88" y="126" width="24" height="28" rx="10" fill="#ffcba4"/>
+      <!-- Head -->
+      <circle cx="100" cy="100" r="46" fill="#ffcba4"/>
+      <!-- Hair -->
+      <path d="M56 92 Q58 54 100 52 Q142 54 144 92 Q138 62 100 60 Q62 62 56 92Z" fill="#5c3317"/>
+      <!-- Eyes -->
+      <ellipse cx="86" cy="96" rx="8" ry="9" fill="#fff"/>
+      <ellipse cx="114" cy="96" rx="8" ry="9" fill="#fff"/>
+      <circle cx="87" cy="97" r="5" fill="#2c1810"/>
+      <circle cx="115" cy="97" r="5" fill="#2c1810"/>
+      <circle cx="89" cy="95" r="2" fill="#fff"/>
+      <circle cx="117" cy="95" r="2" fill="#fff"/>
+      <!-- Nose -->
+      <ellipse cx="100" cy="108" rx="5" ry="3" fill="#e8a882"/>
+      <!-- Mouth / Smile -->
+      <path d="M88 118 Q100 128 112 118" stroke="#c87050" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <!-- Ear -->
+      <ellipse cx="54" cy="100" rx="7" ry="10" fill="#ffcba4"/>
+      <ellipse cx="146" cy="100" rx="7" ry="10" fill="#ffcba4"/>
+      <!-- Belly button -->
+      <circle cx="100" cy="230" r="3" fill="#e8a882"/>
+      <!-- Knee dots -->
+      <circle cx="83" cy="295" r="6" fill="#e8a882"/>
+      <circle cx="117" cy="295" r="6" fill="#e8a882"/>
+    </svg>
+
+    <!-- FLOATING LABELS -->
+    <!-- Kichwa - Head (top right) -->
+    <div style="position:absolute;top:2%;right:-10px;display:flex;align-items:center;gap:5px;" title="Kichwa = Head">
+      <div style="background:#fff;border:2px solid var(--face-color);border-radius:16px;padding:5px 12px;font-family:'Boogaloo',cursive;font-size:14px;color:var(--face-color);box-shadow:0 2px 8px rgba(0,0,0,0.1);white-space:nowrap">
+        Kichwa <span style="display:block;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)">HEAD</span>
+      </div>
+      <div style="width:8px;height:8px;border-radius:50%;background:var(--face-color);flex-shrink:0"></div>
+    </div>
+
+    <!-- Jicho - Eye (right) -->
+    <div style="position:absolute;top:22%;right:-8px;display:flex;align-items:center;gap:5px;" title="Jicho = Eye">
+      <div style="background:#fff;border:2px solid var(--face-color);border-radius:16px;padding:5px 12px;font-family:'Boogaloo',cursive;font-size:14px;color:var(--face-color);box-shadow:0 2px 8px rgba(0,0,0,0.1);white-space:nowrap">
+        Jicho <span style="display:block;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)">EYE</span>
+      </div>
+      <div style="width:8px;height:8px;border-radius:50%;background:var(--face-color);flex-shrink:0"></div>
+    </div>
+
+    <!-- Pua - Nose (right) -->
+    <div style="position:absolute;top:28%;right:-5px;display:flex;align-items:center;gap:5px;" title="Pua = Nose">
+      <div style="background:#fff;border:2px solid var(--face-color);border-radius:16px;padding:5px 12px;font-family:'Boogaloo',cursive;font-size:14px;color:var(--face-color);box-shadow:0 2px 8px rgba(0,0,0,0.1);white-space:nowrap">
+        Pua <span style="display:block;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)">NOSE</span>
+      </div>
+      <div style="width:8px;height:8px;border-radius:50%;background:var(--face-color);flex-shrink:0"></div>
+    </div>
+
+    <!-- Sikio - Ear (left) -->
+    <div style="position:absolute;top:24%;left:-8px;display:flex;align-items:center;gap:5px;flex-direction:row-reverse;" title="Sikio = Ear">
+      <div style="background:#fff;border:2px solid var(--face-color);border-radius:16px;padding:5px 12px;font-family:'Boogaloo',cursive;font-size:14px;color:var(--face-color);box-shadow:0 2px 8px rgba(0,0,0,0.1);white-space:nowrap">
+        Sikio <span style="display:block;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)">EAR</span>
+      </div>
+      <div style="width:8px;height:8px;border-radius:50%;background:var(--face-color);flex-shrink:0"></div>
+    </div>
+
+    <!-- Mdomo - Mouth (left) -->
+    <div style="position:absolute;top:32%;left:-10px;display:flex;align-items:center;gap:5px;flex-direction:row-reverse;" title="Mdomo = Mouth">
+      <div style="background:#fff;border:2px solid var(--face-color);border-radius:16px;padding:5px 12px;font-family:'Boogaloo',cursive;font-size:14px;color:var(--face-color);box-shadow:0 2px 8px rgba(0,0,0,0.1);white-space:nowrap">
+        Mdomo <span style="display:block;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)">MOUTH</span>
+      </div>
+      <div style="width:8px;height:8px;border-radius:50%;background:var(--face-color);flex-shrink:0"></div>
+    </div>
+
+    <!-- Shingo - Neck -->
+    <div style="position:absolute;top:38%;right:-5px;display:flex;align-items:center;gap:5px;" title="Shingo = Neck">
+      <div style="background:#fff;border:2px solid var(--body-color);border-radius:16px;padding:5px 12px;font-family:'Boogaloo',cursive;font-size:14px;color:var(--body-color);box-shadow:0 2px 8px rgba(0,0,0,0.1);white-space:nowrap">
+        Shingo <span style="display:block;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)">NECK</span>
+      </div>
+      <div style="width:8px;height:8px;border-radius:50%;background:var(--body-color);flex-shrink:0"></div>
+    </div>
+
+    <!-- Mkono - Arm/Hand (left) -->
+    <div style="position:absolute;top:52%;left:-12px;display:flex;align-items:center;gap:5px;flex-direction:row-reverse;" title="Mkono = Hand/Arm">
+      <div style="background:#fff;border:2px solid var(--limb-color);border-radius:16px;padding:5px 12px;font-family:'Boogaloo',cursive;font-size:14px;color:var(--limb-color);box-shadow:0 2px 8px rgba(0,0,0,0.1);white-space:nowrap">
+        Mkono <span style="display:block;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)">ARM / HAND</span>
+      </div>
+      <div style="width:8px;height:8px;border-radius:50%;background:var(--limb-color);flex-shrink:0"></div>
+    </div>
+
+    <!-- Tumbo - Stomach (right) -->
+    <div style="position:absolute;top:60%;right:-8px;display:flex;align-items:center;gap:5px;" title="Tumbo = Stomach">
+      <div style="background:#fff;border:2px solid var(--body-color);border-radius:16px;padding:5px 12px;font-family:'Boogaloo',cursive;font-size:14px;color:var(--body-color);box-shadow:0 2px 8px rgba(0,0,0,0.1);white-space:nowrap">
+        Tumbo <span style="display:block;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)">STOMACH</span>
+      </div>
+      <div style="width:8px;height:8px;border-radius:50%;background:var(--body-color);flex-shrink:0"></div>
+    </div>
+
+    <!-- Mguu - Leg (left) -->
+    <div style="position:absolute;top:78%;left:-5px;display:flex;align-items:center;gap:5px;flex-direction:row-reverse;" title="Mguu = Leg">
+      <div style="background:#fff;border:2px solid var(--limb-color);border-radius:16px;padding:5px 12px;font-family:'Boogaloo',cursive;font-size:14px;color:var(--limb-color);box-shadow:0 2px 8px rgba(0,0,0,0.1);white-space:nowrap">
+        Mguu <span style="display:block;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)">LEG</span>
+      </div>
+      <div style="width:8px;height:8px;border-radius:50%;background:var(--limb-color);flex-shrink:0"></div>
+    </div>
+
+    <!-- Goti - Knee (right) -->
+    <div style="position:absolute;top:75%;right:-5px;display:flex;align-items:center;gap:5px;" title="Goti = Knee">
+      <div style="background:#fff;border:2px solid var(--limb-color);border-radius:16px;padding:5px 12px;font-family:'Boogaloo',cursive;font-size:14px;color:var(--limb-color);box-shadow:0 2px 8px rgba(0,0,0,0.1);white-space:nowrap">
+        Goti <span style="display:block;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)">KNEE</span>
+      </div>
+      <div style="width:8px;height:8px;border-radius:50%;background:var(--limb-color);flex-shrink:0"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+  <!-- PATTERN BOX -->
+  <div class="pattern-box" style="margin-bottom:40px;margin-top:48px;">
+    <h3>🔑 The Secret Pattern — M- Words!</h3>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:16px;">Notice how many body parts start with <strong style="color:var(--ink)">M-</strong>? That's Swahili's way of marking body nouns. Once you spot the pattern, it's easy!</p>
+    <div class="pattern-row">
+      <span class="pat-prefix" style="background:var(--body-light);color:var(--body-color)">M–</span>
+      <span class="pat-arrow">→</span>
+      <div class="pat-words">
+        <span class="pat-word" style="background:var(--body-light);border-color:var(--body-color);color:var(--body-color)">Mkono</span>
+        <span class="pat-word" style="background:var(--body-light);border-color:var(--body-color);color:var(--body-color)">Mguu</span>
+        <span class="pat-word" style="background:var(--body-light);border-color:var(--body-color);color:var(--body-color)">Mdomo</span>
+        <span class="pat-word" style="background:var(--body-light);border-color:var(--body-color);color:var(--body-color)">Mfupa</span>
+        <span class="pat-word" style="background:var(--body-light);border-color:var(--body-color);color:var(--body-color)">Moyo</span>
+        <span class="pat-word" style="background:var(--body-light);border-color:var(--body-color);color:var(--body-color)">Mgongo</span>
+      </div>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin-top:12px;font-style:italic;">👆 If you hear an M- word, there's a good chance it's a body part!</p>
+  </div>
+
+  <!-- ═══ FACE ═══ -->
+  <div class="section-head">
+    <span class="section-emoji">😊</span>
+    <h2 style="color:var(--face-color)">USO — The Face</h2>
+  </div>
+  <div style="height:2px;background:var(--face-light);border-radius:1px;margin-bottom:24px;"></div>
+
+  <div class="trick-box">
+    <span class="trick-icon">🧠</span>
+    <div>
+      <h3>Memory Trick for the Face</h3>
+      <p>Think of a face going top to bottom: <strong>Kichwa</strong> (head) → <strong>Jicho</strong> (eye) → <strong>Pua</strong> (nose) → <strong>Mdomo</strong> (mouth). It flows like a song: <em>"Kee-chwa, Jee-cho, Poo-ah, M-doh-mo!"</em> Try saying it fast! 🎵</p>
+    </div>
+  </div>
+
+  <div class="word-grid">
+    <div class="word-card face-card" onclick="revealCard(this)">
+      <span class="wc-emoji">🧠</span>
+      <div class="wc-swahili">Kichwa</div>
+      <div class="wc-english">Head</div>
+      <div class="wc-pronunciation">kee-CHWA</div>
+      <div class="wc-tip">💡 "Kichwa" sounds like "key-chwa" — imagine your head holds the KEY to everything!</div>
+      <div class="wc-tap">👆 tap for tip</div>
+    </div>
+    <div class="word-card face-card" onclick="revealCard(this)">
+      <span class="wc-emoji">👁️</span>
+      <div class="wc-swahili">Jicho</div>
+      <div class="wc-english">Eye (1 eye)</div>
+      <div class="wc-pronunciation">JEE-cho</div>
+      <div class="wc-tip">💡 "Macho" = both eyes (plural). One eye = Jicho. Two eyes = Macho!</div>
+      <div class="wc-tap">👆 tap for tip</div>
+    </div>
+    <div class="word-card face-card" onclick="revealCard(this)">
+      <span class="wc-emoji">👃</span>
+      <div class="wc-swahili">Pua</div>
+      <div class="wc-english">Nose</div>
+      <div class="wc-pronunciation">POO-ah</div>
+      <div class="wc-tip">💡 "Pua" — think of going "Pew!" when you smell something bad through your nose! 😂</div>
+      <div class="wc-tap">👆 tap for tip</div>
+    </div>
+    <div class="word-card face-card" onclick="revealCard(this)">
+      <span class="wc-emoji">👄</span>
+      <div class="wc-swahili">Mdomo</div>
+      <div class="wc-english">Mouth</div>
+      <div class="wc-pronunciation">m-DOH-mo</div>
+      <div class="wc-tip">💡 "M-domo" — your mouth makes an "mmm" sound. The M at the start IS the mouth humming!</div>
+      <div class="wc-tap">👆 tap for tip</div>
+    </div>
+    <div class="word-card face-card" onclick="revealCard(this)">
+      <span class="wc-emoji">👂</span>
+      <div class="wc-swahili">Sikio</div>
+      <div class="wc-english">Ear</div>
+      <div class="wc-pronunciation">see-KEE-oh</div>
+      <div class="wc-tip">💡 "Sikio" — you SEEK sounds with your ear. Si-KEE-o = seek-io!</div>
+      <div class="wc-tap">👆 tap for tip</div>
+    </div>
+    <div class="word-card face-card" onclick="revealCard(this)">
+      <span class="wc-emoji">😬</span>
+      <div class="wc-swahili">Meno</div>
+      <div class="wc-english">Teeth</div>
+      <div class="wc-pronunciation">MEH-no</div>
+      <div class="wc-tip">💡 "Meno" sounds like "meow" + no. Your cat says meow but has no meno like yours! 🐱</div>
+      <div class="wc-tap">👆 tap for tip</div>
+    </div>
+    <div class="word-card face-card" onclick="revealCard(this)">
+      <span class="wc-emoji">👅</span>
+      <div class="wc-swahili">Ulimi</div>
+      <div class="wc-english">Tongue</div>
+      <div class="wc-pronunciation">oo-LEE-mee</div>
+      <div class="wc-tip">💡 "Ulimi" — say it while sticking your tongue out. oo-LEE-mee! The tongue is silly and so is this word!</div>
+      <div class="wc-tap">👆 tap for tip</div>
+    </div>
+    <div class="word-card face-card" onclick="revealCard(this)">
+      <span class="wc-emoji">🧔</span>
+      <div class="wc-swahili">Nywele</div>
+      <div class="wc-english">Hair</div>
+      <div class="wc-pronunciation">nyeh-WEH-leh</div>
+      <div class="wc-tip">💡 "Nywele" — imagine NEW well-styled hair. N-YEH-WEH-leh = new-well-eh!</div>
+      <div class="wc-tap">👆 tap for tip</div>
+    </div>
+  </div>
+
+  <!-- ═══ BODY ═══ -->
+  <div class="section-head" style="margin-top:48px;">
+    <span class="section-emoji">🫀</span>
+    <h2 style="color:var(--body-color)">MWILI — The Body</h2>
+  </div>
+  <div style="height:2px;background:var(--body-light);border-radius:1px;margin-bottom:24px;"></div>
+
+  <div class="trick-box">
+    <span class="trick-icon">🧠</span>
+    <div>
+      <h3>Memory Trick for the Body</h3>
+      <p><strong>Kifua</strong> (chest) is where your feelings live. <strong>Tumbo</strong> (stomach) — imagine a tummy drum going "tum-tum-bo!" <strong>Mgongo</strong> (back) — think "I'm gonna (mgonna) stretch my back!" <strong>Moyo</strong> (heart) sounds like "mayo" — your heart pumps like mayo squeezing out!</p>
+    </div>
+  </div>
+
+  <div class="word-grid">
+    <div class="word-card body-card-cls" onclick="revealCard(this)">
+      <span class="wc-emoji">🛡️</span>
+      <div class="wc-swahili">Kifua</div>
+      <div class="wc-english">Chest</div>
+      <div class="wc-pronunciation">kee-FOO-ah</div>
+      <div class="wc-tip">💡 "Kifua" — a knight holds a shield to their CHEST. Ki-FOO-ah, the shield goes FOO!</div>
+      <div class="wc-tap">👆 tap for tip</div>
+    </div>
+    <div class="word-card body-card-cls" onclick="revealCard(this)">
+      <span class="wc-emoji">🥁</span>
+      <div class="wc-swahili">Tumbo</div>
+      <div class="wc-english">Stomach / Belly</div>
+      <div class="wc-pronunciation">TOOM-bo</div>
+      <div class="wc-tip">💡 "Tumbo" — pat your belly and say "Tum-bo, Tum-bo!" like a drum. Your tummy IS a drum! 🥁</div>
+      <div class="wc-tap">👆 tap for tip</div>
+    </div>
+    <div class="word-card body-card-cls" onclick="revealCard(this)">
+      <span class="wc-emoji">❤️</span>
+      <div class="wc-swahili">Moyo</div>
+      <div class="wc-english">Heart</div>
+      <div class="wc-pronunciation">MOH-yo</div>
+      <div class="wc-tip">💡 "Moyo" = heart, but in Swahili it also means COURAGE and FEELINGS. Your heart holds everything!</div>
+      <div class="wc-tap">👆 tap for tip</div>
+    </div>
+    <div class="word-card body-card-cls" onclick="revealCard(this)">
+      <span class="wc-emoji">🔙</span>
+      <div class="wc-swahili">Mgongo</div>
+      <div class="wc-english">Back</div>
+      <div class="wc-pronunciation">m-GON-go</div>
+      <div class="wc-tip">💡 "Mgongo" — say it like a gorilla thumping its back: "M-GON-GO!" Big gorilla energy! 🦍</div>
+      <div class="wc-tap">👆 tap for tip</div>
+    </div>
+    <div class="word-card body-card-cls" onclick="revealCard(this)">
+      <span class="wc-emoji">🎀</span>
+      <div class="wc-swahili">Shingo</div>
+      <div class="wc-english">Neck</div>
+      <div class="wc-pronunciation">SHEEN-go</div>
+      <div class="wc-tip">💡 "Shingo" — imagine a shiny gold necklace around your NECK: SHEEN-go, shiny-go!</div>
+      <div class="wc-tap">👆 tap for tip</div>
+    </div>
+    <div class="word-card body-card-cls" onclick="revealCard(this)">
+      <span class="wc-emoji">🦴</span>
+      <div class="wc-swahili">Mfupa</div>
+      <div class="wc-english">Bone</div>
+      <div class="wc-pronunciation">m-FOO-pa</div>
+      <div class="wc-tip">💡 "Mfupa" — imagine a dog going "FOO!" when it spots a bone. M-FOO-pa! 🐕</div>
+      <div class="wc-tap">👆 tap for tip</div>
+    </div>
+    <div class="word-card body-card-cls" onclick="revealCard(this)">
+      <span class="wc-emoji">🩸</span>
+      <div class="wc-swahili">Damu</div>
+      <div class="wc-english">Blood</div>
+      <div class="wc-pronunciation">DAH-moo</div>
+      <div class="wc-tip">💡 "Damu" — sounds like "dammit!" which is what you say when you cut yourself and see blood! 😅</div>
+      <div class="wc-tap">👆 tap for tip</div>
+    </div>
+    <div class="word-card body-card-cls" onclick="revealCard(this)">
+      <span class="wc-emoji">🫁</span>
+      <div class="wc-swahili">Mapafu</div>
+      <div class="wc-english">Lungs</div>
+      <div class="wc-pronunciation">ma-PAH-foo</div>
+      <div class="wc-tip">💡 "Mapafu" — take a deep breath and say "ma-PAH-foo!" Use your LUNGS to say it loud!</div>
+      <div class="wc-tap">👆 tap for tip</div>
+    </div>
+  </div>
+
+  <!-- ═══ LIMBS ═══ -->
+  <div class="section-head" style="margin-top:48px;">
+    <span class="section-emoji">💪</span>
+    <h2 style="color:var(--limb-color)">VIUNGO — Arms & Legs</h2>
+  </div>
+  <div style="height:2px;background:var(--limb-light);border-radius:1px;margin-bottom:24px;"></div>
+
+  <div class="trick-box">
+    <span class="trick-icon">🧠</span>
+    <div>
+      <h3>Memory Trick for Limbs</h3>
+      <p><strong>Mkono</strong> (arm/hand) — "My cono" — imagine your arm holding an ice cream CONE! 🍦 <strong>Mguu</strong> (leg) — "M-goo" — your leg stepped in GOO! 🦶 <strong>Kidole</strong> (finger) — "Key-doll-ay" — your finger points at a KEY and a DOLL!</p>
+    </div>
+  </div>
+
+  <div class="word-grid">
+    <div class="word-card limb-card" onclick="revealCard(this)">
+      <span class="wc-emoji">💪</span>
+      <div class="wc-swahili">Mkono</div>
+      <div class="wc-english">Arm / Hand</div>
+      <div class="wc-pronunciation">m-KOH-no</div>
+      <div class="wc-tip">💡 In Swahili, Mkono means BOTH arm AND hand — one word for two things! Wave your arm: M-KOH-no! 👋</div>
+      <div class="wc-tap">👆 tap for tip</div>
+    </div>
+    <div class="word-card limb-card" onclick="revealCard(this)">
+      <span class="wc-emoji">🦵</span>
+      <div class="wc-swahili">Mguu</div>
+      <div class="wc-english">Leg / Foot</div>
+      <div class="wc-pronunciation">m-GOO</div>
+      <div class="wc-tip">💡 "Mguu" — stomp your foot and say "M-GOO!" Like stepping in mud. Mguu means both leg AND foot!</div>
+      <div class="wc-tap">👆 tap for tip</div>
+    </div>
+    <div class="word-card limb-card" onclick="revealCard(this)">
+      <span class="wc-emoji">☝️</span>
+      <div class="wc-swahili">Kidole</div>
+      <div class="wc-english">Finger / Toe</div>
+      <div class="wc-pronunciation">kee-DOH-leh</div>
+      <div class="wc-tip">💡 "Kidole" covers BOTH finger and toe! To be specific: kidole cha mkono (finger) / kidole cha mguu (toe).</div>
+      <div class="wc-tap">👆 tap for tip</div>
+    </div>
+    <div class="word-card limb-card" onclick="revealCard(this)">
+      <span class="wc-emoji">🦿</span>
+      <div class="wc-swahili">Goti</div>
+      <div class="wc-english">Knee</div>
+      <div class="wc-pronunciation">GOH-tee</div>
+      <div class="wc-tip">💡 "Goti" — kneel down and say "GOH-tee!" Your knee goes "got-ee" when it bends! 🙇</div>
+      <div class="wc-tap">👆 tap for tip</div>
+    </div>
+    <div class="word-card limb-card" onclick="revealCard(this)">
+      <span class="wc-emoji">🤲</span>
+      <div class="wc-swahili">Bega</div>
+      <div class="wc-english">Shoulder</div>
+      <div class="wc-pronunciation">BEH-gah</div>
+      <div class="wc-tip">💡 "Bega" — shrug your shoulders and say "BEH-gah!" Like saying "beg-ah please!" with a shrug! 🤷</div>
+      <div class="wc-tap">👆 tap for tip</div>
+    </div>
+    <div class="word-card limb-card" onclick="revealCard(this)">
+      <span class="wc-emoji">✊</span>
+      <div class="wc-swahili">Kiwiko</div>
+      <div class="wc-english">Elbow</div>
+      <div class="wc-pronunciation">kee-WEE-ko</div>
+      <div class="wc-tip">💡 "Kiwiko" — bend your elbow and go "kee-WEE-ko!" It's a quirky word for a quirky joint! 😄</div>
+      <div class="wc-tap">👆 tap for tip</div>
+    </div>
+    <div class="word-card limb-card" onclick="revealCard(this)">
+      <span class="wc-emoji">👣</span>
+      <div class="wc-swahili">Wayo</div>
+      <div class="wc-english">Sole of foot</div>
+      <div class="wc-pronunciation">WAH-yo</div>
+      <div class="wc-tip">💡 "Wayo" — the bottom of your foot goes "WAY-yo" when you walk! Also means a footprint. 👣</div>
+      <div class="wc-tap">👆 tap for tip</div>
+    </div>
+    <div class="word-card limb-card" onclick="revealCard(this)">
+      <span class="wc-emoji">💅</span>
+      <div class="wc-swahili">Ukucha</div>
+      <div class="wc-english">Fingernail</div>
+      <div class="wc-pronunciation">oo-KOO-cha</div>
+      <div class="wc-tip">💡 "Ukucha" — imagine a cooky scratching sound your nail makes: oo-KOO-cha! Scratch scratch!</div>
+      <div class="wc-tap">👆 tap for tip</div>
+    </div>
+  </div>
+
+  <!-- ═══ SONG ═══ -->
+  <div class="song-box">
+    <h3>🎵 The Body Song!</h3>
+    <p>Sing this to the tune of "Head, Shoulders, Knees and Toes" — it really works!</p>
+    <div class="song-lines">
+      <div class="song-line">
+        <span class="song-sw">Kichwa, mabega, magoti na vidole</span>
+        <span class="song-en">Head, shoulders, knees and fingers</span>
+      </div>
+      <div class="song-line">
+        <span class="song-sw">Magoti na vidole!</span>
+        <span class="song-en">Knees and fingers!</span>
+      </div>
+      <div class="song-line">
+        <span class="song-sw">Macho, masikio, mdomo na pua</span>
+        <span class="song-en">Eyes, ears, mouth and nose</span>
+      </div>
+      <div class="song-line">
+        <span class="song-sw">Kichwa, mabega, magoti na vidole!</span>
+        <span class="song-en">Head, shoulders, knees and fingers!</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SENTENCES ═══ -->
+  <div class="sentence-section">
+    <h3>💬 Use them in real sentences!</h3>
+    <div class="sentence-item">
+      <span class="sw-sentence"><span class="highlight">Kichwa</span> changu kinauma.</span>
+      <span class="en-sentence">My head hurts.</span>
+      <span class="sentence-note">changu = my | kinauma = it hurts</span>
+    </div>
+    <div class="sentence-item">
+      <span class="sw-sentence">Nina <span class="highlight">macho</span> makubwa.</span>
+      <span class="en-sentence">I have big eyes.</span>
+      <span class="sentence-note">nina = I have | makubwa = big</span>
+    </div>
+    <div class="sentence-item">
+      <span class="sw-sentence"><span class="highlight">Mkono</span> wake ni mrefu.</span>
+      <span class="en-sentence">His/Her arm is long.</span>
+      <span class="sentence-note">wake = his/her | mrefu = long/tall</span>
+    </div>
+    <div class="sentence-item">
+      <span class="sw-sentence"><span class="highlight">Tumbo</span> langu lina njaa!</span>
+      <span class="en-sentence">My stomach is hungry!</span>
+      <span class="sentence-note">langu = my | njaa = hunger</span>
+    </div>
+    <div class="sentence-item">
+      <span class="sw-sentence">Niosha <span class="highlight">mikono</span> yako!</span>
+      <span class="en-sentence">Wash your hands!</span>
+      <span class="sentence-note">niosha = wash | yako = your | mikono = hands (plural of mkono)</span>
+    </div>
+    <div class="sentence-item">
+      <span class="sw-sentence"><span class="highlight">Moyo</span> wake unapiga.</span>
+      <span class="en-sentence">His/Her heart is beating.</span>
+      <span class="sentence-note">unapiga = it is beating/hitting</span>
+    </div>
+  </div>
+
+  <!-- ═══ QUICK REFERENCE TABLE ═══ -->
+  <div style="margin-bottom:16px;">
+    <h2 style="font-family:'Boogaloo',cursive;font-size:26px;margin-bottom:4px;">📋 Quick Reference Table</h2>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:20px;">Everything in one place — bookmark this!</p>
+  </div>
+  <table class="ref-table">
+    <thead>
+      <tr>
+        <th>Emoji</th>
+        <th>Kiswahili</th>
+        <th>English</th>
+        <th>Say it like...</th>
+        <th>Fun fact</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>🧠</td><td><span class="ref-sw" style="color:var(--face-color)">Kichwa</span></td><td class="ref-en">Head</td><td class="ref-pro">kee-CHWA</td><td class="ref-tip">The key to everything!</td></tr>
+      <tr><td>👁️</td><td><span class="ref-sw" style="color:var(--face-color)">Jicho / Macho</span></td><td class="ref-en">Eye / Eyes</td><td class="ref-pro">JEE-cho / MAH-cho</td><td class="ref-tip">Jicho = 1 eye, Macho = 2 eyes</td></tr>
+      <tr><td>👂</td><td><span class="ref-sw" style="color:var(--face-color)">Sikio</span></td><td class="ref-en">Ear</td><td class="ref-pro">see-KEE-oh</td><td class="ref-tip">You SEEK sound!</td></tr>
+      <tr><td>👃</td><td><span class="ref-sw" style="color:var(--face-color)">Pua</span></td><td class="ref-en">Nose</td><td class="ref-pro">POO-ah</td><td class="ref-tip">Pew! Something smells!</td></tr>
+      <tr><td>👄</td><td><span class="ref-sw" style="color:var(--face-color)">Mdomo</span></td><td class="ref-en">Mouth</td><td class="ref-pro">m-DOH-mo</td><td class="ref-tip">Starts with M like "mmm!"</td></tr>
+      <tr><td>😬</td><td><span class="ref-sw" style="color:var(--face-color)">Meno</span></td><td class="ref-en">Teeth</td><td class="ref-pro">MEH-no</td><td class="ref-tip">Show your Meno when you smile!</td></tr>
+      <tr><td>👅</td><td><span class="ref-sw" style="color:var(--face-color)">Ulimi</span></td><td class="ref-en">Tongue</td><td class="ref-pro">oo-LEE-mee</td><td class="ref-tip">Say it while sticking it out!</td></tr>
+      <tr><td>🧔</td><td><span class="ref-sw" style="color:var(--face-color)">Nywele</span></td><td class="ref-en">Hair</td><td class="ref-pro">nyeh-WEH-leh</td><td class="ref-tip">New well-styled hair!</td></tr>
+      <tr><td>🎀</td><td><span class="ref-sw" style="color:var(--body-color)">Shingo</span></td><td class="ref-en">Neck</td><td class="ref-pro">SHEEN-go</td><td class="ref-tip">Shiny necklace = Shingo!</td></tr>
+      <tr><td>🛡️</td><td><span class="ref-sw" style="color:var(--body-color)">Kifua</span></td><td class="ref-en">Chest</td><td class="ref-pro">kee-FOO-ah</td><td class="ref-tip">Hold your shield to your chest!</td></tr>
+      <tr><td>🥁</td><td><span class="ref-sw" style="color:var(--body-color)">Tumbo</span></td><td class="ref-en">Stomach</td><td class="ref-pro">TOOM-bo</td><td class="ref-tip">Tum-bo = belly drum!</td></tr>
+      <tr><td>❤️</td><td><span class="ref-sw" style="color:var(--body-color)">Moyo</span></td><td class="ref-en">Heart</td><td class="ref-pro">MOH-yo</td><td class="ref-tip">Also means feelings & courage!</td></tr>
+      <tr><td>🔙</td><td><span class="ref-sw" style="color:var(--body-color)">Mgongo</span></td><td class="ref-en">Back</td><td class="ref-pro">m-GON-go</td><td class="ref-tip">M-GON-GO like a gorilla!</td></tr>
+      <tr><td>🦴</td><td><span class="ref-sw" style="color:var(--body-color)">Mfupa</span></td><td class="ref-en">Bone</td><td class="ref-pro">m-FOO-pa</td><td class="ref-tip">Dog goes FOO for a bone!</td></tr>
+      <tr><td>🩸</td><td><span class="ref-sw" style="color:var(--body-color)">Damu</span></td><td class="ref-en">Blood</td><td class="ref-pro">DAH-moo</td><td class="ref-tip">"Dammit!" when you bleed!</td></tr>
+      <tr><td>🫁</td><td><span class="ref-sw" style="color:var(--body-color)">Mapafu</span></td><td class="ref-en">Lungs</td><td class="ref-pro">ma-PAH-foo</td><td class="ref-tip">Breathe deep to say it!</td></tr>
+      <tr><td>💪</td><td><span class="ref-sw" style="color:var(--limb-color)">Mkono</span></td><td class="ref-en">Arm / Hand</td><td class="ref-pro">m-KOH-no</td><td class="ref-tip">One word for arm AND hand!</td></tr>
+      <tr><td>🦵</td><td><span class="ref-sw" style="color:var(--limb-color)">Mguu</span></td><td class="ref-en">Leg / Foot</td><td class="ref-pro">m-GOO</td><td class="ref-tip">Stepped in goo! M-GOO!</td></tr>
+      <tr><td>☝️</td><td><span class="ref-sw" style="color:var(--limb-color)">Kidole</span></td><td class="ref-en">Finger / Toe</td><td class="ref-pro">kee-DOH-leh</td><td class="ref-tip">Finger AND toe = one word!</td></tr>
+      <tr><td>🦿</td><td><span class="ref-sw" style="color:var(--limb-color)">Goti</span></td><td class="ref-en">Knee</td><td class="ref-pro">GOH-tee</td><td class="ref-tip">Kneel! GOH-tee!</td></tr>
+      <tr><td>🤲</td><td><span class="ref-sw" style="color:var(--limb-color)">Bega</span></td><td class="ref-en">Shoulder</td><td class="ref-pro">BEH-gah</td><td class="ref-tip">Shrug your bega!</td></tr>
+      <tr><td>✊</td><td><span class="ref-sw" style="color:var(--limb-color)">Kiwiko</span></td><td class="ref-en">Elbow</td><td class="ref-pro">kee-WEE-ko</td><td class="ref-tip">Quirky word for a quirky joint!</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ═══ QUIZ ═══ -->
+  <div class="quiz-box">
+    <h3>🧠 Test Yourself!</h3>
+
+    <div class="quiz-q">
+      <div class="q-text">What does <span class="em">Tumbo</span> mean?</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="ans(this,false,'fb1')">Head</button>
+        <button class="q-opt" onclick="ans(this,true,'fb1')">Stomach</button>
+        <button class="q-opt" onclick="ans(this,false,'fb1')">Heart</button>
+        <button class="q-opt" onclick="ans(this,false,'fb1')">Back</button>
+      </div>
+      <div class="q-feedback" id="fb1"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">How do you say <span class="em">Eye</span> in Swahili?</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="ans(this,false,'fb2')">Sikio</button>
+        <button class="q-opt" onclick="ans(this,false,'fb2')">Pua</button>
+        <button class="q-opt" onclick="ans(this,true,'fb2')">Jicho</button>
+        <button class="q-opt" onclick="ans(this,false,'fb2')">Mdomo</button>
+      </div>
+      <div class="q-feedback" id="fb2"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">What body parts does <span class="em">Mkono</span> refer to?</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="ans(this,false,'fb3')">Leg only</button>
+        <button class="q-opt" onclick="ans(this,true,'fb3')">Arm AND hand</button>
+        <button class="q-opt" onclick="ans(this,false,'fb3')">Finger only</button>
+        <button class="q-opt" onclick="ans(this,false,'fb3')">Shoulder</button>
+      </div>
+      <div class="q-feedback" id="fb3"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">Fill in the blank: "My stomach hurts" = <span class="em">___</span> langu linauma</div>
+      <div class="fill-row">
+        <input type="text" class="fill-in" id="f1" placeholder="body part">
+        <button class="check-btn" onclick="chk('f1','tumbo','fb4','✅ Correct! Tumbo langu linauma — your belly is complaining! 🥁','❌ Not quite! The answer is Tumbo (stomach).')">Check</button>
+      </div>
+      <div class="q-feedback" id="fb4"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">What does <span class="em">Moyo</span> mean — and what else does it represent?</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="ans(this,false,'fb5')">Bone — also strength</button>
+        <button class="q-opt" onclick="ans(this,true,'fb5')">Heart — also feelings & courage</button>
+        <button class="q-opt" onclick="ans(this,false,'fb5')">Blood — also life</button>
+        <button class="q-opt" onclick="ans(this,false,'fb5')">Lungs — also breath</button>
+      </div>
+      <div class="q-feedback" id="fb5"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">Translate: <span class="em">"Wash your hands!"</span></div>
+      <div class="fill-row">
+        <input type="text" class="fill-in" id="f2" placeholder="in Swahili..." style="width:220px">
+        <button class="check-btn" onclick="chk('f2','niosha mikono yako','fb6','✅ Perfect! Niosha mikono yako! 👏','❌ The answer is: Niosha mikono yako!')">Check</button>
+      </div>
+      <div class="q-feedback" id="fb6"></div>
+    </div>
+
+  </div>
+
+</div><!-- /main -->
+
+<!-- SCORE PILL -->
+<div class="score-pill">
+  ⭐ Score: <span class="score-val" id="scoreVal">0</span>
+</div>
+
+<script>
+let score = 0;
+const total = { answered: 0 };
+
+function revealCard(card) {
+  card.classList.toggle('revealed');
+}
+
+function ans(btn, correct, fbId) {
+  const opts = btn.parentElement.querySelectorAll('.q-opt');
+  if ([...opts].some(o => o.classList.contains('correct') || o.classList.contains('wrong'))) return;
+
+  opts.forEach(o => o.classList.add('disabled'));
+  const fb = document.getElementById(fbId);
+
+  if (correct) {
+    btn.classList.add('correct');
+    score++;
+    document.getElementById('scoreVal').textContent = score;
+    fb.textContent = '✅ Yes! Well done!';
+    fb.className = 'q-feedback show ok';
+  } else {
+    btn.classList.add('wrong');
+    fb.textContent = '❌ Not quite — find the correct answer highlighted above!';
+    fb.className = 'q-feedback show no';
+    opts.forEach(o => { if (o.onclick.toString().includes('true')) o.classList.add('correct'); });
+  }
+}
+
+function chk(inputId, answer, fbId, okMsg, noMsg) {
+  const input = document.getElementById(inputId);
+  const fb = document.getElementById(fbId);
+  if (input.disabled) return;
+
+  const val = input.value.trim().toLowerCase();
+  const ans = answer.toLowerCase();
+
+  input.disabled = true;
+
+  if (val === ans || val === ans.split(' ')[0]) {
+    input.classList.add('ok');
+    score++;
+    document.getElementById('scoreVal').textContent = score;
+    fb.textContent = okMsg;
+    fb.className = 'q-feedback show ok';
+  } else {
+    input.classList.add('no');
+    fb.textContent = noMsg;
+    fb.className = 'q-feedback show no';
+  }
+}
+</script>
+</body>
+</html>

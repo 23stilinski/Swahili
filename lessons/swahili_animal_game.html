@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wanyama – Swahili Animal Game</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1b2a;
+    --surface: #1a2d42;
+    --card: #223550;
+    --border: #2e4a6a;
+    --gold: #ffd166;
+    --green: #06d6a0;
+    --red: #ef476f;
+    --blue: #118ab2;
+    --orange: #ff9f1c;
+    --text: #f0f4f8;
+    --muted: #7a9cbf;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* STARS BG */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 60% 10%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 80% 80%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 50% 40%, rgba(255,255,255,0.2) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 30%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 15% 80%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 55%, rgba(255,255,255,0.2) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* SCREENS */
+  .screen { display: none; position: relative; z-index: 1; }
+  .screen.active { display: flex; }
+
+  /* ===== START SCREEN ===== */
+  #startScreen {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+  .game-logo {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(52px, 12vw, 96px);
+    line-height: 1;
+    color: var(--gold);
+    text-shadow: 0 4px 30px rgba(255,209,102,0.4), 0 0 60px rgba(255,209,102,0.15);
+    margin-bottom: 8px;
+    animation: floatLogo 3s ease-in-out infinite;
+  }
+
+  @keyframes floatLogo {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .game-subtitle {
+    font-size: 16px;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    font-weight: 700;
+  }
+
+  .animal-parade {
+    display: flex;
+    gap: 20px;
+    font-size: 48px;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .animal-parade span {
+    display: inline-block;
+    animation: bounce 1.5s ease-in-out infinite;
+  }
+  .animal-parade span:nth-child(2) { animation-delay: 0.2s; }
+  .animal-parade span:nth-child(3) { animation-delay: 0.4s; }
+  .animal-parade span:nth-child(4) { animation-delay: 0.6s; }
+  .animal-parade span:nth-child(5) { animation-delay: 0.8s; }
+  .animal-parade span:nth-child(6) { animation-delay: 1.0s; }
+  .animal-parade span:nth-child(7) { animation-delay: 1.2s; }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-12px) scale(1.1); }
+  }
+
+  .mode-title {
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    font-weight: 700;
+  }
+
+  .mode-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 36px;
+    width: 100%;
+    max-width: 480px;
+  }
+
+  .mode-btn {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 16px 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    color: var(--text);
+  }
+  .mode-btn:hover { border-color: var(--gold); transform: translateY(-3px); }
+  .mode-btn.selected { border-color: var(--gold); background: rgba(255,209,102,0.1); }
+  .mode-icon { font-size: 28px; display: block; margin-bottom: 6px; }
+  .mode-label { font-size: 13px; font-weight: 800; display: block; }
+  .mode-desc { font-size: 11px; color: var(--muted); display: block; margin-top: 4px; }
+
+  .best-score-display {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 28px;
+    margin-bottom: 32px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .best-score-display strong { color: var(--gold); font-size: 20px; }
+
+  .start-btn {
+    background: var(--gold);
+    color: #0d1b2a;
+    border: none;
+    border-radius: 20px;
+    padding: 18px 56px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 26px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 6px 24px rgba(255,209,102,0.35);
+    letter-spacing: 0.05em;
+  }
+  .start-btn:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 10px 32px rgba(255,209,102,0.5); }
+
+  /* ===== GAME SCREEN ===== */
+  #gameScreen {
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px 16px 40px;
+  }
+
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 20px;
+  }
+
+  .stat-pill {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-size: 14px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .stat-pill .label { color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+  .stat-pill .val { color: var(--gold); font-size: 18px; }
+
+  /* TIMER */
+  .timer-wrap {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    flex-shrink: 0;
+  }
+  .timer-svg { width: 70px; height: 70px; transform: rotate(-90deg); }
+  .timer-track { fill: none; stroke: var(--border); stroke-width: 5; }
+  .timer-bar {
+    fill: none;
+    stroke: var(--green);
+    stroke-width: 5;
+    stroke-linecap: round;
+    stroke-dasharray: 188.5;
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1s linear, stroke 0.5s;
+  }
+  .timer-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fredoka One', cursive;
+    font-size: 22px;
+    color: var(--text);
+  }
+
+  /* STREAK */
+  .streak-bar {
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--muted);
+  }
+  .streak-flames { color: var(--orange); font-size: 18px; letter-spacing: -2px; }
+  .streak-val { color: var(--orange); font-size: 16px; }
+
+  /* QUESTION COUNTER */
+  .q-counter {
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 12px;
+  }
+  .q-counter-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .q-progress-track {
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .q-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--blue), var(--green));
+    border-radius: 3px;
+    transition: width 0.5s ease;
+  }
+
+  /* ANIMAL CARD */
+  .animal-card {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 700px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+    transition: border-color 0.3s;
+  }
+  .animal-card.correct-card { border-color: var(--green); box-shadow: 0 8px 40px rgba(6,214,160,0.3); }
+  .animal-card.wrong-card { border-color: var(--red); box-shadow: 0 8px 40px rgba(239,71,111,0.3); }
+
+  .animal-image-wrap {
+    width: 100%;
+    height: 260px;
+    position: relative;
+    overflow: hidden;
+    background: var(--card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .animal-emoji-display {
+    font-size: 140px;
+    line-height: 1;
+    filter: drop-shadow(0 8px 16px rgba(0,0,0,0.5));
+    animation: animalEntrance 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    user-select: none;
+  }
+  @keyframes animalEntrance {
+    from { transform: scale(0.3) rotate(-10deg); opacity: 0; }
+    to { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+
+  .animal-hint {
+    position: absolute;
+    bottom: 12px;
+    right: 14px;
+    background: rgba(0,0,0,0.5);
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+
+  .question-text {
+    padding: 18px 24px;
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(18px, 4vw, 26px);
+    color: var(--text);
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+  .question-text .swahili-q { color: var(--gold); }
+
+  /* OPTIONS */
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 16px;
+  }
+  .opt-btn {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 16px 12px;
+    cursor: pointer;
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(16px, 3vw, 22px);
+    color: var(--text);
+    transition: all 0.18s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+    line-height: 1.2;
+  }
+  .opt-btn:hover:not(.disabled) { border-color: var(--gold); transform: translateY(-2px); background: rgba(255,209,102,0.08); }
+  .opt-btn.correct-opt { border-color: var(--green); background: rgba(6,214,160,0.15); color: var(--green); }
+  .opt-btn.wrong-opt { border-color: var(--red); background: rgba(239,71,111,0.12); color: var(--red); }
+  .opt-btn.disabled { cursor: default; pointer-events: none; opacity: 0.6; }
+  .opt-btn.correct-opt.disabled { opacity: 1; }
+
+  /* FEEDBACK POPUP */
+  .feedback-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    z-index: 100;
+    text-align: center;
+    pointer-events: none;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .feedback-popup.show { transform: translate(-50%, -50%) scale(1); }
+  .feedback-popup.hide { transform: translate(-50%, -50%) scale(0); transition-duration: 0.15s; }
+  .feedback-inner {
+    font-family: 'Fredoka One', cursive;
+    font-size: 56px;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  .feedback-pts {
+    font-family: 'Fredoka One', cursive;
+    font-size: 24px;
+    color: var(--gold);
+    display: block;
+  }
+
+  /* BONUS LABEL */
+  .bonus-label {
+    background: var(--orange);
+    color: #0d1b2a;
+    border-radius: 8px;
+    padding: 4px 12px;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    display: inline-block;
+    margin-top: 6px;
+    animation: pop 0.3s ease;
+  }
+
+  /* ===== END SCREEN ===== */
+  #endScreen {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+  .trophy { font-size: 80px; margin-bottom: 16px; animation: trophySpin 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  @keyframes trophySpin {
+    from { transform: scale(0) rotate(-20deg); }
+    to { transform: scale(1) rotate(0deg); }
+  }
+
+  .end-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(36px, 8vw, 64px);
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .end-subtitle { font-size: 16px; color: var(--muted); margin-bottom: 36px; }
+
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 36px;
+  }
+  .result-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 12px;
+    text-align: center;
+  }
+  .result-box .r-icon { font-size: 28px; display: block; margin-bottom: 8px; }
+  .result-box .r-val { font-family: 'Fredoka One', cursive; font-size: 32px; color: var(--gold); display: block; }
+  .result-box .r-label { font-size: 11px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+
+  .new-record {
+    background: linear-gradient(135deg, rgba(255,209,102,0.15), rgba(255,159,28,0.15));
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 20px;
+    color: var(--gold);
+    margin-bottom: 24px;
+    display: none;
+  }
+  .new-record.show { display: block; animation: pulse 1s ease infinite alternate; }
+  @keyframes pulse { from { opacity: 0.8; } to { opacity: 1; } }
+
+  .grade-bar {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 32px;
+  }
+  .grade-label { font-size: 13px; color: var(--muted); font-weight: 700; margin-bottom: 8px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .grade-track { height: 12px; background: var(--border); border-radius: 6px; overflow: hidden; }
+  .grade-fill { height: 100%; background: linear-gradient(90deg, var(--blue), var(--gold)); border-radius: 6px; transition: width 1.2s ease; width: 0%; }
+
+  .end-buttons { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .end-btn {
+    border-radius: 16px;
+    padding: 14px 32px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 20px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+  }
+  .end-btn.primary { background: var(--gold); color: #0d1b2a; box-shadow: 0 4px 20px rgba(255,209,102,0.3); }
+  .end-btn.primary:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(255,209,102,0.4); }
+  .end-btn.secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+  .end-btn.secondary:hover { border-color: var(--gold); }
+
+  /* CONFETTI */
+  .confetti-piece {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    top: -10px;
+    border-radius: 2px;
+    animation: confettiFall linear forwards;
+    z-index: 200;
+    pointer-events: none;
+  }
+  @keyframes confettiFall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  }
+
+  @keyframes pop {
+    from { transform: scale(0.8); }
+    to { transform: scale(1); }
+  }
+
+  @media (max-width: 500px) {
+    .options-grid { grid-template-columns: 1fr 1fr; }
+    .results-grid { grid-template-columns: repeat(3, 1fr); }
+    .mode-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== START SCREEN ===== -->
+<div class="screen active" id="startScreen">
+  <div class="game-logo">Wanyama!</div>
+  <div class="game-subtitle">Swahili Animal Quiz</div>
+  <div class="animal-parade">
+    <span>🦁</span><span>🐘</span><span>🦒</span><span>🦓</span><span>🐊</span><span>🦋</span><span>🦟</span>
+  </div>
+
+  <div class="mode-title">Choose Your Challenge</div>
+  <div class="mode-grid">
+    <div class="mode-btn selected" data-mode="easy" onclick="selectMode(this,'easy')">
+      <span class="mode-icon">🌿</span>
+      <span class="mode-label">Rahisi</span>
+      <span class="mode-desc">Easy · 20s</span>
+    </div>
+    <div class="mode-btn" data-mode="medium" onclick="selectMode(this,'medium')">
+      <span class="mode-icon">🔥</span>
+      <span class="mode-label">Kati</span>
+      <span class="mode-desc">Medium · 12s</span>
+    </div>
+    <div class="mode-btn" data-mode="hard" onclick="selectMode(this,'hard')">
+      <span class="mode-icon">⚡</span>
+      <span class="mode-label">Ngumu</span>
+      <span class="mode-desc">Hard · 7s</span>
+    </div>
+  </div>
+
+  <div class="best-score-display">
+    🏆 Best Score: <strong id="bestScoreDisplay">0</strong> pts
+  </div>
+
+  <button class="start-btn" onclick="startGame()">CHEZA SASA! ▶</button>
+</div>
+
+<!-- ===== GAME SCREEN ===== -->
+<div class="screen" id="gameScreen">
+  <div class="top-bar">
+    <div class="stat-pill">
+      <span class="label">Score</span>
+      <span class="val" id="scoreDisplay">0</span>
+    </div>
+    <div class="timer-wrap">
+      <svg class="timer-svg" viewBox="0 0 70 70">
+        <circle class="timer-track" cx="35" cy="35" r="30"/>
+        <circle class="timer-bar" id="timerBar" cx="35" cy="35" r="30"/>
+      </svg>
+      <div class="timer-text" id="timerText">20</div>
+    </div>
+    <div class="stat-pill">
+      <span class="label">✓</span>
+      <span class="val" id="correctDisplay">0</span>
+    </div>
+  </div>
+
+  <div class="streak-bar">
+    <span class="streak-flames" id="streakFlames">🔥</span>
+    <span>Streak: </span>
+    <span class="streak-val" id="streakDisplay">0</span>
+    <span style="margin-left:auto;font-size:12px;color:var(--muted)" id="streakBonus"></span>
+  </div>
+
+  <div class="q-counter">
+    <div class="q-counter-text">
+      <span id="qCounterText">Question 1 of 10</span>
+      <span id="qPctText">0%</span>
+    </div>
+    <div class="q-progress-track">
+      <div class="q-progress-fill" id="qProgressFill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="animal-card" id="animalCard">
+    <div class="animal-image-wrap">
+      <div class="animal-emoji-display" id="animalEmoji">🦁</div>
+      <div class="animal-hint" id="animalHint">MNYAMA</div>
+    </div>
+    <div class="question-text">
+      Hii ni nini kwa Kiswahili? <span class="swahili-q" id="questionEnglish"></span>
+    </div>
+  </div>
+
+  <div class="options-grid" id="optionsGrid"></div>
+</div>
+
+<!-- ===== END SCREEN ===== -->
+<div class="screen" id="endScreen">
+  <div class="trophy" id="trophyIcon">🏆</div>
+  <div class="end-title" id="endTitle">Hongera!</div>
+  <div class="end-subtitle" id="endSubtitle">Great job!</div>
+
+  <div class="new-record" id="newRecord">🌟 NEW BEST SCORE! 🌟</div>
+
+  <div class="results-grid">
+    <div class="result-box">
+      <span class="r-icon">⭐</span>
+      <span class="r-val" id="finalScore">0</span>
+      <span class="r-label">Points</span>
+    </div>
+    <div class="result-box">
+      <span class="r-icon">✅</span>
+      <span class="r-val" id="finalCorrect">0</span>
+      <span class="r-label">Correct</span>
+    </div>
+    <div class="result-box">
+      <span class="r-icon">🔥</span>
+      <span class="r-val" id="finalStreak">0</span>
+      <span class="r-label">Best Streak</span>
+    </div>
+  </div>
+
+  <div class="grade-bar">
+    <div class="grade-label">Accuracy</div>
+    <div class="grade-track">
+      <div class="grade-fill" id="gradeFill"></div>
+    </div>
+  </div>
+
+  <div class="end-buttons">
+    <button class="end-btn primary" onclick="startGame()">🔄 Play Again</button>
+    <button class="end-btn secondary" onclick="goHome()">🏠 Home</button>
+  </div>
+</div>
+
+<!-- FEEDBACK POPUP -->
+<div class="feedback-popup" id="feedbackPopup">
+  <div class="feedback-inner" id="feedbackInner"></div>
+  <span class="feedback-pts" id="feedbackPts"></span>
+</div>
+
+<script>
+const ANIMALS = [
+  // Big Animals
+  { emoji: '🦁', english: 'Lion',        swahili: 'Simba',     category: 'Mamalia' },
+  { emoji: '🐘', english: 'Elephant',    swahili: 'Tembo',     category: 'Mamalia' },
+  { emoji: '🦒', english: 'Giraffe',     swahili: 'Twiga',     category: 'Mamalia' },
+  { emoji: '🦓', english: 'Zebra',       swahili: 'Punda Milia', category: 'Mamalia' },
+  { emoji: '🐊', english: 'Crocodile',   swahili: 'Mamba',     category: 'Reptilia' },
+  { emoji: '🦛', english: 'Hippo',       swahili: 'Kiboko',    category: 'Mamalia' },
+  { emoji: '🦏', english: 'Rhino',       swahili: 'Kifaru',    category: 'Mamalia' },
+  { emoji: '🐆', english: 'Leopard',     swahili: 'Chui',      category: 'Mamalia' },
+  { emoji: '🐅', english: 'Tiger',       swahili: 'Chui wa Hindi', category: 'Mamalia' },
+  { emoji: '🐻', english: 'Bear',        swahili: 'Dubu',      category: 'Mamalia' },
+  { emoji: '🦍', english: 'Gorilla',     swahili: 'Gorila',    category: 'Mamalia' },
+  { emoji: '🐒', english: 'Monkey',      swahili: 'Tumbili',   category: 'Mamalia' },
+  { emoji: '🦊', english: 'Fox',         swahili: 'Mbweha',    category: 'Mamalia' },
+  { emoji: '🐺', english: 'Wolf',        swahili: 'Mbwa Mwitu', category: 'Mamalia' },
+  { emoji: '🦝', english: 'Raccoon',     swahili: 'Rakuni',    category: 'Mamalia' },
+  // Farm & Common
+  { emoji: '🐄', english: 'Cow',         swahili: 'Ng\'ombe',  category: 'Wanyama wa Shamba' },
+  { emoji: '🐐', english: 'Goat',        swahili: 'Mbuzi',     category: 'Wanyama wa Shamba' },
+  { emoji: '🐑', english: 'Sheep',       swahili: 'Kondoo',    category: 'Wanyama wa Shamba' },
+  { emoji: '🐖', english: 'Pig',         swahili: 'Nguruwe',   category: 'Wanyama wa Shamba' },
+  { emoji: '🐔', english: 'Chicken',     swahili: 'Kuku',      category: 'Ndege' },
+  { emoji: '🐕', english: 'Dog',         swahili: 'Mbwa',      category: 'Wanyama wa Nyumbani' },
+  { emoji: '🐈', english: 'Cat',         swahili: 'Paka',      category: 'Wanyama wa Nyumbani' },
+  { emoji: '🐇', english: 'Rabbit',      swahili: 'Sungura',   category: 'Mamalia' },
+  { emoji: '🦔', english: 'Hedgehog',    swahili: 'Kalunguyeye', category: 'Mamalia' },
+  // Birds
+  { emoji: '🦅', english: 'Eagle',       swahili: 'Tai',       category: 'Ndege' },
+  { emoji: '🦜', english: 'Parrot',      swahili: 'Kasuku',    category: 'Ndege' },
+  { emoji: '🦩', english: 'Flamingo',    swahili: 'Flamingo',  category: 'Ndege' },
+  { emoji: '🦚', english: 'Peacock',     swahili: 'Tausi',     category: 'Ndege' },
+  { emoji: '🦉', english: 'Owl',         swahili: 'Bundi',     category: 'Ndege' },
+  { emoji: '🐦', english: 'Bird',        swahili: 'Ndege',     category: 'Ndege' },
+  // Reptiles & Sea
+  { emoji: '🐍', english: 'Snake',       swahili: 'Nyoka',     category: 'Reptilia' },
+  { emoji: '🦎', english: 'Lizard',      swahili: 'Mjusi',     category: 'Reptilia' },
+  { emoji: '🐢', english: 'Tortoise',    swahili: 'Kobe',      category: 'Reptilia' },
+  { emoji: '🐟', english: 'Fish',        swahili: 'Samaki',    category: 'Samaki' },
+  { emoji: '🐬', english: 'Dolphin',     swahili: 'Pomboo',    category: 'Samaki' },
+  { emoji: '🦈', english: 'Shark',       swahili: 'Papa',      category: 'Samaki' },
+  { emoji: '🐙', english: 'Octopus',     swahili: 'Pweza',     category: 'Samaki' },
+  { emoji: '🦀', english: 'Crab',        swahili: 'Kaa',       category: 'Samaki' },
+  // Insects
+  { emoji: '🦋', english: 'Butterfly',   swahili: 'Kipepeo',   category: 'Wadudu' },
+  { emoji: '🐝', english: 'Bee',         swahili: 'Nyuki',     category: 'Wadudu' },
+  { emoji: '🐜', english: 'Ant',         swahili: 'Siafu',     category: 'Wadudu' },
+  { emoji: '🦟', english: 'Mosquito',    swahili: 'Mbu',       category: 'Wadudu' },
+  { emoji: '🪲', english: 'Beetle',      swahili: 'Mende',     category: 'Wadudu' },
+  { emoji: '🕷️', english: 'Spider',      swahili: 'Buibui',    category: 'Wadudu' },
+  { emoji: '🦗', english: 'Cricket',     swahili: 'Panzi',     category: 'Wadudu' },
+  { emoji: '🪰', english: 'Fly',         swahili: 'Nzi',       category: 'Wadudu' },
+];
+
+const MODES = { easy: 20, medium: 12, hard: 7 };
+const TOTAL_QUESTIONS = 10;
+
+let mode = 'easy';
+let score = 0;
+let correct = 0;
+let streak = 0;
+let bestStreak = 0;
+let currentQ = 0;
+let timerInterval = null;
+let timeLeft = 20;
+let maxTime = 20;
+let answered = false;
+let questions = [];
+let bestScore = parseInt(localStorage.getItem('wanyamaBest') || '0');
+
+document.getElementById('bestScoreDisplay').textContent = bestScore;
+
+function selectMode(el, m) {
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  mode = m;
+}
+
+function shuffle(arr) {
+  return [...arr].sort(() => Math.random() - 0.5);
+}
+
+function generateQuestions() {
+  const pool = shuffle(ANIMALS).slice(0, TOTAL_QUESTIONS);
+  return pool.map(animal => {
+    // Get 3 wrong options from remaining animals
+    const others = shuffle(ANIMALS.filter(a => a.swahili !== animal.swahili));
+    const wrongs = others.slice(0, 3).map(a => a.swahili);
+    const opts = shuffle([animal.swahili, ...wrongs]);
+    return { ...animal, options: opts };
+  });
+}
+
+function startGame() {
+  score = 0; correct = 0; streak = 0; bestStreak = 0; currentQ = 0; answered = false;
+  maxTime = MODES[mode];
+  questions = generateQuestions();
+
+  document.getElementById('scoreDisplay').textContent = 0;
+  document.getElementById('correctDisplay').textContent = 0;
+  document.getElementById('streakDisplay').textContent = 0;
+  document.getElementById('streakBonus').textContent = '';
+
+  showScreen('gameScreen');
+  loadQuestion();
+}
+
+function loadQuestion() {
+  if (currentQ >= TOTAL_QUESTIONS) { endGame(); return; }
+  answered = false;
+
+  const q = questions[currentQ];
+  const pct = Math.round((currentQ / TOTAL_QUESTIONS) * 100);
+
+  document.getElementById('animalEmoji').textContent = q.emoji;
+  document.getElementById('animalHint').textContent = q.category.toUpperCase();
+  document.getElementById('questionEnglish').textContent = `(${q.english})`;
+  document.getElementById('qCounterText').textContent = `Question ${currentQ + 1} of ${TOTAL_QUESTIONS}`;
+  document.getElementById('qPctText').textContent = pct + '%';
+  document.getElementById('qProgressFill').style.width = pct + '%';
+  document.getElementById('animalCard').className = 'animal-card';
+
+  // Re-trigger entrance animation
+  const emoji = document.getElementById('animalEmoji');
+  emoji.style.animation = 'none';
+  void emoji.offsetWidth;
+  emoji.style.animation = 'animalEntrance 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+
+  // Update streak flames
+  const flames = Math.min(streak, 5);
+  document.getElementById('streakFlames').textContent = '🔥'.repeat(Math.max(1, flames));
+  document.getElementById('streakDisplay').textContent = streak;
+  if (streak >= 3) {
+    document.getElementById('streakBonus').textContent = `+${streak * 5} bonus pts/correct!`;
+  } else {
+    document.getElementById('streakBonus').textContent = '';
+  }
+
+  // Build options
+  const grid = document.getElementById('optionsGrid');
+  grid.innerHTML = '';
+  q.options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.textContent = opt;
+    btn.onclick = () => handleAnswer(btn, opt, q.swahili);
+    grid.appendChild(btn);
+  });
+
+  startTimer();
+}
+
+function startTimer() {
+  clearInterval(timerInterval);
+  timeLeft = maxTime;
+  updateTimerUI();
+
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    updateTimerUI();
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      if (!answered) timeOut();
+    }
+  }, 1000);
+}
+
+function updateTimerUI() {
+  const circumference = 188.5;
+  const pct = timeLeft / maxTime;
+  const offset = circumference * (1 - pct);
+
+  document.getElementById('timerBar').style.strokeDashoffset = offset;
+  document.getElementById('timerText').textContent = timeLeft;
+
+  // Color change
+  const bar = document.getElementById('timerBar');
+  if (pct > 0.5) bar.style.stroke = 'var(--green)';
+  else if (pct > 0.25) bar.style.stroke = 'var(--orange)';
+  else bar.style.stroke = 'var(--red)';
+}
+
+function handleAnswer(btn, chosen, correct_ans) {
+  if (answered) return;
+  answered = true;
+  clearInterval(timerInterval);
+
+  const allBtns = document.querySelectorAll('.opt-btn');
+  allBtns.forEach(b => {
+    b.classList.add('disabled');
+    if (b.textContent === correct_ans) b.classList.add('correct-opt');
+  });
+
+  if (chosen === correct_ans) {
+    btn.classList.add('correct-opt');
+    document.getElementById('animalCard').classList.add('correct-card');
+
+    streak++;
+    correct++;
+    if (streak > bestStreak) bestStreak = streak;
+
+    const timeBonus = Math.round(timeLeft * 2);
+    const streakBonus = streak >= 3 ? streak * 5 : 0;
+    const pts = 100 + timeBonus + streakBonus;
+    score += pts;
+
+    document.getElementById('scoreDisplay').textContent = score;
+    document.getElementById('correctDisplay').textContent = correct;
+    document.getElementById('streakDisplay').textContent = streak;
+
+    let fbText = streak >= 5 ? '🤩 AMAZING!' : streak >= 3 ? '🔥 ON FIRE!' : '✅ Sahihi!';
+    showFeedback(fbText, '+' + pts + ' pts', streak >= 3);
+    updateStreakFlames();
+  } else {
+    btn.classList.add('wrong-opt');
+    document.getElementById('animalCard').classList.add('wrong-card');
+    streak = 0;
+    document.getElementById('streakDisplay').textContent = 0;
+    document.getElementById('streakFlames').textContent = '🔥';
+    document.getElementById('streakBonus').textContent = '';
+    showFeedback('❌ Hapana!', '', false);
+  }
+
+  setTimeout(() => {
+    currentQ++;
+    loadQuestion();
+  }, 1400);
+}
+
+function timeOut() {
+  answered = true;
+  const correct_ans = questions[currentQ].swahili;
+  const allBtns = document.querySelectorAll('.opt-btn');
+  allBtns.forEach(b => {
+    b.classList.add('disabled');
+    if (b.textContent === correct_ans) b.classList.add('correct-opt');
+  });
+  streak = 0;
+  document.getElementById('streakDisplay').textContent = 0;
+  document.getElementById('streakFlames').textContent = '🔥';
+  showFeedback('⏰ Muda Kwisha!', '-0 pts', false);
+  setTimeout(() => { currentQ++; loadQuestion(); }, 1400);
+}
+
+function updateStreakFlames() {
+  const flames = Math.min(streak, 5);
+  document.getElementById('streakFlames').textContent = '🔥'.repeat(Math.max(1, flames));
+}
+
+function showFeedback(text, pts, hasBonus) {
+  const popup = document.getElementById('feedbackPopup');
+  document.getElementById('feedbackInner').textContent = text;
+  document.getElementById('feedbackPts').textContent = pts;
+  popup.className = 'feedback-popup show';
+  setTimeout(() => { popup.className = 'feedback-popup hide'; }, 900);
+}
+
+function endGame() {
+  clearInterval(timerInterval);
+  const isNewRecord = score > bestScore;
+  if (isNewRecord) {
+    bestScore = score;
+    localStorage.setItem('wanyamaBest', bestScore);
+    document.getElementById('bestScoreDisplay').textContent = bestScore;
+  }
+
+  const accuracy = Math.round((correct / TOTAL_QUESTIONS) * 100);
+
+  // Trophy & title
+  let trophy = '🏆', title = 'Hongera!', subtitle = '';
+  if (accuracy === 100) { trophy = '🌟'; title = 'Bora Kabisa!'; subtitle = 'Perfect score! You\'re a Swahili master!'; }
+  else if (accuracy >= 80) { trophy = '🥇'; title = 'Vizuri Sana!'; subtitle = 'Excellent work! Almost perfect!'; }
+  else if (accuracy >= 60) { trophy = '🥈'; title = 'Nzuri!'; subtitle = 'Good job! Keep practicing!'; }
+  else if (accuracy >= 40) { trophy = '🥉'; title = 'Endelea!'; subtitle = 'Keep going! You\'ll improve!'; }
+  else { trophy = '📚'; title = 'Jaribu Tena!'; subtitle = 'Don\'t give up — practice makes perfect!'; }
+
+  document.getElementById('trophyIcon').textContent = trophy;
+  document.getElementById('endTitle').textContent = title;
+  document.getElementById('endSubtitle').textContent = subtitle;
+  document.getElementById('finalScore').textContent = score;
+  document.getElementById('finalCorrect').textContent = correct + '/' + TOTAL_QUESTIONS;
+  document.getElementById('finalStreak').textContent = bestStreak;
+
+  if (isNewRecord) document.getElementById('newRecord').classList.add('show');
+  else document.getElementById('newRecord').classList.remove('show');
+
+  showScreen('endScreen');
+
+  setTimeout(() => {
+    document.getElementById('gradeFill').style.width = accuracy + '%';
+  }, 300);
+
+  if (accuracy >= 80) launchConfetti();
+}
+
+function launchConfetti() {
+  const colors = ['#ffd166','#06d6a0','#118ab2','#ef476f','#ff9f1c','#fff'];
+  for (let i = 0; i < 60; i++) {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.className = 'confetti-piece';
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.background = colors[Math.floor(Math.random() * colors.length)];
+      el.style.width = (Math.random() * 10 + 6) + 'px';
+      el.style.height = (Math.random() * 10 + 6) + 'px';
+      el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+      el.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+      el.style.animationDelay = Math.random() * 0.5 + 's';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 4000);
+    }, i * 30);
+  }
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function goHome() {
+  clearInterval(timerInterval);
+  document.getElementById('newRecord').classList.remove('show');
+  document.getElementById('gradeFill').style.width = '0%';
+  showScreen('startScreen');
+}
+</script>
+</body>
+</html>

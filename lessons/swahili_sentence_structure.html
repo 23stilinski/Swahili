@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swahili Sentence Structure</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf7f2;
+    --surface: #ffffff;
+    --card: #f4f0e8;
+    --border: #e2dbd0;
+    --ink: #1c1a16;
+    --muted: #7a7060;
+    --accent: #c84b31;
+    --accent2: #2d6a4f;
+    --accent3: #1d4e89;
+    --gold: #b5820a;
+    --highlight: #fff3cd;
+    --highlight2: #d4edda;
+    --highlight3: #d1ecf1;
+    --shadow: rgba(28,26,22,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.75;
+  }
+
+  /* paper texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--ink);
+    color: #faf7f2;
+    padding: 64px 40px 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: repeating-linear-gradient(90deg, var(--accent) 0px, var(--accent) 24px, transparent 24px, transparent 32px);
+  }
+  .header-eyebrow {
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: #a09070;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(36px, 7vw, 76px);
+    font-weight: 400;
+    line-height: 1.05;
+    margin-bottom: 16px;
+  }
+  header h1 em { font-style: italic; color: #e8a87c; }
+  header p {
+    font-size: 16px;
+    color: #a09070;
+    max-width: 520px;
+    margin: 0 auto;
+    font-weight: 300;
+  }
+
+  /* NAV */
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    background: var(--surface);
+    border-bottom: 2px solid var(--border);
+    z-index: 50;
+    padding: 0 20px;
+    overflow-x: auto;
+    white-space: nowrap;
+    display: flex;
+    gap: 0;
+  }
+  .nav-item {
+    display: inline-block;
+    padding: 14px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .nav-item:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* MAIN */
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 56px 24px 100px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* SECTION */
+  .lesson-section { margin-bottom: 80px; scroll-margin-top: 60px; }
+
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 3px;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .tag-red { background: #fde8e4; color: var(--accent); }
+  .tag-green { background: #e4f2eb; color: var(--accent2); }
+  .tag-blue { background: #e4eef8; color: var(--accent3); }
+  .tag-gold { background: #fef3cd; color: var(--gold); }
+  .tag-purple { background: #f0e8f8; color: #6b3fa0; }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(26px, 5vw, 44px);
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+  .section-title em { font-style: italic; color: var(--accent); }
+
+  /* PROSE CARD */
+  .prose-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 12px var(--shadow);
+  }
+  .prose-card p { font-size: 15px; color: #3a3530; margin-bottom: 12px; }
+  .prose-card p:last-child { margin-bottom: 0; }
+  .prose-card strong { color: var(--ink); font-weight: 700; }
+  .prose-card em { color: var(--accent); font-style: italic; }
+
+  /* FORMULA BOX */
+  .formula-box {
+    background: var(--ink);
+    color: #faf7f2;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 16px 0;
+    font-family: 'Fira Code', monospace;
+    font-size: 15px;
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .f-block {
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .f-sub { background: #c84b31; color: #fff; }
+  .f-tense { background: #b5820a; color: #fff; }
+  .f-obj { background: #2d6a4f; color: #fff; }
+  .f-verb { background: #1d4e89; color: #fff; }
+  .f-ext { background: #6b3fa0; color: #fff; }
+  .f-sep { color: #a09070; font-size: 18px; }
+  .f-opt { opacity: 0.6; font-size: 12px; }
+
+  /* SENTENCE BUILDER */
+  .sentence-visual {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: center;
+    margin: 16px 0;
+    padding: 20px;
+    background: var(--card);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+  .sv-piece {
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    position: relative;
+  }
+  .sv-piece::after {
+    content: attr(data-label);
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .sv-wrap { padding-bottom: 24px; }
+  .sv-eq { font-size: 20px; color: var(--muted); padding: 0 8px; }
+  .sv-meaning { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--ink); padding-left: 8px; }
+
+  /* TIP */
+  .tip-block {
+    background: #fffbf0;
+    border-left: 4px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 14px;
+    color: #5a4a20;
+  }
+  .tip-block::before { content: '✏️  Note: '; font-weight: 700; }
+
+  .warning-block {
+    background: #fff5f5;
+    border-left: 4px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 14px;
+    color: #6b1a1a;
+  }
+  .warning-block::before { content: '⚠️  Watch out: '; font-weight: 700; }
+
+  /* TABLE */
+  .styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 12px var(--shadow);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .styled-table thead tr { background: var(--ink); color: #faf7f2; }
+  .styled-table th {
+    padding: 13px 16px;
+    text-align: left;
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  .styled-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    vertical-align: middle;
+  }
+  .styled-table tr:last-child td { border-bottom: none; }
+  .styled-table tr:hover td { background: var(--card); }
+  .sw-word { font-family: 'Fira Code', monospace; font-weight: 600; font-size: 14px; color: var(--accent); }
+  .en-word { color: var(--muted); font-size: 13px; }
+  .ex-word { font-size: 13px; color: var(--accent3); font-style: italic; }
+  .cat-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 3px;
+    background: var(--card);
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+
+  /* EXAMPLES GRID */
+  .examples-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+  .ex-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    transition: box-shadow 0.2s;
+  }
+  .ex-item:hover { box-shadow: 0 4px 16px var(--shadow); }
+  .ex-num {
+    font-family: 'Fira Code', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .ex-content { flex: 1; }
+  .ex-sw {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 2px;
+  }
+  .ex-en { font-size: 13px; color: var(--muted); display: block; margin-bottom: 6px; }
+  .ex-breakdown {
+    font-family: 'Fira Code', monospace;
+    font-size: 12px;
+    color: var(--accent3);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .breakdown-piece {
+    background: #f0f4fa;
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid #d0dcea;
+  }
+
+  /* QUIZ */
+  .quiz-card {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 32px;
+    margin-top: 24px;
+    box-shadow: 0 2px 20px var(--shadow);
+  }
+  .quiz-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .quiz-icon { font-size: 24px; }
+  .quiz-title {
+    font-family: 'Fira Code', monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .q-block { margin-bottom: 28px; }
+  .q-block:last-child { margin-bottom: 0; }
+  .q-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+  .q-text .highlight { background: var(--highlight); padding: 1px 6px; border-radius: 3px; }
+  .q-text .sw { font-family: 'Fira Code', monospace; color: var(--accent); font-weight: 600; }
+
+  .options-col { display: flex; flex-direction: column; gap: 8px; }
+  .opt {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 11px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.18s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .opt:hover:not(.locked) { border-color: var(--accent3); background: #f0f4fa; }
+  .opt.correct { border-color: var(--accent2); background: var(--highlight2); color: #155724; }
+  .opt.wrong { border-color: var(--accent); background: #fde8e4; color: #721c24; }
+  .opt.locked { cursor: default; pointer-events: none; }
+  .opt .opt-ltr {
+    width: 24px; height: 24px; border-radius: 50%;
+    border: 1.5px solid currentColor;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; flex-shrink: 0;
+    font-family: 'Fira Code', monospace;
+  }
+
+  .fill-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .fill-input {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    color: var(--ink);
+    outline: none;
+    width: 220px;
+    transition: border-color 0.2s;
+  }
+  .fill-input:focus { border-color: var(--accent3); }
+  .fill-input.correct { border-color: var(--accent2); background: var(--highlight2); color: #155724; }
+  .fill-input.wrong { border-color: var(--accent); background: #fde8e4; color: #721c24; }
+
+  .check-btn {
+    background: var(--ink);
+    color: #faf7f2;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-family: 'Fira Code', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    transition: opacity 0.2s;
+  }
+  .check-btn:hover { opacity: 0.82; }
+
+  .q-feedback {
+    margin-top: 10px;
+    font-size: 13px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    display: none;
+    font-weight: 500;
+  }
+  .q-feedback.show { display: block; }
+  .q-feedback.ok { background: var(--highlight2); color: #155724; border: 1px solid #c3e6cb; }
+  .q-feedback.no { background: #fde8e4; color: #721c24; border: 1px solid #f5c6cb; }
+
+  /* SCORE BADGE */
+  .score-badge {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--ink);
+    color: #faf7f2;
+    border-radius: 50px;
+    padding: 12px 20px;
+    font-family: 'Fira Code', monospace;
+    font-size: 13px;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .score-badge .s-val { color: #e8a87c; font-size: 20px; font-weight: 600; }
+
+  /* VERB CARDS GRID */
+  .verb-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .verb-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    transition: all 0.2s;
+    cursor: default;
+  }
+  .verb-card:hover { box-shadow: 0 4px 16px var(--shadow); transform: translateY(-2px); border-color: var(--accent3); }
+  .verb-sw { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--ink); display: block; margin-bottom: 2px; }
+  .verb-en { font-size: 13px; color: var(--muted); display: block; margin-bottom: 8px; }
+  .verb-ex { font-size: 12px; color: var(--accent3); font-style: italic; border-top: 1px solid var(--border); padding-top: 8px; line-height: 1.5; }
+
+  /* COMPARISON TABLE */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px var(--shadow);
+  }
+  .compare-table th {
+    padding: 12px 16px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: left;
+  }
+  .compare-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--surface); vertical-align: top; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:hover td { background: var(--card); }
+  .col-en { background: #e4eef8 !important; }
+  .col-sw { background: #e4f2eb !important; }
+  .col-th-en { background: var(--accent3); color: white; }
+  .col-th-sw { background: var(--accent2); color: white; }
+  .col-th-notes { background: #555; color: white; }
+
+  @media (max-width: 600px) {
+    main { padding: 32px 14px 80px; }
+    .prose-card, .quiz-card { padding: 18px; }
+    .verb-grid { grid-template-columns: repeat(2, 1fr); }
+    .formula-box { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-eyebrow">Lesson 2 — Swahili Grammar</div>
+  <h1>Sentence <em>Structure</em>,<br>Verbs & Questions</h1>
+  <p>A complete guide to building sentences in Swahili — from the basics to asking questions confidently.</p>
+</header>
+
+<nav class="sticky-nav">
+  <a class="nav-item" href="#structure">Sentence Structure</a>
+  <a class="nav-item" href="#objects">Object Markers</a>
+  <a class="nav-item" href="#questions">Question Words</a>
+  <a class="nav-item" href="#verbs">New Verbs</a>
+  <a class="nav-item" href="#building">Building Sentences</a>
+  <a class="nav-item" href="#final">Final Quiz</a>
+</nav>
+
+<main>
+
+  <!-- ===== 1. SENTENCE STRUCTURE ===== -->
+  <section class="lesson-section" id="structure">
+    <div class="section-tag tag-red">§ 1 — Foundations</div>
+    <h2 class="section-title">How a Swahili <em>Sentence</em> Is Built</h2>
+
+    <div class="prose-card">
+      <p>In English, the basic sentence order is <strong>Subject → Verb → Object</strong> (SVO). Swahili follows the same basic order, but with a big twist: <strong>all of this information is often packed inside a single verb word</strong>.</p>
+      <p>A Swahili verb word can include: <em>who is doing the action</em>, <em>when it happened</em>, <em>who/what it was done to</em>, and <em>the action itself</em> — all in one compact word.</p>
+    </div>
+
+    <div class="formula-box">
+      <span class="f-block f-sub">SUBJECT PREFIX</span>
+      <span class="f-sep">+</span>
+      <span class="f-block f-tense">TENSE MARKER</span>
+      <span class="f-sep">+</span>
+      <span class="f-block f-obj">(OBJECT MARKER)</span>
+      <span class="f-sep">+</span>
+      <span class="f-block f-verb">VERB STEM</span>
+      <span class="f-sep">+</span>
+      <span class="f-block f-ext">(EXTENSION)</span>
+    </div>
+
+    <div class="tip-block">The parts in brackets ( ) are optional. A simple sentence only needs: Subject Prefix + Tense + Verb Stem.</div>
+
+    <h3 style="font-family:'DM Serif Display',serif;font-size:22px;margin:24px 0 16px;">Let's Break Down a Real Sentence</h3>
+
+    <div class="prose-card">
+      <p>Take the sentence: <strong>"Ninapenda chakula"</strong> — <em>I love food.</em></p>
+      <div class="sentence-visual sv-wrap">
+        <span class="sv-piece f-sub" data-label="Subject: I">Ni</span>
+        <span class="sv-piece" style="background:#fff8e1;color:#7a5a00;border:1px solid #ffe082;" data-label="Tense: Present">na</span>
+        <span class="sv-piece f-verb" data-label="Verb: to love">penda</span>
+        <span class="sv-eq">=</span>
+        <span class="sv-meaning">I am loving / I love</span>
+      </div>
+      <p>Then <strong>chakula</strong> (food) is the <em>object</em>, placed after the verb — just like English!</p>
+    </div>
+
+    <div class="prose-card">
+      <p>Now compare these three sentences — notice only the <strong>tense marker</strong> changes:</p>
+    </div>
+
+    <div class="examples-list">
+      <div class="ex-item">
+        <span class="ex-num">01</span>
+        <div class="ex-content">
+          <span class="ex-sw">Ninapenda chakula.</span>
+          <span class="ex-en">I love food. (right now / generally)</span>
+          <div class="ex-breakdown">
+            <span class="breakdown-piece">Ni = I</span>
+            <span class="breakdown-piece" style="background:#fff8e1;border-color:#ffe082;">na = present</span>
+            <span class="breakdown-piece">penda = love</span>
+            <span class="breakdown-piece">chakula = food</span>
+          </div>
+        </div>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">02</span>
+        <div class="ex-content">
+          <span class="ex-sw">Nilipenda chakula.</span>
+          <span class="ex-en">I loved food. (in the past)</span>
+          <div class="ex-breakdown">
+            <span class="breakdown-piece">Ni = I</span>
+            <span class="breakdown-piece" style="background:#fde8e4;border-color:#f5c6cb;">li = past</span>
+            <span class="breakdown-piece">penda = love</span>
+            <span class="breakdown-piece">chakula = food</span>
+          </div>
+        </div>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">03</span>
+        <div class="ex-content">
+          <span class="ex-sw">Nitapenda chakula.</span>
+          <span class="ex-en">I will love food. (future)</span>
+          <div class="ex-breakdown">
+            <span class="breakdown-piece">Ni = I</span>
+            <span class="breakdown-piece" style="background:#e4eef8;border-color:#d0dcea;">ta = future</span>
+            <span class="breakdown-piece">penda = love</span>
+            <span class="breakdown-piece">chakula = food</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-block">The <strong>verb stem never changes</strong>. Only the prefix slot before it changes. This makes Swahili very systematic once you know the rules!</div>
+
+    <!-- WORD ORDER COMPARISON -->
+    <h3 style="font-family:'DM Serif Display',serif;font-size:22px;margin:28px 0 16px;">English vs. Swahili — Side by Side</h3>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th class="col-th-en">English</th>
+          <th class="col-th-sw">Swahili</th>
+          <th class="col-th-notes">Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-en"><strong>I</strong> eat <strong>rice</strong>.</td>
+          <td class="col-sw"><strong>Ninakula</strong> wali.</td>
+          <td>Subject merged into verb; object (wali) follows</td>
+        </tr>
+        <tr>
+          <td class="col-en"><strong>She</strong> reads <strong>a book</strong>.</td>
+          <td class="col-sw"><strong>Anasoma</strong> kitabu.</td>
+          <td>A = she/he; na = present; soma = read</td>
+        </tr>
+        <tr>
+          <td class="col-en"><strong>They</strong> played <strong>football</strong>.</td>
+          <td class="col-sw"><strong>Walicheza</strong> mpira.</td>
+          <td>Wa = they; li = past; cheza = play</td>
+        </tr>
+        <tr>
+          <td class="col-en"><strong>We</strong> will sing <strong>a song</strong>.</td>
+          <td class="col-sw"><strong>Tutaimba</strong> wimbo.</td>
+          <td>Tu = we; ta = future; imba = sing</td>
+        </tr>
+        <tr>
+          <td class="col-en"><strong>You</strong> have arrived.</td>
+          <td class="col-sw"><strong>Umefika</strong>.</td>
+          <td>No object needed; whole sentence is one word!</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- QUIZ 1 -->
+    <div class="quiz-card">
+      <div class="quiz-header">
+        <span class="quiz-icon">✍️</span>
+        <span class="quiz-title">Section Quiz — Sentence Structure</span>
+      </div>
+
+      <div class="q-block">
+        <div class="q-text">What is the correct word order in a basic Swahili sentence?</div>
+        <div class="options-col">
+          <div class="opt" onclick="mc(this,false,'sq1')"><span class="opt-ltr">A</span>Object → Verb → Subject</div>
+          <div class="opt" onclick="mc(this,true,'sq1')"><span class="opt-ltr">B</span>Subject (in verb) → Tense (in verb) → Verb Stem → Object</div>
+          <div class="opt" onclick="mc(this,false,'sq1')"><span class="opt-ltr">C</span>Tense → Object → Subject → Verb</div>
+        </div>
+        <div class="q-feedback" id="fb-sq1"></div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-text">In the word <span class="sw">Anasoma</span>, what does <span class="sw">A-</span> tell us?</div>
+        <div class="options-col">
+          <div class="opt" onclick="mc(this,false,'sq2')"><span class="opt-ltr">A</span>It is past tense</div>
+          <div class="opt" onclick="mc(this,false,'sq2')"><span class="opt-ltr">B</span>The action is repeated</div>
+          <div class="opt" onclick="mc(this,true,'sq2')"><span class="opt-ltr">C</span>The subject is He or She</div>
+        </div>
+        <div class="q-feedback" id="fb-sq2"></div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-text">Translate: <span class="sw">"Tulipika chakula."</span> — (pika = to cook)</div>
+        <div class="options-col">
+          <div class="opt" onclick="mc(this,false,'sq3')"><span class="opt-ltr">A</span>We will cook food.</div>
+          <div class="opt" onclick="mc(this,true,'sq3')"><span class="opt-ltr">B</span>We cooked food.</div>
+          <div class="opt" onclick="mc(this,false,'sq3')"><span class="opt-ltr">C</span>They are cooking food.</div>
+        </div>
+        <div class="q-feedback" id="fb-sq3"></div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-text">Fill in the blank: <span class="highlight">"She will read"</span> = A___soma</div>
+        <div class="fill-row">
+          <input class="fill-input" id="fi-sq4" placeholder="tense marker">
+          <button class="check-btn" onclick="fill('fi-sq4','ta','fb-sq4','Correct! A+ta+soma = Atasoma (She will read)','The future tense marker is -ta-. So A+ta+soma = Atasoma.')">Check</button>
+        </div>
+        <div class="q-feedback" id="fb-sq4"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 2. OBJECT MARKERS ===== -->
+  <section class="lesson-section" id="objects">
+    <div class="section-tag tag-green">§ 2 — Going Deeper</div>
+    <h2 class="section-title">Object Markers — <em>Talking About</em> Someone</h2>
+
+    <div class="prose-card">
+      <p>So far, we've placed the object (the thing/person receiving the action) <em>after</em> the verb. But Swahili also lets you <strong>embed the object inside the verb</strong> using an <strong>object marker</strong>.</p>
+      <p>This is like saying <em>"I love-<strong>him</strong>"</em> instead of <em>"I love him."</em></p>
+    </div>
+
+    <table class="styled-table">
+      <thead><tr><th>Person</th><th>Object Marker</th><th>Example</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>me</td><td><span class="sw-word">-ni-</span></td><td class="ex-word">Anani<strong>penda</strong></td><td class="en-word">He/She loves <strong>me</strong></td></tr>
+        <tr><td>you</td><td><span class="sw-word">-ku-</span></td><td class="ex-word">Ninaku<strong>penda</strong></td><td class="en-word">I love <strong>you</strong></td></tr>
+        <tr><td>him/her</td><td><span class="sw-word">-m- / -mw-</span></td><td class="ex-word">Ninam<strong>penda</strong></td><td class="en-word">I love <strong>him/her</strong></td></tr>
+        <tr><td>us</td><td><span class="sw-word">-tu-</span></td><td class="ex-word">Anatu<strong>saidia</strong></td><td class="en-word">He/She helps <strong>us</strong></td></tr>
+        <tr><td>you (plural)</td><td><span class="sw-word">-wa-</span></td><td class="ex-word">Ninawa<strong>ambia</strong></td><td class="en-word">I tell <strong>you all</strong></td></tr>
+        <tr><td>them</td><td><span class="sw-word">-wa-</span></td><td class="ex-word">Ninawa<strong>saidia</strong></td><td class="en-word">I help <strong>them</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="warning-block">Both "you (plural)" and "them" use <strong>-wa-</strong>. Context and the subject prefix tell you which one is meant.</div>
+
+    <div class="examples-list">
+      <div class="ex-item">
+        <span class="ex-num">01</span>
+        <div class="ex-content">
+          <span class="ex-sw">Ninakupenda.</span>
+          <span class="ex-en">I love you. (the famous phrase!)</span>
+          <div class="ex-breakdown">
+            <span class="breakdown-piece">Ni = I</span>
+            <span class="breakdown-piece">na = present</span>
+            <span class="breakdown-piece" style="background:#e4f2eb;border-color:#b8dcc8;">ku = you (object)</span>
+            <span class="breakdown-piece">penda = love</span>
+          </div>
+        </div>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">02</span>
+        <div class="ex-content">
+          <span class="ex-sw">Ananisaidia.</span>
+          <span class="ex-en">He/She is helping me.</span>
+          <div class="ex-breakdown">
+            <span class="breakdown-piece">A = he/she</span>
+            <span class="breakdown-piece">na = present</span>
+            <span class="breakdown-piece" style="background:#e4f2eb;border-color:#b8dcc8;">ni = me (object)</span>
+            <span class="breakdown-piece">saidia = help</span>
+          </div>
+        </div>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">03</span>
+        <div class="ex-content">
+          <span class="ex-sw">Tutawasaidia.</span>
+          <span class="ex-en">We will help them.</span>
+          <div class="ex-breakdown">
+            <span class="breakdown-piece">Tu = we</span>
+            <span class="breakdown-piece">ta = future</span>
+            <span class="breakdown-piece" style="background:#e4f2eb;border-color:#b8dcc8;">wa = them (object)</span>
+            <span class="breakdown-piece">saidia = help</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-card">
+      <div class="quiz-header"><span class="quiz-icon">✍️</span><span class="quiz-title">Section Quiz — Object Markers</span></div>
+      <div class="q-block">
+        <div class="q-text">What does <span class="sw">Ninakupenda</span> mean?</div>
+        <div class="options-col">
+          <div class="opt" onclick="mc(this,false,'oq1')"><span class="opt-ltr">A</span>You love me</div>
+          <div class="opt" onclick="mc(this,true,'oq1')"><span class="opt-ltr">B</span>I love you</div>
+          <div class="opt" onclick="mc(this,false,'oq1')"><span class="opt-ltr">C</span>He loves you</div>
+        </div>
+        <div class="q-feedback" id="fb-oq1"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Which object marker means <span class="highlight">"me"</span>?</div>
+        <div class="options-col">
+          <div class="opt" onclick="mc(this,false,'oq2')"><span class="opt-ltr">A</span>-ku-</div>
+          <div class="opt" onclick="mc(this,true,'oq2')"><span class="opt-ltr">B</span>-ni-</div>
+          <div class="opt" onclick="mc(this,false,'oq2')"><span class="opt-ltr">C</span>-wa-</div>
+        </div>
+        <div class="q-feedback" id="fb-oq2"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Translate: <span class="highlight">"We will help them"</span> — (saidia = to help)</div>
+        <div class="fill-row">
+          <input class="fill-input" id="fi-oq3" placeholder="full sentence">
+          <button class="check-btn" onclick="fill('fi-oq3','tutawasaidia','fb-oq3','Correct! Tu+ta+wa+saidia = Tutawasaidia','Tu (we) + ta (future) + wa (them) + saidia = Tutawasaidia')">Check</button>
+        </div>
+        <div class="q-feedback" id="fb-oq3"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3. QUESTION WORDS ===== -->
+  <section class="lesson-section" id="questions">
+    <div class="section-tag tag-blue">§ 3 — Asking Questions</div>
+    <h2 class="section-title">Question Words — <em>Nini, Nani, Wapi?</em></h2>
+
+    <div class="prose-card">
+      <p>Asking questions in Swahili is simpler than you might think. You often just <strong>add a question word to a normal sentence</strong> — either at the beginning or the end. There's no need to rearrange the sentence like in English ("Do you...?" "Are they...?").</p>
+      <p><strong>Yes/No questions</strong> are formed simply by adding <em>Je,</em> at the start or raising your voice at the end.</p>
+    </div>
+
+    <table class="styled-table">
+      <thead><tr><th>Question Word</th><th>Swahili</th><th>Example Sentence</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="cat-badge">What?</span></td>
+          <td><span class="sw-word">Nini?</span></td>
+          <td class="ex-word">Hii ni nini? / Unafanya nini?</td>
+          <td class="en-word">What is this? / What are you doing?</td>
+        </tr>
+        <tr>
+          <td><span class="cat-badge">Who?</span></td>
+          <td><span class="sw-word">Nani?</span></td>
+          <td class="ex-word">Huyu ni nani? / Nani anakuja?</td>
+          <td class="en-word">Who is this? / Who is coming?</td>
+        </tr>
+        <tr>
+          <td><span class="cat-badge">Where?</span></td>
+          <td><span class="sw-word">Wapi?</span></td>
+          <td class="ex-word">Uko wapi? / Nyumba iko wapi?</td>
+          <td class="en-word">Where are you? / Where is the house?</td>
+        </tr>
+        <tr>
+          <td><span class="cat-badge">When?</span></td>
+          <td><span class="sw-word">Lini?</span></td>
+          <td class="ex-word">Utakuja lini? / Alizaliwa lini?</td>
+          <td class="en-word">When will you come? / When was he/she born?</td>
+        </tr>
+        <tr>
+          <td><span class="cat-badge">Why?</span></td>
+          <td><span class="sw-word">Kwa nini?</span></td>
+          <td class="ex-word">Kwa nini unalia?</td>
+          <td class="en-word">Why are you crying?</td>
+        </tr>
+        <tr>
+          <td><span class="cat-badge">How?</span></td>
+          <td><span class="sw-word">Vipi? / Jinsi gani?</span></td>
+          <td class="ex-word">Unafanyaje? / Hali yako vipi?</td>
+          <td class="en-word">How are you doing it? / How are you?</td>
+        </tr>
+        <tr>
+          <td><span class="cat-badge">How many?</span></td>
+          <td><span class="sw-word">Ngapi?</span></td>
+          <td class="ex-word">Una watoto wangapi?</td>
+          <td class="en-word">How many children do you have?</td>
+        </tr>
+        <tr>
+          <td><span class="cat-badge">Which?</span></td>
+          <td><span class="sw-word">Gani?</span></td>
+          <td class="ex-word">Unataka chakula gani?</td>
+          <td class="en-word">Which food do you want?</td>
+        </tr>
+        <tr>
+          <td><span class="cat-badge">Yes/No?</span></td>
+          <td><span class="sw-word">Je, ...?</span></td>
+          <td class="ex-word">Je, unajua Kiswahili?</td>
+          <td class="en-word">Do you know Swahili?</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="tip-block"><strong>Tip:</strong> In Swahili, question words like <em>wapi, lini, nini</em> usually go <strong>at the end</strong> of the sentence — the opposite of English! e.g. "Uko wapi?" = "You are where?" = "Where are you?"</div>
+
+    <div class="warning-block"><strong>Nini vs Nani:</strong> <em>Nini</em> asks about <strong>things</strong>. <em>Nani</em> asks about <strong>people</strong>. Never mix them up!</div>
+
+    <div class="examples-list">
+      <div class="ex-item">
+        <span class="ex-num">01</span>
+        <div class="ex-content">
+          <span class="ex-sw">Unakula nini?</span>
+          <span class="ex-en">What are you eating?</span>
+          <div class="ex-breakdown"><span class="breakdown-piece">Unakula = you are eating</span><span class="breakdown-piece">nini = what</span></div>
+        </div>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">02</span>
+        <div class="ex-content">
+          <span class="ex-sw">Anakuja lini?</span>
+          <span class="ex-en">When is he/she coming?</span>
+          <div class="ex-breakdown"><span class="breakdown-piece">Anakuja = he/she is coming</span><span class="breakdown-piece">lini = when</span></div>
+        </div>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">03</span>
+        <div class="ex-content">
+          <span class="ex-sw">Kwa nini unalala?</span>
+          <span class="ex-en">Why are you sleeping?</span>
+          <div class="ex-breakdown"><span class="breakdown-piece">Kwa nini = why</span><span class="breakdown-piece">unalala = you are sleeping</span></div>
+        </div>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">04</span>
+        <div class="ex-content">
+          <span class="ex-sw">Je, unapenda muziki?</span>
+          <span class="ex-en">Do you like music?</span>
+          <div class="ex-breakdown"><span class="breakdown-piece">Je = yes/no marker</span><span class="breakdown-piece">unapenda = you like</span><span class="breakdown-piece">muziki = music</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-card">
+      <div class="quiz-header"><span class="quiz-icon">✍️</span><span class="quiz-title">Section Quiz — Question Words</span></div>
+      <div class="q-block">
+        <div class="q-text">How do you ask <span class="highlight">"Where are you?"</span> in Swahili?</div>
+        <div class="options-col">
+          <div class="opt" onclick="mc(this,false,'qq1')"><span class="opt-ltr">A</span>Uko nani?</div>
+          <div class="opt" onclick="mc(this,true,'qq1')"><span class="opt-ltr">B</span>Uko wapi?</div>
+          <div class="opt" onclick="mc(this,false,'qq1')"><span class="opt-ltr">C</span>Wapi uko?</div>
+        </div>
+        <div class="q-feedback" id="fb-qq1"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Which question word asks about a <span class="highlight">person</span>?</div>
+        <div class="options-col">
+          <div class="opt" onclick="mc(this,false,'qq2')"><span class="opt-ltr">A</span>Nini</div>
+          <div class="opt" onclick="mc(this,false,'qq2')"><span class="opt-ltr">B</span>Lini</div>
+          <div class="opt" onclick="mc(this,true,'qq2')"><span class="opt-ltr">C</span>Nani</div>
+        </div>
+        <div class="q-feedback" id="fb-qq2"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Translate: <span class="highlight">"Why are you crying?"</span> — (lia = to cry)</div>
+        <div class="options-col">
+          <div class="opt" onclick="mc(this,false,'qq3')"><span class="opt-ltr">A</span>Unalia lini?</div>
+          <div class="opt" onclick="mc(this,false,'qq3')"><span class="opt-ltr">B</span>Nani unalia?</div>
+          <div class="opt" onclick="mc(this,true,'qq3')"><span class="opt-ltr">C</span>Kwa nini unalia?</div>
+        </div>
+        <div class="q-feedback" id="fb-qq3"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Fill in: <span class="highlight">"What are you doing?"</span> = Unafanya ___?</div>
+        <div class="fill-row">
+          <input class="fill-input" id="fi-qq4" placeholder="question word">
+          <button class="check-btn" onclick="fill('fi-qq4','nini','fb-qq4','Correct! Unafanya nini? = What are you doing?','Use nini (what) for things/actions. Unafanya nini?')">Check</button>
+        </div>
+        <div class="q-feedback" id="fb-qq4"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 4. NEW VERBS ===== -->
+  <section class="lesson-section" id="verbs">
+    <div class="section-tag tag-gold">§ 4 — Vocabulary</div>
+    <h2 class="section-title">New <em>Verbs</em> to Know</h2>
+
+    <div class="prose-card">
+      <p>Below are <strong>40 essential Swahili verbs</strong> grouped by theme. Each card shows the verb stem, its meaning, and a quick example of it used in a sentence. Remember — to use these, just add your subject prefix + tense marker before the stem!</p>
+    </div>
+
+    <h3 style="font-family:'DM Serif Display',serif;font-size:20px;margin:20px 0 14px;color:var(--accent);">🏃 Movement & Action</h3>
+    <div class="verb-grid">
+      <div class="verb-card"><span class="verb-sw">-enda</span><span class="verb-en">to go</span><div class="verb-ex">Ninaenda shule.<br><em>I am going to school.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-kuja</span><span class="verb-en">to come</span><div class="verb-ex">Anakuja sasa.<br><em>He/She is coming now.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-rudi</span><span class="verb-en">to return</span><div class="verb-ex">Tutarudi kesho.<br><em>We will return tomorrow.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-kimbia</span><span class="verb-en">to run</span><div class="verb-ex">Walikimbia haraka.<br><em>They ran fast.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-panda</span><span class="verb-en">to climb / board</span><div class="verb-ex">Alipanda mlima.<br><em>He/She climbed the mountain.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-shuka</span><span class="verb-en">to descend / get off</span><div class="verb-ex">Nishuke hapa.<br><em>I should get off here.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-ingia</span><span class="verb-en">to enter</span><div class="verb-ex">Ingia ndani!<br><em>Come inside!</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-toka</span><span class="verb-en">to leave / come from</span><div class="verb-ex">Ninatoka Kenya.<br><em>I come from Kenya.</em></div></div>
+    </div>
+
+    <h3 style="font-family:'DM Serif Display',serif;font-size:20px;margin:24px 0 14px;color:var(--accent2);">🧠 Thinking & Communication</h3>
+    <div class="verb-grid">
+      <div class="verb-card"><span class="verb-sw">-sema</span><span class="verb-en">to speak / say</span><div class="verb-ex">Ninasema Kiswahili.<br><em>I speak Swahili.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-ambia</span><span class="verb-en">to tell someone</span><div class="verb-ex">Nilikuambia ukweli.<br><em>I told you the truth.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-uliza</span><span class="verb-en">to ask</span><div class="verb-ex">Aliniuliza swali.<br><em>He asked me a question.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-jibu</span><span class="verb-en">to answer</span><div class="verb-ex">Nilijiburi swali.<br><em>I answered the question.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-soma</span><span class="verb-en">to read / study</span><div class="verb-ex">Tunasoma kitabu.<br><em>We are reading a book.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-andika</span><span class="verb-en">to write</span><div class="verb-ex">Ninaandika barua.<br><em>I am writing a letter.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-sikia</span><span class="verb-en">to hear / feel</span><div class="verb-ex">Nilisikia sauti.<br><em>I heard a sound.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-jua</span><span class="verb-en">to know</span><div class="verb-ex">Sijui jibu.<br><em>I don't know the answer.</em></div></div>
+    </div>
+
+    <h3 style="font-family:'DM Serif Display',serif;font-size:20px;margin:24px 0 14px;color:var(--accent3);">🍽️ Daily Life</h3>
+    <div class="verb-grid">
+      <div class="verb-card"><span class="verb-sw">-kula</span><span class="verb-en">to eat</span><div class="verb-ex">Unakula nini?<br><em>What are you eating?</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-kunywa</span><span class="verb-en">to drink</span><div class="verb-ex">Ninakunywa maji.<br><em>I am drinking water.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-pika</span><span class="verb-en">to cook</span><div class="verb-ex">Mama anapika ugali.<br><em>Mum is cooking ugali.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-lala</span><span class="verb-en">to sleep</span><div class="verb-ex">Watoto wanalala.<br><em>The children are sleeping.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-amka</span><span class="verb-en">to wake up</span><div class="verb-ex">Niliamka mapema.<br><em>I woke up early.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-osha</span><span class="verb-en">to wash</span><div class="verb-ex">Unazosha mikono?<br><em>Are you washing hands?</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-vaa</span><span class="verb-en">to wear / dress</span><div class="verb-ex">Alivaa nguo mpya.<br><em>He/She wore new clothes.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-nunua</span><span class="verb-en">to buy</span><div class="verb-ex">Nitanunua mkate.<br><em>I will buy bread.</em></div></div>
+    </div>
+
+    <h3 style="font-family:'DM Serif Display',serif;font-size:20px;margin:24px 0 14px;color:#6b3fa0;">❤️ Feelings & States</h3>
+    <div class="verb-grid">
+      <div class="verb-card"><span class="verb-sw">-penda</span><span class="verb-en">to love / like</span><div class="verb-ex">Ninakupenda sana.<br><em>I love you very much.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-cheka</span><span class="verb-en">to laugh</span><div class="verb-ex">Walicheka sana.<br><em>They laughed a lot.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-lia</span><span class="verb-en">to cry</span><div class="verb-ex">Mtoto analia.<br><em>The child is crying.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-furahi</span><span class="verb-en">to be happy</span><div class="verb-ex">Ninafurahi kukuona.<br><em>I'm happy to see you.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-choka</span><span class="verb-en">to be tired</span><div class="verb-ex">Nimechoka sana.<br><em>I am very tired.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-ogopa</span><span class="verb-en">to fear / be afraid</span><div class="verb-ex">Anaogopa nyoka.<br><em>He/She fears snakes.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-saidia</span><span class="verb-en">to help</span><div class="verb-ex">Unaweza kunisaidia?<br><em>Can you help me?</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-shukuru</span><span class="verb-en">to thank</span><div class="verb-ex">Nakushukuru sana.<br><em>I thank you very much.</em></div></div>
+    </div>
+
+    <h3 style="font-family:'DM Serif Display',serif;font-size:20px;margin:24px 0 14px;color:var(--accent);">⚙️ Other Useful Verbs</h3>
+    <div class="verb-grid">
+      <div class="verb-card"><span class="verb-sw">-fanya</span><span class="verb-en">to do / make</span><div class="verb-ex">Unafanya nini?<br><em>What are you doing?</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-lipa</span><span class="verb-en">to pay</span><div class="verb-ex">Nitalipa kesho.<br><em>I will pay tomorrow.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-cheza</span><span class="verb-en">to play</span><div class="verb-ex">Watoto wanacheza.<br><em>Children are playing.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-imba</span><span class="verb-en">to sing</span><div class="verb-ex">Tuliimba wimbo.<br><em>We sang a song.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-danganya</span><span class="verb-en">to lie / deceive</span><div class="verb-ex">Usidanganya!<br><em>Don't lie!</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-maliza</span><span class="verb-en">to finish</span><div class="verb-ex">Tumemaliza kazi.<br><em>We have finished the work.</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-angalia</span><span class="verb-en">to look / watch</span><div class="verb-ex">Angalia vizuri!<br><em>Look carefully!</em></div></div>
+      <div class="verb-card"><span class="verb-sw">-weza</span><span class="verb-en">to be able to / can</span><div class="verb-ex">Naweza kusaidia.<br><em>I can help.</em></div></div>
+    </div>
+
+    <div class="quiz-card">
+      <div class="quiz-header"><span class="quiz-icon">✍️</span><span class="quiz-title">Section Quiz — Verbs</span></div>
+      <div class="q-block">
+        <div class="q-text">Which verb means <span class="highlight">"to enter"</span>?</div>
+        <div class="options-col">
+          <div class="opt" onclick="mc(this,false,'vq1')"><span class="opt-ltr">A</span>-toka</div>
+          <div class="opt" onclick="mc(this,true,'vq1')"><span class="opt-ltr">B</span>-ingia</div>
+          <div class="opt" onclick="mc(this,false,'vq1')"><span class="opt-ltr">C</span>-rudi</div>
+        </div>
+        <div class="q-feedback" id="fb-vq1"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Translate: <span class="sw">Ninakunywa maji.</span></div>
+        <div class="options-col">
+          <div class="opt" onclick="mc(this,false,'vq2')"><span class="opt-ltr">A</span>I am eating water</div>
+          <div class="opt" onclick="mc(this,true,'vq2')"><span class="opt-ltr">B</span>I am drinking water</div>
+          <div class="opt" onclick="mc(this,false,'vq2')"><span class="opt-ltr">C</span>We are drinking water</div>
+        </div>
+        <div class="q-feedback" id="fb-vq2"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Build the sentence: <span class="highlight">"They are singing"</span> — use Wa + na + imba</div>
+        <div class="fill-row">
+          <input class="fill-input" id="fi-vq3" placeholder="full sentence">
+          <button class="check-btn" onclick="fill('fi-vq3','wanaimba','fb-vq3','Correct! Wa+na+imba = Wanaimba (They are singing)','Wa (they) + na (present) + imba (sing) = Wanaimba')">Check</button>
+        </div>
+        <div class="q-feedback" id="fb-vq3"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 5. BUILDING SENTENCES ===== -->
+  <section class="lesson-section" id="building">
+    <div class="section-tag tag-purple">§ 5 — Putting It All Together</div>
+    <h2 class="section-title">Building <em>Complete</em> Sentences</h2>
+
+    <div class="prose-card">
+      <p>Now let's combine everything — subject, tense, object marker, verb stem, object noun, and location/time words — into full, rich sentences.</p>
+      <p>Swahili sentences can have extra information added using simple words for <strong>time</strong> (leo = today, kesho = tomorrow, jana = yesterday) and <strong>location</strong> (hapa = here, pale = there, nyumbani = at home).</p>
+    </div>
+
+    <table class="styled-table">
+      <thead><tr><th>Useful Word</th><th>Swahili</th><th>Used in a Sentence</th></tr></thead>
+      <tbody>
+        <tr><td><span class="cat-badge">today</span></td><td><span class="sw-word">leo</span></td><td class="ex-word">Ninakula leo. — I am eating today.</td></tr>
+        <tr><td><span class="cat-badge">yesterday</span></td><td><span class="sw-word">jana</span></td><td class="ex-word">Nilikwenda jana. — I went yesterday.</td></tr>
+        <tr><td><span class="cat-badge">tomorrow</span></td><td><span class="sw-word">kesho</span></td><td class="ex-word">Atakuja kesho. — He/She will come tomorrow.</td></tr>
+        <tr><td><span class="cat-badge">now</span></td><td><span class="sw-word">sasa</span></td><td class="ex-word">Ninafanya kazi sasa. — I am working now.</td></tr>
+        <tr><td><span class="cat-badge">here</span></td><td><span class="sw-word">hapa</span></td><td class="ex-word">Kaa hapa. — Sit here.</td></tr>
+        <tr><td><span class="cat-badge">there</span></td><td><span class="sw-word">pale / huko</span></td><td class="ex-word">Nyumba iko pale. — The house is there.</td></tr>
+        <tr><td><span class="cat-badge">at home</span></td><td><span class="sw-word">nyumbani</span></td><td class="ex-word">Niko nyumbani. — I am at home.</td></tr>
+        <tr><td><span class="cat-badge">very</span></td><td><span class="sw-word">sana</span></td><td class="ex-word">Ninakupenda sana. — I love you very much.</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-family:'DM Serif Display',serif;font-size:22px;margin:24px 0 16px;">Complex Sentence Examples</h3>
+    <div class="examples-list">
+      <div class="ex-item">
+        <span class="ex-num">01</span>
+        <div class="ex-content">
+          <span class="ex-sw">Mama alipika chakula jana nyumbani.</span>
+          <span class="ex-en">Mum cooked food at home yesterday.</span>
+          <div class="ex-breakdown">
+            <span class="breakdown-piece">Mama = subject</span>
+            <span class="breakdown-piece">a+li+pika = she cooked (past)</span>
+            <span class="breakdown-piece">chakula = food (object)</span>
+            <span class="breakdown-piece">jana = yesterday</span>
+            <span class="breakdown-piece">nyumbani = at home</span>
+          </div>
+        </div>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">02</span>
+        <div class="ex-content">
+          <span class="ex-sw">Je, utanisaidia kesho asubuhi?</span>
+          <span class="ex-en">Will you help me tomorrow morning?</span>
+          <div class="ex-breakdown">
+            <span class="breakdown-piece">Je = question marker</span>
+            <span class="breakdown-piece">u+ta+ni+saidia = you will help me</span>
+            <span class="breakdown-piece">kesho = tomorrow</span>
+            <span class="breakdown-piece">asubuhi = morning</span>
+          </div>
+        </div>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">03</span>
+        <div class="ex-content">
+          <span class="ex-sw">Watoto wanacheza mpira hapa sasa.</span>
+          <span class="ex-en">The children are playing ball here now.</span>
+          <div class="ex-breakdown">
+            <span class="breakdown-piece">Watoto = children</span>
+            <span class="breakdown-piece">wa+na+cheza = they are playing</span>
+            <span class="breakdown-piece">mpira = ball</span>
+            <span class="breakdown-piece">hapa = here</span>
+            <span class="breakdown-piece">sasa = now</span>
+          </div>
+        </div>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">04</span>
+        <div class="ex-content">
+          <span class="ex-sw">Ninajua kwamba anakupenda sana.</span>
+          <span class="ex-en">I know that he/she loves you very much.</span>
+          <div class="ex-breakdown">
+            <span class="breakdown-piece">Ninajua = I know</span>
+            <span class="breakdown-piece">kwamba = that (connector)</span>
+            <span class="breakdown-piece">ana+ku+penda = he/she loves you</span>
+            <span class="breakdown-piece">sana = very much</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FINAL QUIZ ===== -->
+  <section class="lesson-section" id="final">
+    <div class="section-tag tag-red">§ Final — Master Quiz</div>
+    <h2 class="section-title">Final <em>Challenge</em> — All Topics</h2>
+
+    <div class="quiz-card">
+      <div class="quiz-header"><span class="quiz-icon">🏆</span><span class="quiz-title">Final Quiz — Sentence Structure, Questions & Verbs</span></div>
+
+      <div class="q-block">
+        <div class="q-text">Translate the full sentence: <span class="sw">Walikwenda shule jana.</span> — (kwenda = to go, shule = school, jana = yesterday)</div>
+        <div class="options-col">
+          <div class="opt" onclick="mc(this,false,'fq1')"><span class="opt-ltr">A</span>They will go to school tomorrow.</div>
+          <div class="opt" onclick="mc(this,true,'fq1')"><span class="opt-ltr">B</span>They went to school yesterday.</div>
+          <div class="opt" onclick="mc(this,false,'fq1')"><span class="opt-ltr">C</span>We went to school yesterday.</div>
+        </div>
+        <div class="q-feedback" id="fb-fq1"></div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-text">How do you ask <span class="highlight">"When will you come?"</span> in Swahili?</div>
+        <div class="options-col">
+          <div class="opt" onclick="mc(this,false,'fq2')"><span class="opt-ltr">A</span>Utakuja wapi?</div>
+          <div class="opt" onclick="mc(this,true,'fq2')"><span class="opt-ltr">B</span>Utakuja lini?</div>
+          <div class="opt" onclick="mc(this,false,'fq2')"><span class="opt-ltr">C</span>Lini utakuja?</div>
+        </div>
+        <div class="q-feedback" id="fb-fq2"></div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-text">What does <span class="sw">-weza</span> mean?</div>
+        <div class="options-col">
+          <div class="opt" onclick="mc(this,false,'fq3')"><span class="opt-ltr">A</span>to finish</div>
+          <div class="opt" onclick="mc(this,false,'fq3')"><span class="opt-ltr">B</span>to enter</div>
+          <div class="opt" onclick="mc(this,true,'fq3')"><span class="opt-ltr">C</span>to be able to / can</div>
+        </div>
+        <div class="q-feedback" id="fb-fq3"></div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-text">Build: <span class="highlight">"I am drinking water"</span> — use Ni + na + kunywa + maji</div>
+        <div class="fill-row">
+          <input class="fill-input" id="fi-fq4" placeholder="full sentence">
+          <button class="check-btn" onclick="fill('fi-fq4','ninakunywa maji','fb-fq4','Perfect! Ninakunywa maji = I am drinking water','Ni+na+kunywa = Ninakunywa, then add maji (water)')">Check</button>
+        </div>
+        <div class="q-feedback" id="fb-fq4"></div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-text">Which is the correct way to say <span class="highlight">"Do you know Swahili?"</span></div>
+        <div class="options-col">
+          <div class="opt" onclick="mc(this,false,'fq5')"><span class="opt-ltr">A</span>Nani unajua Kiswahili?</div>
+          <div class="opt" onclick="mc(this,true,'fq5')"><span class="opt-ltr">B</span>Je, unajua Kiswahili?</div>
+          <div class="opt" onclick="mc(this,false,'fq5')"><span class="opt-ltr">C</span>Unajua Kiswahili nini?</div>
+        </div>
+        <div class="q-feedback" id="fb-fq5"></div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-text">Translate: <span class="highlight">"She will help us tomorrow"</span> — (saidia = help, kesho = tomorrow)</div>
+        <div class="fill-row">
+          <input class="fill-input" id="fi-fq6" placeholder="full sentence" style="width:280px">
+          <button class="check-btn" onclick="fill('fi-fq6','atatusaidia kesho','fb-fq6','Excellent! A+ta+tu+saidia = Atatusaidia + kesho (tomorrow)','A (she) + ta (future) + tu (us, object marker) + saidia = Atatusaidia kesho')">Check</button>
+        </div>
+        <div class="q-feedback" id="fb-fq6"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- SCORE BADGE -->
+<div class="score-badge">
+  <span>Score</span>
+  <span class="s-val" id="scoreVal">0</span>
+  <span style="color:#a09070">/ <span id="scoreTotal">0</span></span>
+</div>
+
+<script>
+  let sc = 0, tot = 0;
+  function upd() {
+    document.getElementById('scoreVal').textContent = sc;
+    document.getElementById('scoreTotal').textContent = tot;
+  }
+
+  function mc(el, correct, id) {
+    const siblings = el.parentElement.querySelectorAll('.opt');
+    if ([...siblings].some(s => s.classList.contains('correct') || s.classList.contains('wrong'))) return;
+    tot++;
+    siblings.forEach(s => s.classList.add('locked'));
+    const fb = document.getElementById('fb-' + id);
+    if (correct) {
+      el.classList.add('correct');
+      sc++;
+      fb.textContent = '✓ Sahihi! Correct!';
+      fb.className = 'q-feedback show ok';
+    } else {
+      el.classList.add('wrong');
+      fb.textContent = '✗ Hapana — the highlighted option is correct.';
+      fb.className = 'q-feedback show no';
+      siblings.forEach(s => { if (s.onclick && s.onclick.toString().includes('true')) s.classList.add('correct'); });
+    }
+    upd();
+  }
+
+  function fill(inputId, answer, fbId, okMsg, noMsg) {
+    const inp = document.getElementById(inputId);
+    const fb = document.getElementById(fbId);
+    if (inp.disabled) return;
+    const val = inp.value.trim().toLowerCase().replace(/[.,!?]/g, '');
+    const ans = answer.toLowerCase().replace(/[.,!?]/g, '');
+    tot++;
+    inp.disabled = true;
+    if (val === ans || val.replace(/\s+/g,'') === ans.replace(/\s+/g,'')) {
+      inp.classList.add('correct');
+      sc++;
+      fb.textContent = '✓ ' + okMsg;
+      fb.className = 'q-feedback show ok';
+    } else {
+      inp.classList.add('wrong');
+      fb.textContent = '✗ ' + noMsg;
+      fb.className = 'q-feedback show no';
+    }
+    upd();
+  }
+</script>
+</body>
+</html>

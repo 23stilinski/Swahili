@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PA · KU · MU — Swahili Locatives</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:      #0c0c0f;
+    --surface: #13131a;
+    --card:    #1a1a24;
+    --border:  #252535;
+
+    --pa:      #ff6b35;
+    --pa-dim:  rgba(255,107,53,0.12);
+    --pa-mid:  rgba(255,107,53,0.25);
+
+    --ku:      #3ecfb0;
+    --ku-dim:  rgba(62,207,176,0.12);
+    --ku-mid:  rgba(62,207,176,0.25);
+
+    --mu:      #9b72ff;
+    --mu-dim:  rgba(155,114,255,0.12);
+    --mu-mid:  rgba(155,114,255,0.25);
+
+    --gold:    #ffd166;
+    --text:    #f0ede6;
+    --muted:   #6a6a8a;
+    --soft:    #a0a0c0;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 400;
+    line-height: 1.65;
+    min-height: 100vh;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 24px 52px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: 'MAHALI';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(80px,18vw,200px);
+    font-weight: 900;
+    color: rgba(255,255,255,0.025);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: 0.05em;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4px 12px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(48px, 10vw, 96px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+  }
+  .hero h1 .pa { color: var(--pa); }
+  .hero h1 .ku { color: var(--ku); }
+  .hero h1 .mu { color: var(--mu); }
+  .hero h1 .sep { color: var(--border); margin: 0 8px; }
+  .hero-sub {
+    font-size: 17px;
+    color: var(--soft);
+    font-weight: 300;
+    max-width: 500px;
+    margin: 0 auto 32px;
+  }
+
+  /* big 3 intro pills */
+  .three-pills {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .big-pill {
+    border-radius: 16px;
+    padding: 18px 28px;
+    text-align: center;
+    min-width: 140px;
+    border: 2px solid;
+  }
+  .big-pill .bp-marker {
+    font-family: 'Syne', sans-serif;
+    font-size: 40px;
+    font-weight: 900;
+    line-height: 1;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .big-pill .bp-meaning {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .big-pill .bp-emoji { font-size: 24px; display: block; }
+
+  /* ── MAIN ── */
+  main { max-width: 860px; margin: 0 auto; padding: 56px 24px 100px; }
+
+  /* ── INTRO BOX ── */
+  .intro-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 56px;
+  }
+  .intro-box h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 14px;
+    color: var(--gold);
+  }
+  .intro-box p { font-size: 15px; color: var(--soft); margin-bottom: 12px; }
+  .intro-box p:last-child { margin-bottom: 0; }
+  .intro-box strong { color: var(--text); font-weight: 600; }
+
+  .formula-strip {
+    background: var(--bg);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-top: 18px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+  .fs-part {
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-weight: 500;
+  }
+
+  /* ── SECTION HEADING ── */
+  .sec-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .sec-badge {
+    font-family: 'Syne', sans-serif;
+    font-size: 48px;
+    font-weight: 900;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .sec-head-text h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(22px, 4vw, 32px);
+    font-weight: 800;
+    line-height: 1.1;
+  }
+  .sec-head-text p { font-size: 14px; color: var(--muted); margin-top: 4px; }
+  .sec-divider { flex: 1; height: 1px; background: var(--border); }
+
+  /* ── MAIN SECTION CARD ── */
+  .loc-section {
+    border-radius: 20px;
+    border: 2px solid;
+    overflow: hidden;
+    margin-bottom: 48px;
+  }
+
+  .loc-header {
+    padding: 28px 32px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .loc-marker-big {
+    font-family: 'Syne', sans-serif;
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .loc-header-text { flex: 1; min-width: 200px; }
+  .loc-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .loc-subtitle { font-size: 14px; color: var(--soft); line-height: 1.6; }
+  .loc-keyword {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 500;
+    margin-top: 8px;
+    letter-spacing: 0.08em;
+  }
+
+  /* analogy box */
+  .analogy-box {
+    margin: 0 24px 24px;
+    border-radius: 14px;
+    padding: 20px 24px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .analogy-icon { font-size: 32px; flex-shrink: 0; }
+  .analogy-box h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    margin-bottom: 5px;
+  }
+  .analogy-box p { font-size: 14px; line-height: 1.6; }
+
+  /* example rows */
+  .examples-wrap { padding: 0 24px 28px; }
+  .examples-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .example-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .ex-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .ex-sw {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 3px;
+    line-height: 1.2;
+  }
+  .ex-en { font-size: 12px; color: var(--muted); margin-bottom: 5px; }
+  .ex-note {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    padding-top: 5px;
+    margin-top: 5px;
+  }
+
+  /* when to use list */
+  .when-list { padding: 0 24px 28px; }
+  .when-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .when-item:last-child { border-bottom: none; }
+  .when-icon { font-size: 22px; flex-shrink: 0; }
+  .when-text strong { font-weight: 700; font-size: 15px; display: block; margin-bottom: 2px; }
+  .when-text span { font-size: 13px; color: var(--muted); }
+
+  /* ── COMPARISON TABLE ── */
+  .compare-section { margin-bottom: 48px; }
+  .compare-section h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .compare-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .compare-table thead tr { background: var(--card); }
+  .compare-table th {
+    padding: 14px 16px;
+    text-align: left;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    border-bottom: 2px solid var(--border);
+  }
+  .compare-table td {
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:hover td { background: rgba(255,255,255,0.015); }
+  .ct-marker {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+  }
+  .ct-meaning { font-weight: 600; font-size: 14px; }
+  .ct-when { font-size: 13px; color: var(--soft); }
+  .ct-sw { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; }
+  .ct-en { font-size: 12px; color: var(--muted); }
+
+  /* ── SIDE BY SIDE ── */
+  .side-section { margin-bottom: 48px; }
+  .side-section h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .side-section .desc { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
+
+  .trio-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .trio-card {
+    border-radius: 14px;
+    border: 2px solid;
+    padding: 18px 16px;
+    text-align: center;
+  }
+  .trio-marker {
+    font-family: 'Syne', sans-serif;
+    font-size: 36px;
+    font-weight: 900;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .trio-sw {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .trio-en { font-size: 12px; color: var(--muted); }
+
+  /* ── SENTENCE BUILD ── */
+  .build-section { margin-bottom: 48px; }
+  .build-section h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .build-section .desc { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
+
+  .build-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px 24px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .build-loc {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 900;
+    flex-shrink: 0;
+    width: 44px;
+    text-align: center;
+  }
+  .build-content { flex: 1; min-width: 200px; }
+  .build-sw {
+    font-family: 'Syne', sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+  .build-en { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+  .build-breakdown {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    background: var(--bg);
+    padding: 6px 10px;
+    border-radius: 6px;
+    display: inline-block;
+  }
+
+  /* ── TIPS ── */
+  .tip-box {
+    background: rgba(255,209,102,0.07);
+    border: 1px solid rgba(255,209,102,0.2);
+    border-left: 4px solid var(--gold);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: #c8a84a;
+    line-height: 1.65;
+  }
+  .tip-box strong { color: var(--gold); }
+
+  /* ── QUIZ ── */
+  .quiz-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 32px;
+  }
+  .quiz-section h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--gold);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .quiz-q { margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+  .quiz-q:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+  .q-text { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 12px; line-height: 1.5; }
+  .q-text .hi-pa { color: var(--pa); font-family: 'Syne', sans-serif; font-size: 18px; }
+  .q-text .hi-ku { color: var(--ku); font-family: 'Syne', sans-serif; font-size: 18px; }
+  .q-text .hi-mu { color: var(--mu); font-family: 'Syne', sans-serif; font-size: 18px; }
+  .q-opts { display: flex; flex-direction: column; gap: 8px; }
+  .q-opt {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text);
+    transition: all 0.18s;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .q-opt:hover { border-color: var(--gold); background: rgba(255,209,102,0.05); }
+  .q-opt.correct { border-color: var(--ku); background: var(--ku-dim); color: var(--ku); }
+  .q-opt.wrong { border-color: var(--pa); background: var(--pa-dim); color: var(--pa); }
+  .q-opt.disabled { cursor: default; pointer-events: none; opacity: 0.6; }
+  .q-opt.correct.disabled { opacity: 1; }
+  .opt-letter {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-weight: 600;
+  }
+  .q-fb { margin-top: 10px; font-size: 13px; padding: 10px 14px; border-radius: 8px; display: none; line-height: 1.5; }
+  .q-fb.show { display: block; }
+  .q-fb.ok { background: var(--ku-dim); color: var(--ku); border: 1px solid rgba(62,207,176,0.3); }
+  .q-fb.no { background: var(--pa-dim); color: var(--pa); border: 1px solid rgba(255,107,53,0.3); }
+
+  .fill-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; align-items: center; }
+  .fill-in {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+    width: 80px;
+  }
+  .fill-in:focus { border-color: var(--gold); }
+  .fill-in.ok { border-color: var(--ku); color: var(--ku); }
+  .fill-in.no { border-color: var(--pa); color: var(--pa); }
+  .chk-btn {
+    background: var(--gold);
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    text-transform: uppercase;
+  }
+  .chk-btn:hover { opacity: 0.85; }
+
+  /* score */
+  .score-fixed {
+    position: fixed;
+    bottom: 20px; right: 20px;
+    background: var(--card);
+    border: 1px solid var(--gold);
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    z-index: 100;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  }
+  .score-label { color: var(--muted); letter-spacing: 0.1em; font-size: 10px; }
+  .score-val { color: var(--gold); font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 900; }
+
+  @media(max-width:600px){
+    .trio-grid { grid-template-columns: 1fr; }
+    .example-row { grid-template-columns: 1fr; }
+    .loc-header { flex-direction: column; gap: 10px; }
+    main { padding: 36px 16px 80px; }
+    .quiz-section, .loc-section { padding: 20px; border-radius: 16px; }
+    .analogy-box, .examples-wrap, .when-list { padding: 0 16px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-tag">Sarufi · Grammar · Mahali</div>
+  <h1>
+    <span class="pa">PA</span><span class="sep">·</span>
+    <span class="ku">KU</span><span class="sep">·</span>
+    <span class="mu">MU</span>
+  </h1>
+  <p class="hero-sub">The three Swahili locatives — how to talk about WHERE something is, happens, or goes.</p>
+  <div class="three-pills">
+    <div class="big-pill" style="background:var(--pa-dim);border-color:var(--pa)">
+      <span class="bp-marker" style="color:var(--pa)">PA</span>
+      <span class="bp-meaning" style="color:var(--pa)">Exact place</span>
+      <span class="bp-emoji">📍</span>
+    </div>
+    <div class="big-pill" style="background:var(--ku-dim);border-color:var(--ku)">
+      <span class="bp-marker" style="color:var(--ku)">KU</span>
+      <span class="bp-meaning" style="color:var(--ku)">General / movement</span>
+      <span class="bp-emoji">🗺️</span>
+    </div>
+    <div class="big-pill" style="background:var(--mu-dim);border-color:var(--mu)">
+      <span class="bp-marker" style="color:var(--mu)">MU</span>
+      <span class="bp-meaning" style="color:var(--mu)">Inside / within</span>
+      <span class="bp-emoji">📦</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- INTRO -->
+  <div class="intro-box">
+    <h2>🌍 What are PA, KU, MU?</h2>
+    <p>In English we use just one word for location — <strong>"at"</strong>, <strong>"in"</strong>, <strong>"to"</strong>. In Swahili, there are <strong>three different locative markers</strong> depending on HOW you're describing the location.</p>
+    <p>Think of it this way:</p>
+    <p>
+      <strong style="color:var(--pa)">PA</strong> = you can point your finger at exactly where it is. <em style="color:var(--muted)">"Right there!"</em><br>
+      <strong style="color:var(--ku)">KU</strong> = a general area, direction, or movement toward a place. <em style="color:var(--muted)">"Over there somewhere / going to..."</em><br>
+      <strong style="color:var(--mu)">MU</strong> = something is INSIDE a space or container. <em style="color:var(--muted)">"In there / within..."</em>
+    </p>
+    <div class="formula-strip">
+      <span class="fs-part" style="background:var(--pa-dim);color:var(--pa)">PA — definite spot</span>
+      <span style="color:var(--muted)">·</span>
+      <span class="fs-part" style="background:var(--ku-dim);color:var(--ku)">KU — direction / general</span>
+      <span style="color:var(--muted)">·</span>
+      <span class="fs-part" style="background:var(--mu-dim);color:var(--mu)">MU — inside / enclosed</span>
+    </div>
+  </div>
+
+  <!-- ════════════════ PA ════════════════ -->
+  <div class="loc-section" style="border-color:var(--pa)">
+    <div class="loc-header" style="background:var(--pa-dim)">
+      <div class="loc-marker-big" style="color:var(--pa)">PA</div>
+      <div class="loc-header-text">
+        <div class="loc-title" style="color:var(--pa)">PA — The Exact Spot</div>
+        <div class="loc-subtitle">Use PA when you're talking about a <strong>specific, definite location</strong> — like pointing at something with your finger. "Right here. Right there." You know exactly where it is.</div>
+        <span class="loc-keyword" style="background:var(--pa-dim);color:var(--pa)">= AT · ON · NEAR (specific)</span>
+      </div>
+    </div>
+
+    <div class="analogy-box" style="background:var(--pa-dim)">
+      <span class="analogy-icon">📍</span>
+      <div>
+        <h3 style="color:var(--pa)">Think of it as a PIN on a map</h3>
+        <p style="color:#d4a08a">When you drop a pin on Google Maps — that's <strong style="color:var(--pa)">PA</strong>. A precise, known, fixed point. "The book is <em>right there</em> on the table." You're not guessing — you can see it!</p>
+      </div>
+    </div>
+
+    <div class="when-list">
+      <div class="when-item">
+        <span class="when-icon">✅</span>
+        <div class="when-text">
+          <strong style="color:var(--text)">A specific named location</strong>
+          <span>Somewhere you know by name — a city, a building, a specific room</span>
+        </div>
+      </div>
+      <div class="when-item">
+        <span class="when-icon">✅</span>
+        <div class="when-text">
+          <strong style="color:var(--text)">Near / next to something</strong>
+          <span>Describing proximity — "near the door", "next to the tree"</span>
+        </div>
+      </div>
+      <div class="when-item">
+        <span class="when-icon">✅</span>
+        <div class="when-text">
+          <strong style="color:var(--text)">On a surface</strong>
+          <span>Something sitting ON top of something else</span>
+        </div>
+      </div>
+      <div class="when-item">
+        <span class="when-icon">✅</span>
+        <div class="when-text">
+          <strong style="color:var(--text)">Answering "where exactly?"</strong>
+          <span>When someone wants to know the precise spot</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="examples-wrap">
+      <div class="examples-title">Examples — PA in action</div>
+      <div class="example-row">
+        <div class="ex-card">
+          <div class="ex-sw" style="color:var(--pa)">Kitabu kipo <span style="text-decoration:underline">mezani</span>.</div>
+          <div class="ex-en">The book is on the table.</div>
+          <div class="ex-note">ki-po = it is (PA form) | mezani = on the table</div>
+        </div>
+        <div class="ex-card">
+          <div class="ex-sw" style="color:var(--pa)">Nipo <span style="text-decoration:underline">hapa</span>.</div>
+          <div class="ex-en">I am right here.</div>
+          <div class="ex-note">ni-po = I am (PA) | hapa = here (exact)</div>
+        </div>
+      </div>
+      <div class="example-row">
+        <div class="ex-card">
+          <div class="ex-sw" style="color:var(--pa)">Yeye yuko <span style="text-decoration:underline">mlangoni</span>.</div>
+          <div class="ex-en">He/She is at the door.</div>
+          <div class="ex-note">yu-ko = he/she is (PA) | mlangoni = at the door</div>
+        </div>
+        <div class="ex-card">
+          <div class="ex-sw" style="color:var(--pa)">Wanaishi <span style="text-decoration:underline">Nairobi</span>.</div>
+          <div class="ex-en">They live in Nairobi.</div>
+          <div class="ex-note">PA — Nairobi is a specific, known place</div>
+        </div>
+      </div>
+      <div class="example-row">
+        <div class="ex-card">
+          <div class="ex-sw" style="color:var(--pa)">Kaa <span style="text-decoration:underline">pale</span>.</div>
+          <div class="ex-en">Sit right there.</div>
+          <div class="ex-note">pale = right there (specific visible spot)</div>
+        </div>
+        <div class="ex-card">
+          <div class="ex-sw" style="color:var(--pa)">Duka lipo <span style="text-decoration:underline">pembeni</span>.</div>
+          <div class="ex-en">The shop is nearby.</div>
+          <div class="ex-note">li-po = it is (PA) | pembeni = nearby, next to</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════ KU ════════════════ -->
+  <div class="loc-section" style="border-color:var(--ku)">
+    <div class="loc-header" style="background:var(--ku-dim)">
+      <div class="loc-marker-big" style="color:var(--ku)">KU</div>
+      <div class="loc-header-text">
+        <div class="loc-title" style="color:var(--ku)">KU — Direction & General Place</div>
+        <div class="loc-subtitle">Use KU for <strong>movement toward</strong> a place, a <strong>general area</strong> (not pinpointed), or when the location is <strong>vague / unspecified</strong>. Also used with infinitive verbs (to go, to run, etc.).</div>
+        <span class="loc-keyword" style="background:var(--ku-dim);color:var(--ku)">= TO · TOWARDS · GENERALLY AT</span>
+      </div>
+    </div>
+
+    <div class="analogy-box" style="background:var(--ku-dim)">
+      <span class="analogy-icon">🗺️</span>
+      <div>
+        <h3 style="color:var(--ku)">Think of it as a region on a map — no pin, just an area</h3>
+        <p style="color:#7ab8ae">You say "I'm going <em>towards town</em>" — you're not at a specific spot, you're heading in a direction. That's <strong style="color:var(--ku)">KU</strong>. It's also the prefix for ALL Swahili infinitives — <em>ku-la</em> (to eat), <em>ku-enda</em> (to go), <em>ku-imba</em> (to sing).</p>
+      </div>
+    </div>
+
+    <div class="when-list">
+      <div class="when-item">
+        <span class="when-icon">✅</span>
+        <div class="when-text">
+          <strong style="color:var(--text)">Movement / going TO a place</strong>
+          <span>"I am going to school" — direction of travel</span>
+        </div>
+      </div>
+      <div class="when-item">
+        <span class="when-icon">✅</span>
+        <div class="when-text">
+          <strong style="color:var(--text)">A general, unspecified area</strong>
+          <span>"Somewhere over there" — you don't know exactly where</span>
+        </div>
+      </div>
+      <div class="when-item">
+        <span class="when-icon">✅</span>
+        <div class="when-text">
+          <strong style="color:var(--text)">Infinitive verbs (to + verb)</strong>
+          <span>Every Swahili verb in its base form starts with KU — ku-la, ku-imba, ku-soma</span>
+        </div>
+      </div>
+      <div class="when-item">
+        <span class="when-icon">✅</span>
+        <div class="when-text">
+          <strong style="color:var(--text)">Far away / over there (general)</strong>
+          <span>When something is distant but not precisely pointed at</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="examples-wrap">
+      <div class="examples-title">Examples — KU in action</div>
+      <div class="example-row">
+        <div class="ex-card">
+          <div class="ex-sw" style="color:var(--ku)">Ninaenda <span style="text-decoration:underline">shuleni</span>.</div>
+          <div class="ex-en">I am going to school.</div>
+          <div class="ex-note">Going TO = KU direction | shuleni = to school</div>
+        </div>
+        <div class="ex-card">
+          <div class="ex-sw" style="color:var(--ku)">Yuko <span style="text-decoration:underline">mbali</span>.</div>
+          <div class="ex-en">He/She is far away.</div>
+          <div class="ex-note">yu-ko = he/she is (KU form) | mbali = far</div>
+        </div>
+      </div>
+      <div class="example-row">
+        <div class="ex-card">
+          <div class="ex-sw" style="color:var(--ku)">Ninataka <span style="text-decoration:underline">kwenda</span> sokoni.</div>
+          <div class="ex-en">I want to go to the market.</div>
+          <div class="ex-note">kwenda = ku + enda (to go) — KU infinitive</div>
+        </div>
+        <div class="ex-card">
+          <div class="ex-sw" style="color:var(--ku)">Watoto wako <span style="text-decoration:underline">nje</span>.</div>
+          <div class="ex-en">The children are outside.</div>
+          <div class="ex-note">wa-ko = they are (KU) | nje = outside (general)</div>
+        </div>
+      </div>
+      <div class="example-row">
+        <div class="ex-card">
+          <div class="ex-sw" style="color:var(--ku)">Nenda <span style="text-decoration:underline">huko</span>.</div>
+          <div class="ex-en">Go over there.</div>
+          <div class="ex-note">huko = over there (general, KU direction)</div>
+        </div>
+        <div class="ex-card">
+          <div class="ex-sw" style="color:var(--ku)">Anapenda <span style="text-decoration:underline">kusoma</span>.</div>
+          <div class="ex-en">He/She likes to read.</div>
+          <div class="ex-note">ku-soma = to read — KU infinitive form</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════ MU ════════════════ -->
+  <div class="loc-section" style="border-color:var(--mu)">
+    <div class="loc-header" style="background:var(--mu-dim)">
+      <div class="loc-marker-big" style="color:var(--mu)">MU</div>
+      <div class="loc-header-text">
+        <div class="loc-title" style="color:var(--mu)">MU — Inside & Within</div>
+        <div class="loc-subtitle">Use MU when something is <strong>inside, within, or enclosed</strong> by something — a building, a container, a room, a country, a body of water. Anything with an interior that you can be <em>inside of</em>.</div>
+        <span class="loc-keyword" style="background:var(--mu-dim);color:var(--mu)">= IN · INSIDE · WITHIN</span>
+      </div>
+    </div>
+
+    <div class="analogy-box" style="background:var(--mu-dim)">
+      <span class="analogy-icon">📦</span>
+      <div>
+        <h3 style="color:var(--mu)">Think of it as being INSIDE a box</h3>
+        <p style="color:#b09ae0">If you can physically be <em>inside</em> something — a room, a building, a country, a bag, a river — that's <strong style="color:var(--mu)">MU</strong>. The key question is: <em>"Is there a surrounding space you're enclosed within?"</em> If yes, use MU.</p>
+      </div>
+    </div>
+
+    <div class="when-list">
+      <div class="when-item">
+        <span class="when-icon">✅</span>
+        <div class="when-text">
+          <strong style="color:var(--text)">Inside a room or building</strong>
+          <span>"In the house", "In the classroom", "In the hospital"</span>
+        </div>
+      </div>
+      <div class="when-item">
+        <span class="when-icon">✅</span>
+        <div class="when-text">
+          <strong style="color:var(--text)">Inside a container or object</strong>
+          <span>"In the bag", "In the box", "In the cup"</span>
+        </div>
+      </div>
+      <div class="when-item">
+        <span class="when-icon">✅</span>
+        <div class="when-text">
+          <strong style="color:var(--text)">Inside a country or large area</strong>
+          <span>"In Kenya", "In the forest", "In the water"</span>
+        </div>
+      </div>
+      <div class="when-item">
+        <span class="when-icon">✅</span>
+        <div class="when-text">
+          <strong style="color:var(--text)">Within a group or abstract space</strong>
+          <span>"In the family", "In my heart", "In my mind"</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="examples-wrap">
+      <div class="examples-title">Examples — MU in action</div>
+      <div class="example-row">
+        <div class="ex-card">
+          <div class="ex-sw" style="color:var(--mu)">Niko <span style="text-decoration:underline">nyumbani</span>.</div>
+          <div class="ex-en">I am in the house.</div>
+          <div class="ex-note">ni-ko = I am (MU form here) | nyumbani = in the house</div>
+        </div>
+        <div class="ex-card">
+          <div class="ex-sw" style="color:var(--mu)">Kitabu kimo <span style="text-decoration:underline">mfukoni</span>.</div>
+          <div class="ex-en">The book is in the bag.</div>
+          <div class="ex-note">ki-mo = it is (MU form) | mfukoni = in the bag</div>
+        </div>
+      </div>
+      <div class="example-row">
+        <div class="ex-card">
+          <div class="ex-sw" style="color:var(--mu)">Wanaishi <span style="text-decoration:underline">Kenya</span>.</div>
+          <div class="ex-en">They live in Kenya.</div>
+          <div class="ex-note">MU — inside the country of Kenya</div>
+        </div>
+        <div class="ex-card">
+          <div class="ex-sw" style="color:var(--mu)">Samaki wamo <span style="text-decoration:underline">majini</span>.</div>
+          <div class="ex-en">The fish are in the water.</div>
+          <div class="ex-note">wa-mo = they are (MU) | majini = in the water</div>
+        </div>
+      </div>
+      <div class="example-row">
+        <div class="ex-card">
+          <div class="ex-sw" style="color:var(--mu)">Daktari yuko <span style="text-decoration:underline">hospitalini</span>.</div>
+          <div class="ex-en">The doctor is in the hospital.</div>
+          <div class="ex-note">MU — inside the building</div>
+        </div>
+        <div class="ex-card">
+          <div class="ex-sw" style="color:var(--mu)">Moyo wangu uko <span style="text-decoration:underline">nawe</span>.</div>
+          <div class="ex-en">My heart is with you.</div>
+          <div class="ex-note">Abstract — within the space of being with you</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE VERB FORMS -->
+  <div class="side-section">
+    <h2>⚡ The "To Be" Verb — PA · KU · MU Forms</h2>
+    <p class="desc">This is the most important part. The verb <strong style="color:var(--text)">kuwa</strong> (to be) changes its subject prefix suffix depending on which locative you use:</p>
+
+    <div class="trio-grid">
+      <div class="trio-card" style="border-color:var(--pa);background:var(--pa-dim)">
+        <span class="trio-marker" style="color:var(--pa)">PA</span>
+        <table style="width:100%;font-size:13px;text-align:left;">
+          <tr><td style="color:var(--muted);padding:3px 0">I am</td><td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--pa)">Nipo</td></tr>
+          <tr><td style="color:var(--muted);padding:3px 0">You are</td><td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--pa)">Upo</td></tr>
+          <tr><td style="color:var(--muted);padding:3px 0">He/She is</td><td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--pa)">Yupo</td></tr>
+          <tr><td style="color:var(--muted);padding:3px 0">We are</td><td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--pa)">Tupo</td></tr>
+          <tr><td style="color:var(--muted);padding:3px 0">They are</td><td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--pa)">Wapo</td></tr>
+        </table>
+      </div>
+      <div class="trio-card" style="border-color:var(--ku);background:var(--ku-dim)">
+        <span class="trio-marker" style="color:var(--ku)">KU</span>
+        <table style="width:100%;font-size:13px;text-align:left;">
+          <tr><td style="color:var(--muted);padding:3px 0">I am</td><td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--ku)">Niko</td></tr>
+          <tr><td style="color:var(--muted);padding:3px 0">You are</td><td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--ku)">Uko</td></tr>
+          <tr><td style="color:var(--muted);padding:3px 0">He/She is</td><td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--ku)">Yuko</td></tr>
+          <tr><td style="color:var(--muted);padding:3px 0">We are</td><td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--ku)">Tuko</td></tr>
+          <tr><td style="color:var(--muted);padding:3px 0">They are</td><td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--ku)">Wako</td></tr>
+        </table>
+      </div>
+      <div class="trio-card" style="border-color:var(--mu);background:var(--mu-dim)">
+        <span class="trio-marker" style="color:var(--mu)">MU</span>
+        <table style="width:100%;font-size:13px;text-align:left;">
+          <tr><td style="color:var(--muted);padding:3px 0">I am</td><td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--mu)">Nimo</td></tr>
+          <tr><td style="color:var(--muted);padding:3px 0">You are</td><td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--mu)">Umo</td></tr>
+          <tr><td style="color:var(--muted);padding:3px 0">He/She is</td><td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--mu)">Yumo</td></tr>
+          <tr><td style="color:var(--muted);padding:3px 0">We are</td><td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--mu)">Tumo</td></tr>
+          <tr><td style="color:var(--muted);padding:3px 0">They are</td><td style="font-family:'Syne',sans-serif;font-weight:700;color:var(--mu)">Wamo</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <strong>🔑 Memory trick for the endings:</strong><br>
+      PA → ends in <strong>–PO</strong> (think: "spot-PO" — a specific spot!)<br>
+      KU → ends in <strong>–KO</strong> (think: "go-KO" — going somewhere!)<br>
+      MU → ends in <strong>–MO</strong> (think: "roOM-O" — inside a room!)
+    </div>
+  </div>
+
+  <!-- COMPARISON TABLE -->
+  <div class="compare-section">
+    <h2>📊 PA vs KU vs MU — Side by Side</h2>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Marker</th>
+          <th>Meaning</th>
+          <th>When to use</th>
+          <th>Swahili example</th>
+          <th>English</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="ct-marker" style="color:var(--pa)">PA</span></td>
+          <td><span class="ct-meaning">Exact spot</span></td>
+          <td><span class="ct-when">Specific named place, surface, near something</span></td>
+          <td><span class="ct-sw" style="color:var(--pa)">Nipo hapa</span></td>
+          <td class="ct-en">I am right here</td>
+        </tr>
+        <tr>
+          <td><span class="ct-marker" style="color:var(--ku)">KU</span></td>
+          <td><span class="ct-meaning">General / movement</span></td>
+          <td><span class="ct-when">Going to, general area, far away, vague</span></td>
+          <td><span class="ct-sw" style="color:var(--ku)">Niko mbali</span></td>
+          <td class="ct-en">I am far away</td>
+        </tr>
+        <tr>
+          <td><span class="ct-marker" style="color:var(--mu)">MU</span></td>
+          <td><span class="ct-meaning">Inside / within</span></td>
+          <td><span class="ct-when">Inside rooms, containers, countries, water</span></td>
+          <td><span class="ct-sw" style="color:var(--mu)">Nimo nyumbani</span></td>
+          <td class="ct-en">I am in the house</td>
+        </tr>
+        <tr>
+          <td><span class="ct-marker" style="color:var(--pa)">PA</span></td>
+          <td><span class="ct-meaning">On the table</span></td>
+          <td><span class="ct-when">Surface / known exact location</span></td>
+          <td><span class="ct-sw" style="color:var(--pa)">Kitabu kipo mezani</span></td>
+          <td class="ct-en">The book is on the table</td>
+        </tr>
+        <tr>
+          <td><span class="ct-marker" style="color:var(--ku)">KU</span></td>
+          <td><span class="ct-meaning">Going to school</span></td>
+          <td><span class="ct-when">Movement / direction</span></td>
+          <td><span class="ct-sw" style="color:var(--ku)">Ninaenda shuleni</span></td>
+          <td class="ct-en">I am going to school</td>
+        </tr>
+        <tr>
+          <td><span class="ct-marker" style="color:var(--mu)">MU</span></td>
+          <td><span class="ct-meaning">In the bag</span></td>
+          <td><span class="ct-when">Inside an enclosed space</span></td>
+          <td><span class="ct-sw" style="color:var(--mu)">Kimo mfukoni</span></td>
+          <td class="ct-en">It is in the bag</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SAME PLACE, THREE WAYS -->
+  <div class="build-section">
+    <h2>🏠 Same Place — Three Different Meanings</h2>
+    <p class="desc">Look at how PA, KU and MU give three completely different meanings even with the same place word <strong style="color:var(--text)">nyumba</strong> (house):</p>
+
+    <div class="build-card">
+      <div class="build-loc" style="color:var(--pa)">PA</div>
+      <div class="build-content">
+        <div class="build-sw" style="color:var(--pa)">Yupo nyumbani.</div>
+        <div class="build-en">He/She is at the house. <em>(right there, at that specific house)</em></div>
+        <div class="build-breakdown">yu-PO = he/she is (PA) — exact known location</div>
+      </div>
+    </div>
+
+    <div class="build-card">
+      <div class="build-loc" style="color:var(--ku)">KU</div>
+      <div class="build-content">
+        <div class="build-sw" style="color:var(--ku)">Yuko nyumbani.</div>
+        <div class="build-en">He/She is home. <em>(generally at home, somewhere around the house)</em></div>
+        <div class="build-breakdown">yu-KO = he/she is (KU) — general location / direction</div>
+      </div>
+    </div>
+
+    <div class="build-card">
+      <div class="build-loc" style="color:var(--mu)">MU</div>
+      <div class="build-content">
+        <div class="build-sw" style="color:var(--mu)">Yumo nyumbani.</div>
+        <div class="build-en">He/She is inside the house. <em>(physically inside the building)</em></div>
+        <div class="build-breakdown">yu-MO = he/she is (MU) — inside the enclosed space</div>
+      </div>
+    </div>
+
+    <div class="tip-box" style="margin-top:20px;">
+      <strong>💬 Real talk:</strong> In everyday spoken Swahili, <strong>–ko (KU)</strong> is the most commonly used form and often substitutes for all three when the meaning is obvious from context. You'll hear <em>"Yuko nyumbani"</em> for all situations. But knowing all three makes your Swahili precise and impressive! 🌟
+    </div>
+  </div>
+
+  <!-- KU AS INFINITIVE PREFIX -->
+  <div class="build-section">
+    <h2 style="color:var(--ku)">🔤 KU — Also the Infinitive Prefix</h2>
+    <p class="desc">Here's where KU gets really interesting. <strong style="color:var(--text)">Every single Swahili verb in its base form starts with KU–.</strong> This is exactly the same KU — it marks the action as something general, not tied to any specific person or time yet. Think of it as "to do something" — open-ended, no direction, no subject. Just the idea of the action.</p>
+
+    <div style="background:var(--ku-dim);border:2px solid var(--ku);border-radius:16px;padding:24px 28px;margin-bottom:20px;">
+      <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--ku);margin-bottom:16px;">The Pattern: KU– + verb stem = "to [verb]"</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;">
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;">
+          <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--ku)">ku<span style="color:var(--text)">soma</span></div>
+          <div style="font-size:12px;color:var(--muted);margin-top:3px;">to read / to study</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--ku);margin-top:5px;">ku + soma</div>
+        </div>
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;">
+          <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--ku)">ku<span style="color:var(--text)">la</span></div>
+          <div style="font-size:12px;color:var(--muted);margin-top:3px;">to eat</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--ku);margin-top:5px;">ku + la</div>
+        </div>
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;">
+          <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--ku)">ku<span style="color:var(--text)">imba</span></div>
+          <div style="font-size:12px;color:var(--muted);margin-top:3px;">to sing</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--ku);margin-top:5px;">ku + imba</div>
+        </div>
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;">
+          <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--ku)">ku<span style="color:var(--text)">enda</span></div>
+          <div style="font-size:12px;color:var(--muted);margin-top:3px;">to go</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--ku);margin-top:5px;">ku + enda</div>
+        </div>
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;">
+          <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--ku)">ku<span style="color:var(--text)">sema</span></div>
+          <div style="font-size:12px;color:var(--muted);margin-top:3px;">to speak / to say</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--ku);margin-top:5px;">ku + sema</div>
+        </div>
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;">
+          <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--ku)">ku<span style="color:var(--text)">lala</span></div>
+          <div style="font-size:12px;color:var(--muted);margin-top:3px;">to sleep</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--ku);margin-top:5px;">ku + lala</div>
+        </div>
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;">
+          <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--ku)">ku<span style="color:var(--text)">penda</span></div>
+          <div style="font-size:12px;color:var(--muted);margin-top:3px;">to love / to like</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--ku);margin-top:5px;">ku + penda</div>
+        </div>
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;">
+          <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--ku)">ku<span style="color:var(--text)">nywa</span></div>
+          <div style="font-size:12px;color:var(--muted);margin-top:3px;">to drink</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--ku);margin-top:5px;">ku + nywa</div>
+        </div>
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;">
+          <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--ku)">ku<span style="color:var(--text)">cheza</span></div>
+          <div style="font-size:12px;color:var(--muted);margin-top:3px;">to play</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--ku);margin-top:5px;">ku + cheza</div>
+        </div>
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;">
+          <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--ku)">ku<span style="color:var(--text)">fanya</span></div>
+          <div style="font-size:12px;color:var(--muted);margin-top:3px;">to do / to make</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--ku);margin-top:5px;">ku + fanya</div>
+        </div>
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;">
+          <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--ku)">ku<span style="color:var(--text)">kaa</span></div>
+          <div style="font-size:12px;color:var(--muted);margin-top:3px;">to sit / to stay</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--ku);margin-top:5px;">ku + kaa</div>
+        </div>
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;">
+          <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--ku)">ku<span style="color:var(--text)">ja</span></div>
+          <div style="font-size:12px;color:var(--muted);margin-top:3px;">to come</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--ku);margin-top:5px;">ku + ja</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <strong>🔑 The connection between KU (locative) and KU (infinitive):</strong><br>
+      They are the SAME KU! When you say <em>"ninaenda shuleni"</em> (I am going to school) the direction is KU — general, open-ended, heading toward something. When you say <em>"kusoma"</em> (to read) — it's also open-ended, not yet tied to who or when. Both express something <strong>general and not pinned down</strong>. That's the heart of KU.
+    </div>
+
+    <!-- HOW IT'S USED IN SENTENCES -->
+    <div style="margin-top:24px;">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">KU infinitive used in real sentences</div>
+
+      <div class="build-card">
+        <div class="build-loc" style="color:var(--ku);font-size:18px;width:auto;padding-top:4px;">→</div>
+        <div class="build-content">
+          <div class="build-sw" style="color:var(--ku)">Ninapenda <span style="color:var(--text)">kusoma</span>.</div>
+          <div class="build-en">I like to read.</div>
+          <div class="build-breakdown">ninapenda = I like | ku-soma = to read (infinitive)</div>
+        </div>
+      </div>
+
+      <div class="build-card">
+        <div class="build-loc" style="color:var(--ku);font-size:18px;width:auto;padding-top:4px;">→</div>
+        <div class="build-content">
+          <div class="build-sw" style="color:var(--ku)">Anataka <span style="color:var(--text)">kula</span>.</div>
+          <div class="build-en">He/She wants to eat.</div>
+          <div class="build-breakdown">anataka = he/she wants | ku-la = to eat (infinitive)</div>
+        </div>
+      </div>
+
+      <div class="build-card">
+        <div class="build-loc" style="color:var(--ku);font-size:18px;width:auto;padding-top:4px;">→</div>
+        <div class="build-content">
+          <div class="build-sw" style="color:var(--ku)">Ni vizuri <span style="color:var(--text)">kulala</span> mapema.</div>
+          <div class="build-en">It is good to sleep early.</div>
+          <div class="build-breakdown">ni vizuri = it is good | ku-lala = to sleep | mapema = early</div>
+        </div>
+      </div>
+
+      <div class="build-card">
+        <div class="build-loc" style="color:var(--ku);font-size:18px;width:auto;padding-top:4px;">→</div>
+        <div class="build-content">
+          <div class="build-sw" style="color:var(--ku)">Ninajua <span style="color:var(--text)">kusema</span> Kiswahili!</div>
+          <div class="build-en">I know how to speak Swahili!</div>
+          <div class="build-breakdown">ninajua = I know | ku-sema = to speak | Kiswahili = Swahili</div>
+        </div>
+      </div>
+
+      <div class="build-card">
+        <div class="build-loc" style="color:var(--ku);font-size:18px;width:auto;padding-top:4px;">→</div>
+        <div class="build-content">
+          <div class="build-sw" style="color:var(--ku)"><span style="color:var(--text)">Kuimba</span> ni furaha.</div>
+          <div class="build-en">Singing is joy. / To sing is joyful.</div>
+          <div class="build-breakdown">ku-imba = to sing (subject of the sentence!) | furaha = joy</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-box" style="margin-top:20px;">
+      <strong>⚠️ What happens when you conjugate a verb?</strong><br>
+      When you actually USE the verb in a sentence with a subject and tense, the <strong>KU– drops off</strong> and gets replaced by the subject prefix + tense marker.<br><br>
+      <span style="font-family:'DM Mono',monospace;">ku-soma</span> (to read) →
+      <span style="color:var(--ku);font-family:'DM Mono',monospace;">Ni-na-soma</span> (I am reading)<br>
+      <span style="font-family:'DM Mono',monospace;">ku-la</span> (to eat) →
+      <span style="color:var(--ku);font-family:'DM Mono',monospace;">A-li-kula</span> (He/She ate)<br>
+      <span style="font-family:'DM Mono',monospace;">ku-imba</span> (to sing) →
+      <span style="color:var(--ku);font-family:'DM Mono',monospace;">Tu-ta-imba</span> (We will sing)<br><br>
+      The KU is like the verb's "resting state." Once it wakes up and gets a subject, KU steps aside!
+    </div>
+  </div>
+
+  <!-- LOCATION WORDS THAT USE EACH -->
+  <div class="build-section">
+    <h2>📍 Location Words & Which Locative They Use</h2>
+    <p class="desc">These common location words typically pair with a specific locative:</p>
+
+    <div class="trio-grid" style="margin-bottom:16px;">
+      <div style="background:var(--pa-dim);border:1px solid var(--pa);border-radius:14px;padding:18px 16px;">
+        <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--pa);margin-bottom:12px;">PA words</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:14px;">
+          <div><span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--pa)">Hapa</span> <span style="color:var(--muted)">— here (exact)</span></div>
+          <div><span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--pa)">Pale</span> <span style="color:var(--muted)">— there (visible)</span></div>
+          <div><span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--pa)">Hapo</span> <span style="color:var(--muted)">— right there / then</span></div>
+          <div><span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--pa)">Pembeni</span> <span style="color:var(--muted)">— beside / near</span></div>
+          <div><span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--pa)">Juu</span> <span style="color:var(--muted)">— on top of</span></div>
+          <div><span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--pa)">Chini</span> <span style="color:var(--muted)">— below / under</span></div>
+        </div>
+      </div>
+      <div style="background:var(--ku-dim);border:1px solid var(--ku);border-radius:14px;padding:18px 16px;">
+        <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--ku);margin-bottom:12px;">KU words</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:14px;">
+          <div><span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--ku)">Huko</span> <span style="color:var(--muted)">— over there (general)</span></div>
+          <div><span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--ku)">Mbali</span> <span style="color:var(--muted)">— far away</span></div>
+          <div><span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--ku)">Nje</span> <span style="color:var(--muted)">— outside</span></div>
+          <div><span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--ku)">Karibu</span> <span style="color:var(--muted)">— near (general)</span></div>
+          <div><span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--ku)">Kule</span> <span style="color:var(--muted)">— over there (far)</span></div>
+          <div><span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--ku)">Nyuma</span> <span style="color:var(--muted)">— behind / back</span></div>
+        </div>
+      </div>
+      <div style="background:var(--mu-dim);border:1px solid var(--mu);border-radius:14px;padding:18px 16px;">
+        <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--mu);margin-bottom:12px;">MU words</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:14px;">
+          <div><span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--mu)">Humu</span> <span style="color:var(--muted)">— in here (inside this)</span></div>
+          <div><span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--mu)">Ndani</span> <span style="color:var(--muted)">— inside</span></div>
+          <div><span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--mu)">Mule</span> <span style="color:var(--muted)">— inside that (over there)</span></div>
+          <div><span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--mu)">Majini</span> <span style="color:var(--muted)">— in the water</span></div>
+          <div><span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--mu)">Moyoni</span> <span style="color:var(--muted)">— in the heart</span></div>
+          <div><span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--mu)">Msituni</span> <span style="color:var(--muted)">— in the forest</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-section">
+    <h2>🧠 Test Yourself — PA · KU · MU</h2>
+
+    <div class="quiz-q">
+      <div class="q-text">Your friend asks where you are. You're standing right in front of them. You say <span class="hi-pa">"Nipo hapa!"</span> — which locative is this and why?</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="qa(this,true,'qf1')"><span class="opt-letter">A</span>PA — because you're at an exact, specific visible spot</button>
+        <button class="q-opt" onclick="qa(this,false,'qf1')"><span class="opt-letter">B</span>KU — because you're moving toward them</button>
+        <button class="q-opt" onclick="qa(this,false,'qf1')"><span class="opt-letter">C</span>MU — because you're inside a space</button>
+      </div>
+      <div class="q-fb" id="qf1"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">Fill in the blank: "The fish are in the water" = Samaki wa<span style="color:var(--gold)">___</span> majini</div>
+      <div class="fill-row">
+        <input type="text" class="fill-in" id="fi1" placeholder="mo/ko/po">
+        <button class="chk-btn" onclick="qf('fi1','mo','qff1','✅ Correct! Wamo — MU form because the fish are INSIDE the water!','❌ The answer is -mo (MU form) — the fish are enclosed inside the water.')">Check</button>
+      </div>
+      <div class="q-fb" id="qff1"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">Which sentence correctly uses <span class="hi-ku">KU</span> for movement?</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="qa(this,false,'qf2')"><span class="opt-letter">A</span>Kitabu kipo mezani (The book is on the table)</button>
+        <button class="q-opt" onclick="qa(this,true,'qf2')"><span class="opt-letter">B</span>Ninaenda shuleni (I am going to school)</button>
+        <button class="q-opt" onclick="qa(this,false,'qf2')"><span class="opt-letter">C</span>Yumo nyumbani (He is inside the house)</button>
+      </div>
+      <div class="q-fb" id="qf2"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">What is the difference between <span class="hi-ku">Yuko nyumbani</span> and <span class="hi-mu">Yumo nyumbani</span>?</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="qa(this,false,'qf3')"><span class="opt-letter">A</span>There is no difference — they mean exactly the same thing</button>
+        <button class="q-opt" onclick="qa(this,true,'qf3')"><span class="opt-letter">B</span>Yuko = generally at home / Yumo = physically inside the house</button>
+        <button class="q-opt" onclick="qa(this,false,'qf3')"><span class="opt-letter">C</span>Yuko = past tense / Yumo = present tense</button>
+      </div>
+      <div class="q-fb" id="qf3"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">Fill in: "I am inside the house" = Ni<span style="color:var(--gold)">___</span> nyumbani</div>
+      <div class="fill-row">
+        <input type="text" class="fill-in" id="fi2" placeholder="mo/ko/po">
+        <button class="chk-btn" onclick="qf('fi2','mo','qff2','✅ Nimo! You are inside (MU) the house. Well done!','❌ Answer: mo — Nimo nyumbani. MU because you are inside the house.')">Check</button>
+      </div>
+      <div class="q-fb" id="qff2"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">Which locative do ALL Swahili infinitive verbs (ku-la, ku-imba, ku-soma) use?</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="qa(this,false,'qf4')"><span class="opt-letter">A</span>PA</button>
+        <button class="q-opt" onclick="qa(this,true,'qf4')"><span class="opt-letter">B</span>KU</button>
+        <button class="q-opt" onclick="qa(this,false,'qf4')"><span class="opt-letter">C</span>MU</button>
+      </div>
+      <div class="q-fb" id="qf4"></div>
+    </div>
+
+  </div>
+
+</main>
+
+<div class="score-fixed">
+  <div class="score-label">SCORE</div>
+  <div class="score-val" id="sv">0</div>
+</div>
+
+<script>
+(function(){
+  let sc = 0;
+  function upd(){ document.getElementById('sv').textContent = sc; }
+
+  window.qa = function(btn, ok, fbId){
+    const opts = btn.parentElement.querySelectorAll('.q-opt');
+    if([...opts].some(o => o.classList.contains('correct')||o.classList.contains('wrong'))) return;
+    opts.forEach(o => o.classList.add('disabled'));
+    const fb = document.getElementById(fbId);
+    if(ok){
+      btn.classList.add('correct'); sc++; upd();
+      fb.textContent = '✅ Correct! Great understanding!';
+      fb.className = 'q-fb show ok';
+    } else {
+      btn.classList.add('wrong');
+      fb.textContent = '❌ Not quite — check the highlighted correct answer above.';
+      fb.className = 'q-fb show no';
+      opts.forEach(o => { if(o.onclick.toString().includes('true')) o.classList.add('correct'); });
+    }
+  };
+
+  window.qf = function(inpId, ans, fbId, okMsg, noMsg){
+    const inp = document.getElementById(inpId);
+    const fb = document.getElementById(fbId);
+    if(inp.disabled) return;
+    inp.disabled = true;
+    const val = inp.value.trim().toLowerCase().replace(/[^a-z]/g,'');
+    if(val === ans){ inp.classList.add('ok'); sc++; upd(); fb.textContent = okMsg; fb.className = 'q-fb show ok'; }
+    else { inp.classList.add('no'); fb.textContent = noMsg; fb.className = 'q-fb show no'; }
+  };
+})();
+</script>
+</body>
+</html>

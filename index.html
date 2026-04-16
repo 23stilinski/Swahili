@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kujifunza Kiswahili 🌍</title>
+  <meta name="description" content="An interactive Swahili learning platform with lessons, grammar references, and games.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌍</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ══ TOP NAV ══════════════════════════════════════════════ -->
+  <nav class="top-nav">
+    <a class="brand" onclick="showHome()" href="#">
+      <div class="brand-icon">🌍</div>
+      <div class="brand-name">Kujifunza <span>Kiswahili</span></div>
+    </a>
+
+    <div class="nav-search">
+      <span class="search-icon">🔍</span>
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Search lessons..."
+        autocomplete="off"
+      >
+    </div>
+
+    <button class="mob-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">☰</button>
+  </nav>
+
+  <!-- ══ LAYOUT ════════════════════════════════════════════════ -->
+  <div class="layout">
+
+    <!-- ── SIDEBAR ─────────────────────────────────────────── -->
+    <aside class="sidebar" id="sidebar">
+
+      <div class="sidebar-section">
+        <span class="sidebar-label">📚 Grammar</span>
+        <div id="sidebar-grammar">
+          <!-- populated by main.js -->
+        </div>
+      </div>
+
+      <div class="sidebar-divider"></div>
+
+      <div class="sidebar-section">
+        <span class="sidebar-label">📖 Vocabulary</span>
+        <div id="sidebar-vocab">
+          <!-- populated by main.js -->
+        </div>
+      </div>
+
+      <div class="sidebar-divider"></div>
+
+      <div class="sidebar-section">
+        <span class="sidebar-label">🎮 Games</span>
+        <div id="sidebar-games">
+          <!-- populated by main.js -->
+        </div>
+      </div>
+
+      <!-- Progress -->
+      <div class="progress-section">
+        <div class="prog-header">
+          Progress
+          <span id="prog-count">0 / 0</span>
+        </div>
+        <div class="prog-bar">
+          <div class="prog-fill" id="prog-fill"></div>
+        </div>
+        <div class="visited-dots" id="visited-dots"></div>
+      </div>
+
+    </aside>
+
+    <!-- ── CONTENT ──────────────────────────────────────────── -->
+    <div class="content-area">
+
+      <!-- HOME PANEL -->
+      <div id="home-panel">
+
+        <div class="home-hero">
+          <span class="hero-kicker">Karibu · Welcome</span>
+          <h1 class="hero-title">Your <em>Kiswahili</em><br>Learning Hub</h1>
+          <p class="hero-sub">
+            Grammar lessons, vocabulary guides, and interactive games —
+            all in one place. A new lesson added every week!
+          </p>
+          <div class="hero-week">
+            <span class="dot"></span>
+            Updated weekly by your teacher
+          </div>
+        </div>
+
+        <!-- Filter tabs -->
+        <div class="filter-row">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="grammar">📚 Grammar</button>
+          <button class="filter-btn" data-filter="vocab">📖 Vocabulary</button>
+          <button class="filter-btn" data-filter="game">🎮 Games</button>
+        </div>
+
+        <!-- Cards -->
+        <div class="cards-grid" id="cards-grid">
+          <!-- populated by main.js -->
+        </div>
+
+      </div><!-- /home-panel -->
+
+      <!-- MODULE PANEL -->
+      <div class="module-panel" id="module-panel">
+        <div class="module-topbar">
+          <button class="back-btn" onclick="showHome()">← Back</button>
+          <span class="crumb-sep">›</span>
+          <span class="crumb-current" id="crumb-current">–</span>
+          <span class="crumb-icon" id="crumb-icon"></span>
+        </div>
+        <div class="module-scroll" id="module-scroll">
+          <!-- lesson content loaded here by main.js -->
+        </div>
+      </div>
+
+    </div><!-- /content-area -->
+  </div><!-- /layout -->
+
+  <!-- ── SCRIPTS ──────────────────────────────────────────── -->
+  <script src="js/main.js"></script>
+
+</body>
+</html>

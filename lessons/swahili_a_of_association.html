@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A of Association – Noun Classes</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Syne:wght@700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:      #f8f5f0;
+    --surface: #ffffff;
+    --card:    #f0ece6;
+    --border:  #e0d8ce;
+    --ink:     #1a1510;
+    --muted:   #8a7f72;
+    --soft:    #b0a898;
+
+    /* noun class colours */
+    --m-wa:   #e03e2d; /* M-WA people */
+    --m-mi:   #2e86c1; /* M-MI trees/objects */
+    --ki-vi:  #1e8449; /* KI-VI things */
+    --n:      #7d3c98; /* N class animals/things */
+    --ji-ma:  #d68910; /* JI-MA fruits/body */
+    --ku:     #2e4057; /* KU abstract/infinitive */
+    --u:      #b03a2e; /* U class abstract */
+    --pa:     #1a5276; /* PA place */
+
+    --gold:   #f5a623;
+    --green:  #27ae60;
+    --red:    #e74c3c;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+    line-height: 1.65;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    padding: 52px 24px 44px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '-A-';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(120px, 28vw, 280px);
+    font-weight: 900;
+    color: rgba(255,255,255,0.03);
+    pointer-events: none;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+  .h-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 4px;
+    padding: 4px 12px;
+    margin-bottom: 18px;
+  }
+  header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 7vw, 68px);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+  header h1 .gold { color: var(--gold); }
+  header p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.45);
+    max-width: 500px;
+    margin: 0 auto;
+    font-weight: 400;
+  }
+
+  /* ── MAIN ── */
+  main { max-width: 900px; margin: 0 auto; padding: 48px 24px 100px; }
+
+  /* ── INTRO ── */
+  .intro-box {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-left: 5px solid var(--gold);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 40px;
+  }
+  .intro-box h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .intro-box p { font-size: 15px; color: var(--muted); margin-bottom: 10px; line-height: 1.7; }
+  .intro-box p:last-child { margin-bottom: 0; }
+  .intro-box strong { color: var(--ink); font-weight: 700; }
+
+  /* ── FORMULA STRIP ── */
+  .formula {
+    background: var(--ink);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .f-part {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    padding: 8px 16px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  .f-plus { color: rgba(255,255,255,0.3); font-size: 22px; font-weight: 300; }
+  .f-note { font-size: 12px; display: block; font-family: 'DM Mono', monospace; font-weight: 400; margin-top: 3px; opacity: 0.7; }
+
+  /* ── SECTION HEADING ── */
+  .sec-head {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sec-sub { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
+
+  /* ── THE BIG TABLE ── */
+  .class-table-wrap {
+    overflow-x: auto;
+    margin-bottom: 40px;
+    border-radius: 16px;
+    border: 2px solid var(--border);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+  .class-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    min-width: 680px;
+  }
+  .class-table thead tr {
+    background: var(--ink);
+  }
+  .class-table th {
+    padding: 14px 16px;
+    text-align: left;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .class-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .class-table tr:last-child td { border-bottom: none; }
+  .class-table tr:hover td { background: rgba(0,0,0,0.02); }
+
+  /* class name column */
+  .cls-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 7px;
+    white-space: nowrap;
+  }
+  /* connector column */
+  .cls-connector {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 900;
+    text-align: center;
+  }
+  /* example noun */
+  .cls-noun { font-weight: 700; font-size: 15px; }
+  .cls-noun-en { font-size: 11px; color: var(--muted); display: block; }
+  /* full possessive */
+  .cls-full {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .cls-full-en { font-size: 11px; color: var(--muted); display: block; margin-top: 2px; }
+  /* tip */
+  .cls-tip { font-size: 12px; color: var(--muted); font-style: italic; }
+
+  /* category rows */
+  .cat-row td {
+    background: var(--card);
+    padding: 8px 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── HIGHLIGHT STRIP ── */
+  .highlight-strip {
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .hs-icon { font-size: 28px; flex-shrink: 0; }
+  .hs-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 800; margin-bottom: 4px; }
+  .hs-body { font-size: 14px; line-height: 1.65; }
+
+  /* ── CONFUSION FIXER CARDS ── */
+  .confusion-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+  .conf-card {
+    border-radius: 14px;
+    border: 2px solid;
+    padding: 18px 20px;
+    background: var(--surface);
+  }
+  .conf-wrong {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    text-decoration: line-through;
+    color: var(--red);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .conf-right {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 4px;
+    display: block;
+  }
+  .conf-why { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  /* ── SHORTCUT TABLE ── */
+  .shortcut-box {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 36px;
+  }
+  .shortcut-box table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .shortcut-box thead tr { background: var(--ink); }
+  .shortcut-box th {
+    padding: 12px 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    font-weight: 500;
+    text-align: left;
+  }
+  .shortcut-box td { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+  .shortcut-box tr:last-child td { border-bottom: none; }
+  .shortcut-box tr:hover td { background: rgba(0,0,0,0.02); }
+  .sc-q { font-size: 13px; color: var(--muted); }
+  .sc-a { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; }
+  .sc-rule { font-size: 13px; color: var(--ink); font-weight: 600; }
+
+  /* ── QUIZ ── */
+  .quiz-box {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 20px;
+  }
+  .quiz-box h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--gold);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .quiz-q { margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+  .quiz-q:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+  .q-text { font-size: 15px; font-weight: 700; margin-bottom: 12px; line-height: 1.5; }
+  .q-text .sw { font-family: 'Syne', sans-serif; font-size: 18px; color: var(--ink); }
+  .q-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .q-opt {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    font-family: 'Syne', sans-serif;
+    transition: all 0.18s;
+    text-align: center;
+  }
+  .q-opt:hover { border-color: var(--gold); background: #fffbf0; }
+  .q-opt.correct { border-color: var(--green); background: #eafaf1; color: var(--green); }
+  .q-opt.wrong { border-color: var(--red); background: #fdf2f2; color: var(--red); }
+  .q-opt.disabled { pointer-events: none; opacity: 0.6; }
+  .q-opt.correct.disabled { opacity: 1; }
+  .q-fb { margin-top: 10px; font-size: 13px; padding: 10px 14px; border-radius: 8px; display: none; font-weight: 600; line-height: 1.5; }
+  .q-fb.show { display: block; }
+  .q-fb.ok { background: #eafaf1; color: var(--green); border: 1px solid #a9dfbf; }
+  .q-fb.no { background: #fdf2f2; color: var(--red); border: 1px solid #f5b7b1; }
+
+  .fill-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; align-items: center; }
+  .fill-in {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100px;
+  }
+  .fill-in:focus { border-color: var(--gold); }
+  .fill-in.ok { border-color: var(--green); color: var(--green); }
+  .fill-in.no { border-color: var(--red); color: var(--red); }
+  .chk-btn {
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    text-transform: uppercase;
+  }
+  .chk-btn:hover { opacity: 0.8; }
+
+  /* score pill */
+  .score-pill {
+    position: fixed;
+    bottom: 20px; right: 20px;
+    background: var(--ink);
+    color: #fff;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  }
+  .score-pill .sv {
+    color: var(--gold);
+    font-family: 'Syne', sans-serif;
+    font-size: 24px;
+    font-weight: 900;
+    display: block;
+    line-height: 1;
+  }
+
+  @media(max-width:600px){
+    main { padding: 32px 16px 80px; }
+    .q-opts { grid-template-columns: 1fr; }
+    .confusion-grid { grid-template-columns: 1fr; }
+    .intro-box { padding: 20px; }
+    .quiz-box { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="h-tag">Sarufi · Noun Classes · Possessives</div>
+  <h1>The <span class="gold">"A"</span> of Association<br>& Noun Classes</h1>
+  <p>Why "ya", "wa", "cha", "la", "za"... all mean the same thing — and how to always pick the right one.</p>
+</header>
+
+<main>
+
+  <!-- INTRO -->
+  <div class="intro-box">
+    <h2>🤔 Why does this get confusing?</h2>
+    <p>In English, we use just <strong>one word</strong> for possession: <em>"of"</em> or <em>"'s"</em>. Simple.</p>
+    <p>In Swahili, the word for "of / 's" <strong>changes depending on the noun</strong> you're talking about. The noun's class decides which connector you use. So instead of one word, there are <strong>8+ different connectors</strong> — all meaning "of".</p>
+    <p>The secret? <strong>You don't choose randomly.</strong> You look at the noun and its class — the class tells you exactly which connector to use. Once you know the pattern, it becomes automatic!</p>
+  </div>
+
+  <!-- FORMULA -->
+  <div class="formula">
+    <div class="f-part" style="background:rgba(255,255,255,0.08);color:#fff">
+      Noun 1
+      <span class="f-note">the owner / possessor</span>
+    </div>
+    <div class="f-plus">+</div>
+    <div class="f-part" style="background:rgba(245,166,35,0.25);color:var(--gold)">
+      connector
+      <span class="f-note">matches NOUN 2's class</span>
+    </div>
+    <div class="f-plus">+</div>
+    <div class="f-part" style="background:rgba(255,255,255,0.08);color:#fff">
+      Noun 2
+      <span class="f-note">the thing owned</span>
+    </div>
+  </div>
+
+  <!-- KEY RULE STRIP -->
+  <div class="highlight-strip" style="background:#fffbf0;border:2px solid #f5a623;margin-bottom:32px;">
+    <span class="hs-icon">🔑</span>
+    <div>
+      <div class="hs-title" style="color:#8a6200">The Golden Rule</div>
+      <div class="hs-body" style="color:#6a4400">
+        The connector always agrees with the <strong>thing being owned (Noun 2)</strong> — NOT the owner.<br>
+        <em>Example: "The book of the teacher" — the connector matches BOOK, not teacher.</em><br>
+        <strong>Kitabu cha mwalimu</strong> — cha = KI class (kitabu's class). Not the teacher's class!
+      </div>
+    </div>
+  </div>
+
+  <!-- THE BIG TABLE -->
+  <div class="sec-head">📋 All Noun Classes — Their Connector</div>
+  <div class="sec-sub">Find the noun class → use that connector. It's that simple.</div>
+
+  <div class="class-table-wrap">
+    <table class="class-table">
+      <thead>
+        <tr>
+          <th>Class</th>
+          <th>What it covers</th>
+          <th>Connector<br>("of")</th>
+          <th>Example noun</th>
+          <th>Full example</th>
+          <th>Meaning</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- M-WA -->
+        <tr class="cat-row"><td colspan="6">👥 People & Living Beings</td></tr>
+        <tr>
+          <td><span class="cls-name" style="background:#fdecea;color:var(--m-wa)">M / WA</span></td>
+          <td style="font-size:13px;color:var(--muted)">People, humans,<br>living beings</td>
+          <td>
+            <div class="cls-connector" style="color:var(--m-wa)">wa</div>
+            <div style="font-size:11px;color:var(--muted);text-align:center">plural & singular</div>
+          </td>
+          <td>
+            <div class="cls-noun" style="color:var(--m-wa)">mwalimu</div>
+            <span class="cls-noun-en">teacher</span>
+            <div class="cls-noun" style="color:var(--m-wa);margin-top:6px">watoto</div>
+            <span class="cls-noun-en">children</span>
+          </td>
+          <td>
+            <div class="cls-full" style="color:var(--m-wa)">kitabu <span style="color:var(--m-wa)">cha</span> mwalimu</div>
+            <span class="cls-full-en">the teacher's book</span>
+            <div class="cls-full" style="color:var(--m-wa);margin-top:6px">nyumba <span style="color:var(--m-wa)">ya</span> mama</div>
+            <span class="cls-full-en">mother's house</span>
+          </td>
+          <td class="cls-tip">For people, the connector matches the THING owned, not the person.<br><em>wa</em> only when a person is the THING owned.</td>
+        </tr>
+
+        <!-- M-MI -->
+        <tr class="cat-row"><td colspan="6">🌳 Plants, Trees & Some Objects (M-MI class)</td></tr>
+        <tr>
+          <td><span class="cls-name" style="background:#eaf3fb;color:var(--m-mi)">M / MI</span></td>
+          <td style="font-size:13px;color:var(--muted)">Trees, plants,<br>some body parts,<br>natural things</td>
+          <td>
+            <div class="cls-connector" style="color:var(--m-mi)">wa</div>
+            <div style="font-size:10px;color:var(--muted);text-align:center">singular (m-)</div>
+            <div class="cls-connector" style="color:var(--m-mi);margin-top:4px">ya</div>
+            <div style="font-size:10px;color:var(--muted);text-align:center">plural (mi-)</div>
+          </td>
+          <td>
+            <div class="cls-noun" style="color:var(--m-mi)">mti</div>
+            <span class="cls-noun-en">tree (singular)</span>
+            <div class="cls-noun" style="color:var(--m-mi);margin-top:6px">miti</div>
+            <span class="cls-noun-en">trees (plural)</span>
+          </td>
+          <td>
+            <div class="cls-full" style="color:var(--m-mi)">tunda <span style="color:var(--m-mi)">wa</span> mti</div>
+            <span class="cls-full-en">fruit of the tree</span>
+            <div class="cls-full" style="color:var(--m-mi);margin-top:6px">mizizi <span style="color:var(--m-mi)">ya</span> miti</div>
+            <span class="cls-full-en">roots of the trees</span>
+          </td>
+          <td class="cls-tip">mti (m-) → wa<br>miti (mi-) → ya</td>
+        </tr>
+
+        <!-- KI-VI -->
+        <tr class="cat-row"><td colspan="6">📚 Things & Objects (KI-VI class)</td></tr>
+        <tr>
+          <td><span class="cls-name" style="background:#eafaf1;color:var(--ki-vi)">KI / VI</span></td>
+          <td style="font-size:13px;color:var(--muted)">Objects, tools,<br>languages, foods,<br>body parts (some)</td>
+          <td>
+            <div class="cls-connector" style="color:var(--ki-vi)">cha</div>
+            <div style="font-size:10px;color:var(--muted);text-align:center">singular (ki-/ch-)</div>
+            <div class="cls-connector" style="color:var(--ki-vi);margin-top:4px">vya</div>
+            <div style="font-size:10px;color:var(--muted);text-align:center">plural (vi-)</div>
+          </td>
+          <td>
+            <div class="cls-noun" style="color:var(--ki-vi)">kitabu</div>
+            <span class="cls-noun-en">book (singular)</span>
+            <div class="cls-noun" style="color:var(--ki-vi);margin-top:6px">vitabu</div>
+            <span class="cls-noun-en">books (plural)</span>
+          </td>
+          <td>
+            <div class="cls-full" style="color:var(--ki-vi)">kitabu <span style="color:var(--ki-vi)">cha</span> mwanafunzi</div>
+            <span class="cls-full-en">the student's book</span>
+            <div class="cls-full" style="color:var(--ki-vi);margin-top:6px">vitabu <span style="color:var(--ki-vi)">vya</span> shule</div>
+            <span class="cls-full-en">school books</span>
+          </td>
+          <td class="cls-tip">ki → cha<br>vi → vya<br><em>"Kiswahili cha Kenya"</em></td>
+        </tr>
+
+        <!-- N class -->
+        <tr class="cat-row"><td colspan="6">🐘 Animals, Many Common Nouns (N class)</td></tr>
+        <tr>
+          <td><span class="cls-name" style="background:#f5eef8;color:var(--n)">N / N</span></td>
+          <td style="font-size:13px;color:var(--muted)">Animals, loanwords,<br>many common nouns<br>(same singular & plural)</td>
+          <td>
+            <div class="cls-connector" style="color:var(--n)">ya</div>
+            <div style="font-size:10px;color:var(--muted);text-align:center">both sing. & plural</div>
+          </td>
+          <td>
+            <div class="cls-noun" style="color:var(--n)">nyumba</div>
+            <span class="cls-noun-en">house</span>
+            <div class="cls-noun" style="color:var(--n);margin-top:6px">ndege</div>
+            <span class="cls-noun-en">bird / airplane</span>
+          </td>
+          <td>
+            <div class="cls-full" style="color:var(--n)">nyumba <span style="color:var(--n)">ya</span> baba</div>
+            <span class="cls-full-en">father's house</span>
+            <div class="cls-full" style="color:var(--n);margin-top:6px">mkia <span style="color:var(--n)">ya</span> mbwa</div>
+            <span class="cls-full-en">the dog's tail</span>
+          </td>
+          <td class="cls-tip">N class always uses <strong>ya</strong>. Easy! No change between singular & plural.</td>
+        </tr>
+
+        <!-- JI-MA -->
+        <tr class="cat-row"><td colspan="6">🍋 Fruits, Large Things & Some Body Parts (JI-MA class)</td></tr>
+        <tr>
+          <td><span class="cls-name" style="background:#fef9e7;color:var(--ji-ma)">JI / MA</span></td>
+          <td style="font-size:13px;color:var(--muted)">Fruits, large objects,<br>some body parts,<br>augmentatives</td>
+          <td>
+            <div class="cls-connector" style="color:var(--ji-ma)">la</div>
+            <div style="font-size:10px;color:var(--muted);text-align:center">singular (ji-/∅)</div>
+            <div class="cls-connector" style="color:var(--ji-ma);margin-top:4px">ya</div>
+            <div style="font-size:10px;color:var(--muted);text-align:center">plural (ma-)</div>
+          </td>
+          <td>
+            <div class="cls-noun" style="color:var(--ji-ma)">tunda</div>
+            <span class="cls-noun-en">fruit (singular)</span>
+            <div class="cls-noun" style="color:var(--ji-ma);margin-top:6px">matunda</div>
+            <span class="cls-noun-en">fruits (plural)</span>
+          </td>
+          <td>
+            <div class="cls-full" style="color:var(--ji-ma)">tunda <span style="color:var(--ji-ma)">la</span> embe</div>
+            <span class="cls-full-en">the mango fruit</span>
+            <div class="cls-full" style="color:var(--ji-ma);margin-top:6px">matunda <span style="color:var(--ji-ma)">ya</span> shamba</div>
+            <span class="cls-full-en">fruits of the farm</span>
+          </td>
+          <td class="cls-tip">ji/single → <strong>la</strong><br>ma/plural → <strong>ya</strong><br><em>"jicho la mtoto"</em> = child's eye</td>
+        </tr>
+
+        <!-- U class -->
+        <tr class="cat-row"><td colspan="6">💭 Abstract Nouns & Qualities (U class)</td></tr>
+        <tr>
+          <td><span class="cls-name" style="background:#fdecea;color:var(--u)">U</span></td>
+          <td style="font-size:13px;color:var(--muted)">Abstract nouns,<br>qualities, emotions,<br>some body parts</td>
+          <td>
+            <div class="cls-connector" style="color:var(--u)">wa</div>
+            <div style="font-size:10px;color:var(--muted);text-align:center">singular (u-)</div>
+            <div class="cls-connector" style="color:var(--u);margin-top:4px">ya</div>
+            <div style="font-size:10px;color:var(--muted);text-align:center">plural (∅ or nyi-)</div>
+          </td>
+          <td>
+            <div class="cls-noun" style="color:var(--u)">uso</div>
+            <span class="cls-noun-en">face</span>
+            <div class="cls-noun" style="color:var(--u);margin-top:6px">upendo</div>
+            <span class="cls-noun-en">love</span>
+          </td>
+          <td>
+            <div class="cls-full" style="color:var(--u)">uso <span style="color:var(--u)">wa</span> mtoto</div>
+            <span class="cls-full-en">the child's face</span>
+            <div class="cls-full" style="color:var(--u);margin-top:6px">upendo <span style="color:var(--u)">wa</span> mama</div>
+            <span class="cls-full-en">a mother's love</span>
+          </td>
+          <td class="cls-tip">U class → <strong>wa</strong> (singular)<br>Think: Upendo, Uzuri, Uso — all U class → wa</td>
+        </tr>
+
+        <!-- KU class -->
+        <tr class="cat-row"><td colspan="6">🔤 Verbal Nouns / Actions (KU class)</td></tr>
+        <tr>
+          <td><span class="cls-name" style="background:#eaf1fb;color:var(--ku)">KU</span></td>
+          <td style="font-size:13px;color:var(--muted)">Verbal nouns —<br>actions turned<br>into nouns</td>
+          <td>
+            <div class="cls-connector" style="color:var(--ku)">kwa</div>
+            <div style="font-size:10px;color:var(--muted);text-align:center">verbal noun</div>
+          </td>
+          <td>
+            <div class="cls-noun" style="color:var(--ku)">kusoma</div>
+            <span class="cls-noun-en">reading / to read</span>
+            <div class="cls-noun" style="color:var(--ku);margin-top:6px">kula</div>
+            <span class="cls-noun-en">eating / to eat</span>
+          </td>
+          <td>
+            <div class="cls-full" style="color:var(--ku)">wakati <span style="color:var(--ku)">wa</span> kusoma</div>
+            <span class="cls-full-en">time for reading</span>
+            <div class="cls-full" style="color:var(--ku);margin-top:6px">njia <span style="color:var(--ku)">ya</span> kufanya</div>
+            <span class="cls-full-en">a way of doing</span>
+          </td>
+          <td class="cls-tip">With verbal nouns the connector follows the first noun's class, not KU.</td>
+        </tr>
+
+        <!-- PA class -->
+        <tr class="cat-row"><td colspan="6">📍 Places (PA class)</td></tr>
+        <tr>
+          <td><span class="cls-name" style="background:#eaf3fb;color:var(--pa)">PA</span></td>
+          <td style="font-size:13px;color:var(--muted)">Places, locations,<br>positions</td>
+          <td>
+            <div class="cls-connector" style="color:var(--pa)">pa</div>
+            <div style="font-size:10px;color:var(--muted);text-align:center">place</div>
+          </td>
+          <td>
+            <div class="cls-noun" style="color:var(--pa)">mahali</div>
+            <span class="cls-noun-en">place</span>
+          </td>
+          <td>
+            <div class="cls-full" style="color:var(--pa)">mahali <span style="color:var(--pa)">pa</span> kukaa</div>
+            <span class="cls-full-en">a place to sit</span>
+          </td>
+          <td class="cls-tip">Rarely used in possessives. Usually pa- constructions are locative.</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <!-- QUICK CHEAT SHEET -->
+  <div class="sec-head" style="margin-top:0">⚡ Quick Cheat Sheet — "What connector do I use?"</div>
+  <div class="sec-sub">Ask yourself: what class is the THING BEING OWNED? Then use this table.</div>
+
+  <div class="shortcut-box" style="margin-bottom:36px;">
+    <table>
+      <thead>
+        <tr>
+          <th>The thing owned starts with / is...</th>
+          <th>Use connector</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="sc-q">m– (person/living) singular</td>
+          <td><span class="sc-a" style="color:var(--m-wa)">wa</span></td>
+          <td class="sc-rule">baba <strong style="color:var(--m-wa)">wa</strong> mtoto — father of the child</td>
+        </tr>
+        <tr>
+          <td class="sc-q">wa– (people) plural</td>
+          <td><span class="sc-a" style="color:var(--m-wa)">wa</span></td>
+          <td class="sc-rule">walimu <strong style="color:var(--m-wa)">wa</strong> shule — teachers of the school</td>
+        </tr>
+        <tr>
+          <td class="sc-q">ki– / ch– (object) singular</td>
+          <td><span class="sc-a" style="color:var(--ki-vi)">cha</span></td>
+          <td class="sc-rule">kitabu <strong style="color:var(--ki-vi)">cha</strong> mwanafunzi — the student's book</td>
+        </tr>
+        <tr>
+          <td class="sc-q">vi– (objects) plural</td>
+          <td><span class="sc-a" style="color:var(--ki-vi)">vya</span></td>
+          <td class="sc-rule">viti <strong style="color:var(--ki-vi)">vya</strong> chumba — chairs of the room</td>
+        </tr>
+        <tr>
+          <td class="sc-q">N class (animals, loanwords)</td>
+          <td><span class="sc-a" style="color:var(--n)">ya</span></td>
+          <td class="sc-rule">nyumba <strong style="color:var(--n)">ya</strong> baba — father's house</td>
+        </tr>
+        <tr>
+          <td class="sc-q">ji– / no prefix (fruit, big thing) singular</td>
+          <td><span class="sc-a" style="color:var(--ji-ma)">la</span></td>
+          <td class="sc-rule">tunda <strong style="color:var(--ji-ma)">la</strong> mti — fruit of the tree</td>
+        </tr>
+        <tr>
+          <td class="sc-q">ma– (fruits, plurals) plural</td>
+          <td><span class="sc-a" style="color:var(--ji-ma)">ya</span></td>
+          <td class="sc-rule">matunda <strong style="color:var(--ji-ma)">ya</strong> shamba — farm fruits</td>
+        </tr>
+        <tr>
+          <td class="sc-q">u– (abstract/quality) singular</td>
+          <td><span class="sc-a" style="color:var(--u)">wa</span></td>
+          <td class="sc-rule">upendo <strong style="color:var(--u)">wa</strong> Mungu — God's love</td>
+        </tr>
+        <tr>
+          <td class="sc-q">m– (tree/plant M-MI) singular</td>
+          <td><span class="sc-a" style="color:var(--m-mi)">wa</span></td>
+          <td class="sc-rule">kivuli <strong style="color:var(--m-mi)">wa</strong> mti — shadow of the tree</td>
+        </tr>
+        <tr>
+          <td class="sc-q">mi– (trees) plural</td>
+          <td><span class="sc-a" style="color:var(--m-mi)">ya</span></td>
+          <td class="sc-rule">matunda <strong style="color:var(--m-mi)">ya</strong> miti — fruits of the trees</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- COMMON CONFUSION FIXERS -->
+  <div class="sec-head">🚨 The Most Common Mistakes — Fixed!</div>
+  <div class="sec-sub">These are the ones that trip learners up most. Study these carefully!</div>
+
+  <div class="confusion-grid">
+
+    <div class="conf-card" style="border-color:var(--ki-vi)">
+      <span class="conf-wrong">kitabu ya mwanafunzi ❌</span>
+      <span class="conf-right" style="color:var(--ki-vi)">kitabu CHA mwanafunzi ✅</span>
+      <div class="conf-why">Kitabu = KI class → must use <strong>cha</strong> (not ya). Ya is for N class nouns.</div>
+    </div>
+
+    <div class="conf-card" style="border-color:var(--ji-ma)">
+      <span class="conf-wrong">tunda ya mtoto ❌</span>
+      <span class="conf-right" style="color:var(--ji-ma)">tunda LA mtoto ✅</span>
+      <div class="conf-why">Tunda = JI class (singular) → must use <strong>la</strong>. When it becomes matunda (plural) then it's <strong>ya</strong>.</div>
+    </div>
+
+    <div class="conf-card" style="border-color:var(--n)">
+      <span class="conf-wrong">nyumba cha baba ❌</span>
+      <span class="conf-right" style="color:var(--n)">nyumba YA baba ✅</span>
+      <div class="conf-why">Nyumba = N class → always uses <strong>ya</strong>. Cha is only for KI class nouns.</div>
+    </div>
+
+    <div class="conf-card" style="border-color:var(--m-wa)">
+      <span class="conf-wrong">watoto ya mama ❌</span>
+      <span class="conf-right" style="color:var(--m-wa)">watoto WA mama ✅</span>
+      <div class="conf-why">Watoto = WA class (people) → uses <strong>wa</strong>. Ya is not used for people!</div>
+    </div>
+
+    <div class="conf-card" style="border-color:var(--ki-vi)">
+      <span class="conf-wrong">vitabu cha shule ❌</span>
+      <span class="conf-right" style="color:var(--ki-vi)">vitabu VYA shule ✅</span>
+      <div class="conf-why">Vitabu = VI class (plural of kitabu) → uses <strong>vya</strong>. Cha is only for singular ki- nouns.</div>
+    </div>
+
+    <div class="conf-card" style="border-color:var(--u)">
+      <span class="conf-wrong">uso ya mtoto ❌</span>
+      <span class="conf-right" style="color:var(--u)">uso WA mtoto ✅</span>
+      <div class="conf-why">Uso = U class → uses <strong>wa</strong>. Don't confuse U class with N class just because they look similar!</div>
+    </div>
+
+  </div>
+
+  <!-- MEMORY TRICK -->
+  <div class="highlight-strip" style="background:#f0f8f4;border:2px solid #27ae60;margin-bottom:40px;">
+    <span class="hs-icon">🧠</span>
+    <div>
+      <div class="hs-title" style="color:#1a6b3a">Memory Trick — "WATCH ChaVYa LaYa"</div>
+      <div class="hs-body" style="color:#1a4a2e">
+        The 6 main connectors are: <strong>wa · cha · vya · la · ya · wa</strong><br><br>
+        Remember it as: <em>"<strong>W</strong>e <strong>CH</strong>ose <strong>VY</strong>ing <strong>LA</strong>nguages <strong>YA</strong>wning <strong>WA</strong>iting"</em><br><br>
+        Or think of them in pairs:<br>
+        👥 People (M/WA) → <strong style="color:var(--m-wa)">wa</strong><br>
+        📚 Objects (KI) → <strong style="color:var(--ki-vi)">cha</strong> | Objects plural (VI) → <strong style="color:var(--ki-vi)">vya</strong><br>
+        🍋 Fruits singular (JI) → <strong style="color:var(--ji-ma)">la</strong> | Fruits plural (MA) → <strong style="color:var(--ji-ma)">ya</strong><br>
+        🐘 Animals/N class → <strong style="color:var(--n)">ya</strong><br>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-box">
+    <h2>🧠 Test Yourself!</h2>
+
+    <div class="quiz-q">
+      <div class="q-text">What is the correct connector for <span class="sw">kitabu</span> (book — KI class)?</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="qa(this,false,'f1')">ya</button>
+        <button class="q-opt" onclick="qa(this,true,'f1')">cha</button>
+        <button class="q-opt" onclick="qa(this,false,'f1')">la</button>
+        <button class="q-opt" onclick="qa(this,false,'f1')">wa</button>
+      </div>
+      <div class="q-fb" id="f1"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">Fill in: <span class="sw">"nyumba ___ baba"</span> (father's house — nyumba is N class)</div>
+      <div class="fill-row">
+        <input type="text" class="fill-in" id="fi1" placeholder="connector">
+        <button class="chk-btn" onclick="qf('fi1','ya','ff1','✅ Correct! Nyumba ya baba — N class always uses ya!','❌ Answer: ya — nyumba is N class, always uses ya.')">Check</button>
+      </div>
+      <div class="q-fb" id="ff1"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">Which sentence is correct?</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="qa(this,false,'f2')">vitabu cha shule</button>
+        <button class="q-opt" onclick="qa(this,true,'f2')">vitabu vya shule</button>
+        <button class="q-opt" onclick="qa(this,false,'f2')">vitabu la shule</button>
+        <button class="q-opt" onclick="qa(this,false,'f2')">vitabu ya shule</button>
+      </div>
+      <div class="q-fb" id="f2"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">Fill in: <span class="sw">"tunda ___ mti"</span> (fruit of the tree — tunda is JI class singular)</div>
+      <div class="fill-row">
+        <input type="text" class="fill-in" id="fi2" placeholder="connector">
+        <button class="chk-btn" onclick="qf('fi2','la','ff2','✅ Tunda la mti — JI class singular uses la. Well done!','❌ Answer: la — tunda is JI class (singular), so it uses la.')">Check</button>
+      </div>
+      <div class="q-fb" id="ff2"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">Your friend says <span class="sw">"watoto ya mama."</span> What is wrong?</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="qa(this,false,'f3')">Nothing — it's correct</button>
+        <button class="q-opt" onclick="qa(this,true,'f3')">Should be "watoto WA mama" — people use wa not ya</button>
+        <button class="q-opt" onclick="qa(this,false,'f3')">Should be "watoto cha mama"</button>
+        <button class="q-opt" onclick="qa(this,false,'f3')">Should be "watoto la mama"</button>
+      </div>
+      <div class="q-fb" id="f3"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">Fill in: <span class="sw">"upendo ___ Mungu"</span> (God's love — upendo is U class)</div>
+      <div class="fill-row">
+        <input type="text" class="fill-in" id="fi3" placeholder="connector">
+        <button class="chk-btn" onclick="qf('fi3','wa','ff3','✅ Upendo wa Mungu — U class uses wa. Beautiful sentence!','❌ Answer: wa — upendo is U class, and U class uses wa.')">Check</button>
+      </div>
+      <div class="q-fb" id="ff3"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">The rule: the connector always agrees with the...</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="qa(this,false,'f4')">Person who owns it</button>
+        <button class="q-opt" onclick="qa(this,true,'f4')">Thing being owned (Noun 2)</button>
+        <button class="q-opt" onclick="qa(this,false,'f4')">Longest word in the sentence</button>
+        <button class="q-opt" onclick="qa(this,false,'f4')">The verb in the sentence</button>
+      </div>
+      <div class="q-fb" id="f4"></div>
+    </div>
+
+  </div>
+
+</main>
+
+<div class="score-pill">
+  <span style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:0.1em;">SCORE</span>
+  <span class="sv" id="sv">0</span>
+</div>
+
+<script>
+(function(){
+  let sc = 0;
+  function upd(){ document.getElementById('sv').textContent = sc; }
+
+  window.qa = function(btn, ok, fbId){
+    const opts = btn.parentElement.querySelectorAll('.q-opt');
+    if([...opts].some(o => o.classList.contains('correct') || o.classList.contains('wrong'))) return;
+    opts.forEach(o => o.classList.add('disabled'));
+    const fb = document.getElementById(fbId);
+    if(ok){
+      btn.classList.add('correct');
+      sc++; upd();
+      fb.textContent = '✅ Correct! Well done!';
+      fb.className = 'q-fb show ok';
+    } else {
+      btn.classList.add('wrong');
+      fb.textContent = '❌ Not quite — check the correct answer highlighted above.';
+      fb.className = 'q-fb show no';
+      opts.forEach(o => { if(o.onclick.toString().includes('true')) o.classList.add('correct'); });
+    }
+  };
+
+  window.qf = function(inpId, ans, fbId, okMsg, noMsg){
+    const inp = document.getElementById(inpId);
+    const fb = document.getElementById(fbId);
+    if(inp.disabled) return;
+    inp.disabled = true;
+    const val = inp.value.trim().toLowerCase();
+    if(val === ans){
+      inp.classList.add('ok');
+      sc++; upd();
+      fb.textContent = okMsg;
+      fb.className = 'q-fb show ok';
+    } else {
+      inp.classList.add('no');
+      fb.textContent = noMsg;
+      fb.className = 'q-fb show no';
+    }
+  };
+})();
+</script>
+</body>
+</html>

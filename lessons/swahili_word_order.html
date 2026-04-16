@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Order — Possessives & A of Association</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:      #f9f6f1;
+    --surface: #ffffff;
+    --card:    #f2ede6;
+    --border:  #ddd5c8;
+    --ink:     #1a1410;
+    --muted:   #8a7f72;
+
+    /* Personal possessive colours */
+    --pp1: #2563c7;   /* noun */
+    --pp2: #d4830a;   /* possessive */
+    --pp3: #1a8a4a;   /* adjective */
+    --pp4: #9b3bc7;   /* quantity */
+    --pp5: #c72828;   /* demonstrative */
+
+    /* A of Association colours */
+    --aa1: #2563c7;   /* noun possessed */
+    --aa2: #1a8a4a;   /* adjective */
+    --aa3: #9b3bc7;   /* quantity */
+    --aa4: #c72828;   /* demonstrative */
+    --aa5: #d4830a;   /* -a connector */
+    --aa6: #0e7a7a;   /* possessor */
+
+    --gold:  #f5a623;
+    --green: #27ae60;
+    --red:   #e74c3c;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 400;
+    line-height: 1.65;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    padding: 56px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: 'ORDER';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(80px, 20vw, 220px);
+    font-weight: 900;
+    color: rgba(255,255,255,0.03);
+    pointer-events: none;
+    white-space: nowrap;
+    letter-spacing: 0.05em;
+  }
+  .h-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 4px;
+    padding: 4px 12px;
+    margin-bottom: 18px;
+  }
+  header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(30px, 6vw, 60px);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+  header h1 .gold { color: var(--gold); }
+  header p { font-size: 15px; color: rgba(255,255,255,0.4); max-width: 520px; margin: 0 auto; font-weight: 300; }
+
+  /* ── MAIN ── */
+  main { max-width: 900px; margin: 0 auto; padding: 48px 24px 100px; }
+
+  /* ── INTRO ── */
+  .intro-box {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-left: 5px solid var(--gold);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 48px;
+  }
+  .intro-box h2 { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: #8a6200; margin-bottom: 12px; }
+  .intro-box p { font-size: 15px; color: var(--muted); margin-bottom: 10px; line-height: 1.7; }
+  .intro-box p:last-child { margin-bottom: 0; }
+  .intro-box strong { color: var(--ink); font-weight: 700; }
+
+  /* ── SECTION HEADING ── */
+  .sec-wrap { margin-bottom: 56px; }
+  .sec-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .sec-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(22px, 4vw, 34px);
+    font-weight: 900;
+    margin-bottom: 6px;
+    line-height: 1.1;
+  }
+  .sec-sub { font-size: 14px; color: var(--muted); margin-bottom: 28px; }
+
+  /* ── WORD ORDER TRAIN ── */
+  /* The "train" visualisation — slots in order */
+  .train {
+    display: flex;
+    gap: 0;
+    align-items: stretch;
+    margin-bottom: 28px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .train-car {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 110px;
+    flex: 1;
+    position: relative;
+  }
+  /* connector arrow between cars */
+  .train-car:not(:last-child)::after {
+    content: '→';
+    position: absolute;
+    right: -14px;
+    top: 50%;
+    transform: translateY(-60%);
+    font-size: 18px;
+    color: var(--muted);
+    z-index: 2;
+    line-height: 1;
+  }
+  .car-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 3px;
+    letter-spacing: 0.1em;
+  }
+  .car-body {
+    border-radius: 12px;
+    padding: 14px 12px 10px;
+    width: 100%;
+    text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .car-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .car-example {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    opacity: 0.75;
+    line-height: 1.3;
+  }
+  .car-optional {
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    margin-top: 5px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* gap between trains */
+  .train-gap { width: 28px; flex-shrink: 0; }
+
+  /* ── BUILT SENTENCE DISPLAY ── */
+  .built-sentence {
+    background: var(--ink);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+  .bs-part {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    padding: 6px 12px;
+    border-radius: 8px;
+  }
+  .bs-plus { color: rgba(255,255,255,0.2); font-size: 16px; }
+  .bs-label {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 3px;
+    opacity: 0.65;
+  }
+  .bs-translation {
+    width: 100%;
+    padding-top: 12px;
+    margin-top: 8px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    font-weight: 300;
+  }
+
+  /* ── COMPARISON TABLE ── */
+  .compare-box {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 36px;
+  }
+  .compare-box table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .compare-box thead tr { background: var(--ink); }
+  .compare-box th {
+    padding: 13px 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    font-weight: 500;
+    text-align: left;
+  }
+  .compare-box td {
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    font-size: 14px;
+  }
+  .compare-box tr:last-child td { border-bottom: none; }
+  .compare-box tr:hover td { background: rgba(0,0,0,0.02); }
+  .cmp-sw { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 800; }
+  .cmp-en { font-size: 12px; color: var(--muted); display: block; margin-top: 3px; }
+  .cmp-note { font-size: 12px; color: var(--muted); font-style: italic; }
+
+  /* ── RULE BOXES ── */
+  .rule-box {
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    border: 2px solid;
+  }
+  .rb-icon { font-size: 28px; flex-shrink: 0; }
+  .rb-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 800; margin-bottom: 5px; }
+  .rb-body { font-size: 14px; line-height: 1.7; }
+  .rb-body strong { font-weight: 700; }
+
+  /* ── STEP BY STEP BUILDER ── */
+  .builder-section { margin-bottom: 48px; }
+  .builder-section h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .step-card {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 20px;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+  }
+  .step-num {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 800; }
+  .step-body { padding: 16px 20px; }
+  .step-body p { font-size: 14px; color: var(--muted); margin-bottom: 10px; line-height: 1.65; }
+  .step-body p:last-child { margin-bottom: 0; }
+  .step-body strong { color: var(--ink); font-weight: 700; }
+
+  .progress-sentence {
+    background: var(--ink);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+  .ps-new { border-radius: 6px; padding: 3px 8px; font-size: 14px; }
+  .ps-existing { color: rgba(255,255,255,0.4); font-size: 14px; }
+
+  /* ── MISSING SLOTS ── */
+  .missing-note {
+    background: #fffbf0;
+    border: 1px solid #f5c842;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #7a5500;
+    margin-top: 10px;
+    line-height: 1.6;
+  }
+  .missing-note strong { color: #5a3a00; }
+
+  /* ── MISTAKE FIXER ── */
+  .mistake-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+  .mistake-card {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+  }
+  .mk-wrong {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--red);
+    text-decoration: line-through;
+    margin-bottom: 8px;
+    display: block;
+    line-height: 1.5;
+  }
+  .mk-right {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--green);
+    margin-bottom: 6px;
+    display: block;
+  }
+  .mk-why { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  /* ── INTERACTIVE BUILDER ── */
+  .interactive-box {
+    background: var(--ink);
+    border-radius: 20px;
+    padding: 28px;
+    margin-bottom: 48px;
+    color: #fff;
+  }
+  .interactive-box h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .interactive-box .desc { font-size: 13px; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
+
+  .builder-slots {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .slot-group { display: flex; flex-direction: column; gap: 5px; }
+  .slot-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+  .slot-select {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .slot-select:focus { border-color: var(--gold); }
+  .slot-select option { background: #1a1a1a; color: #fff; }
+
+  .result-display {
+    background: rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    min-height: 52px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+  .rd-part {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 7px;
+  }
+  .rd-translation {
+    width: 100%;
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    margin-top: 4px;
+    font-style: italic;
+  }
+  .build-btn {
+    background: var(--gold);
+    color: #000;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 24px;
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .build-btn:hover { opacity: 0.85; }
+
+  /* ── QUIZ ── */
+  .quiz-box {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 20px;
+  }
+  .quiz-box h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .quiz-box .qdesc { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+  .quiz-q { margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+  .quiz-q:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+  .q-text { font-size: 15px; font-weight: 600; margin-bottom: 12px; line-height: 1.55; }
+  .q-text .sw { font-family: 'Syne', sans-serif; font-size: 17px; color: var(--ink); font-weight: 800; }
+  .q-opts { display: flex; flex-direction: column; gap: 8px; }
+  .q-opt {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 11px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    transition: all 0.18s;
+    text-align: left;
+    font-family: 'Outfit', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .q-opt:hover { border-color: var(--gold); background: #fffbf0; }
+  .q-opt.correct { border-color: var(--green); background: #eafaf1; color: var(--green); }
+  .q-opt.wrong { border-color: var(--red); background: #fdf2f2; color: var(--red); }
+  .q-opt.disabled { pointer-events: none; opacity: 0.6; }
+  .q-opt.correct.disabled { opacity: 1; }
+  .opt-l {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .q-fb { margin-top: 10px; font-size: 13px; padding: 10px 14px; border-radius: 8px; display: none; line-height: 1.55; font-weight: 600; }
+  .q-fb.show { display: block; }
+  .q-fb.ok { background: #eafaf1; color: var(--green); border: 1px solid #a9dfbf; }
+  .q-fb.no { background: #fdf2f2; color: var(--red); border: 1px solid #f5b7b1; }
+
+  /* ordering question */
+  .order-q { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+  .order-tile {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: grab;
+    user-select: none;
+    transition: all 0.15s;
+  }
+  .order-tile:hover { border-color: var(--gold); background: #fffbf0; transform: translateY(-2px); }
+  .order-tile.selected { border-color: var(--ink); background: var(--ink); color: #fff; }
+  .order-answer {
+    min-height: 48px;
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    padding: 8px 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-top: 10px;
+    background: rgba(0,0,0,0.02);
+  }
+  .order-answer .placed {
+    background: var(--ink);
+    color: #fff;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .order-answer .placeholder {
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .order-check {
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 18px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 10px;
+  }
+  .order-check:hover { opacity: 0.8; }
+
+  /* score */
+  .score-pill {
+    position: fixed;
+    bottom: 20px; right: 20px;
+    background: var(--ink);
+    color: #fff;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    text-align: center;
+  }
+  .score-pill .sv {
+    color: var(--gold);
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 900;
+    display: block;
+    line-height: 1;
+  }
+
+  @media(max-width:640px){
+    main { padding: 32px 16px 80px; }
+    .train { gap: 4px; }
+    .train-car { min-width: 80px; }
+    .car-name { font-size: 11px; }
+    .car-example { font-size: 10px; }
+    .mistake-grid { grid-template-columns: 1fr; }
+    .builder-slots { grid-template-columns: 1fr 1fr; }
+    .quiz-box { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="h-tag">Sarufi · Word Order · Mpangilio wa Maneno</div>
+  <h1>Word Order:<br><span class="gold">Possessives</span> vs<br><span class="gold">-A of Association</span></h1>
+  <p>Two different systems — two different rules. Learn them side by side so you never mix them up again.</p>
+</header>
+
+<main>
+
+  <!-- INTRO -->
+  <div class="intro-box">
+    <h2>🤔 Why does word order matter so much?</h2>
+    <p>In English, you can sometimes shuffle words around and still be understood. In Swahili, <strong>word order is a strict rule</strong> — if you put things in the wrong position, the sentence either sounds wrong or means something different entirely.</p>
+    <p>The important thing to know is that <strong>personal possessives</strong> (my, your, his, her...) and the <strong>-a of association</strong> ("of" / "belonging to") follow <strong>completely different word orders</strong>. Many learners mix them up. This lesson will fix that!</p>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       SECTION A: PERSONAL POSSESSIVES
+  ═══════════════════════════════════ -->
+  <div class="sec-wrap">
+    <div class="sec-label">Section A</div>
+    <div class="sec-title">Personal Possessives</div>
+    <div class="sec-sub">My, your, his, her, our, their — yangu, yako, yake, yetu, yenu, yao</div>
+
+    <!-- TRAIN -->
+    <div class="train">
+      <div class="train-car">
+        <div class="car-num">1st</div>
+        <div class="car-body" style="background:rgba(37,99,199,0.12);border:2px solid rgba(37,99,199,0.3)">
+          <div class="car-name" style="color:var(--pp1)">NOUN</div>
+          <div class="car-example" style="color:var(--pp1)">kitabu<br>book</div>
+        </div>
+      </div>
+      <div class="train-gap"></div>
+      <div class="train-car">
+        <div class="car-num">2nd</div>
+        <div class="car-body" style="background:rgba(212,131,10,0.12);border:2px solid rgba(212,131,10,0.3)">
+          <div class="car-name" style="color:var(--pp2)">PERSONAL<br>POSSESSIVE</div>
+          <div class="car-example" style="color:var(--pp2)">changu<br>my</div>
+        </div>
+      </div>
+      <div class="train-gap"></div>
+      <div class="train-car">
+        <div class="car-num">3rd</div>
+        <div class="car-body" style="background:rgba(26,138,74,0.12);border:2px solid rgba(26,138,74,0.3)">
+          <div class="car-name" style="color:var(--pp3)">ADJECTIVE</div>
+          <div class="car-example" style="color:var(--pp3)">zuri<br>good</div>
+          <div class="car-optional">optional</div>
+        </div>
+      </div>
+      <div class="train-gap"></div>
+      <div class="train-car">
+        <div class="car-num">4th</div>
+        <div class="car-body" style="background:rgba(155,59,199,0.12);border:2px solid rgba(155,59,199,0.3)">
+          <div class="car-name" style="color:var(--pp4)">QUANTITY</div>
+          <div class="car-example" style="color:var(--pp4)">moja<br>one</div>
+          <div class="car-optional">optional</div>
+        </div>
+      </div>
+      <div class="train-gap"></div>
+      <div class="train-car">
+        <div class="car-num">5th</div>
+        <div class="car-body" style="background:rgba(199,40,40,0.12);border:2px solid rgba(199,40,40,0.3)">
+          <div class="car-name" style="color:var(--pp5)">DEMONSTRATIVE</div>
+          <div class="car-example" style="color:var(--pp5)">hiki<br>this</div>
+          <div class="car-optional">optional</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BUILT EXAMPLES -->
+    <div style="margin-bottom:8px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted)">Built sentences — Personal Possessive</div>
+
+    <!-- Example 1: all slots -->
+    <div class="built-sentence">
+      <div class="bs-part" style="background:rgba(37,99,199,0.2);color:#7ab3f5">
+        kitabu
+        <span class="bs-label">noun</span>
+      </div>
+      <div class="bs-plus">+</div>
+      <div class="bs-part" style="background:rgba(212,131,10,0.2);color:#f5c16a">
+        changu
+        <span class="bs-label">possessive</span>
+      </div>
+      <div class="bs-plus">+</div>
+      <div class="bs-part" style="background:rgba(26,138,74,0.2);color:#6adfa8">
+        kizuri
+        <span class="bs-label">adjective</span>
+      </div>
+      <div class="bs-plus">+</div>
+      <div class="bs-part" style="background:rgba(155,59,199,0.2);color:#c99bf5">
+        kimoja
+        <span class="bs-label">quantity</span>
+      </div>
+      <div class="bs-plus">+</div>
+      <div class="bs-part" style="background:rgba(199,40,40,0.2);color:#f58a8a">
+        hiki
+        <span class="bs-label">demonstrative</span>
+      </div>
+      <div class="bs-translation">📖 "This one good book of mine" — kitabu changu kizuri kimoja hiki</div>
+    </div>
+
+    <!-- Example 2: just noun + possessive -->
+    <div class="built-sentence">
+      <div class="bs-part" style="background:rgba(37,99,199,0.2);color:#7ab3f5">
+        vitabu
+        <span class="bs-label">noun</span>
+      </div>
+      <div class="bs-plus">+</div>
+      <div class="bs-part" style="background:rgba(212,131,10,0.2);color:#f5c16a">
+        vyangu
+        <span class="bs-label">possessive</span>
+      </div>
+      <div class="bs-translation">📖 "My books" — vitabu vyangu &nbsp;·&nbsp; <em style="color:rgba(255,255,255,0.25)">adjective, quantity, demonstrative omitted — just move each one up</em></div>
+    </div>
+
+    <!-- Example 3: noun + possessive + adjective (no quantity) -->
+    <div class="built-sentence">
+      <div class="bs-part" style="background:rgba(37,99,199,0.2);color:#7ab3f5">
+        nyumba
+        <span class="bs-label">noun</span>
+      </div>
+      <div class="bs-plus">+</div>
+      <div class="bs-part" style="background:rgba(212,131,10,0.2);color:#f5c16a">
+        yangu
+        <span class="bs-label">possessive</span>
+      </div>
+      <div class="bs-plus">+</div>
+      <div class="bs-part" style="background:rgba(26,138,74,0.2);color:#6adfa8">
+        kubwa
+        <span class="bs-label">adjective</span>
+      </div>
+      <div class="bs-translation">📖 "My big house" — nyumba yangu kubwa</div>
+    </div>
+
+    <!-- Rule box -->
+    <div class="rule-box" style="background:#f0f5ff;border-color:#2563c7;margin-top:20px;">
+      <span class="rb-icon">📌</span>
+      <div>
+        <div class="rb-title" style="color:var(--pp1)">Personal Possessive Rule</div>
+        <div class="rb-body" style="color:#1a3a7a">
+          The possessive comes <strong>immediately after the noun</strong> — always in position 2. Then adjective, quantity, demonstrative follow after it.
+          <br><br>
+          <strong>Key:</strong> Noun → <em>MY/YOUR/HIS</em> → adjective → quantity → demonstrative
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       SECTION B: -A OF ASSOCIATION
+  ═══════════════════════════════════ -->
+  <div class="sec-wrap">
+    <div class="sec-label">Section B</div>
+    <div class="sec-title">-A of Association</div>
+    <div class="sec-sub">Of / belonging to — ya, cha, wa, la, vya... + the possessor</div>
+
+    <!-- TRAIN -->
+    <div class="train">
+      <div class="train-car">
+        <div class="car-num">1st</div>
+        <div class="car-body" style="background:rgba(37,99,199,0.12);border:2px solid rgba(37,99,199,0.3)">
+          <div class="car-name" style="color:var(--aa1)">NOUN<br>POSSESSED</div>
+          <div class="car-example" style="color:var(--aa1)">kitabu<br>book</div>
+        </div>
+      </div>
+      <div class="train-gap"></div>
+      <div class="train-car">
+        <div class="car-num">2nd</div>
+        <div class="car-body" style="background:rgba(26,138,74,0.12);border:2px solid rgba(26,138,74,0.3)">
+          <div class="car-name" style="color:var(--aa2)">ADJECTIVE</div>
+          <div class="car-example" style="color:var(--aa2)">zuri<br>good</div>
+          <div class="car-optional">optional</div>
+        </div>
+      </div>
+      <div class="train-gap"></div>
+      <div class="train-car">
+        <div class="car-num">3rd</div>
+        <div class="car-body" style="background:rgba(155,59,199,0.12);border:2px solid rgba(155,59,199,0.3)">
+          <div class="car-name" style="color:var(--aa3)">QUANTITY</div>
+          <div class="car-example" style="color:var(--aa3)">moja<br>one</div>
+          <div class="car-optional">optional</div>
+        </div>
+      </div>
+      <div class="train-gap"></div>
+      <div class="train-car">
+        <div class="car-num">4th</div>
+        <div class="car-body" style="background:rgba(199,40,40,0.12);border:2px solid rgba(199,40,40,0.3)">
+          <div class="car-name" style="color:var(--aa4)">DEMONSTRATIVE</div>
+          <div class="car-example" style="color:var(--aa4)">hiki<br>this</div>
+          <div class="car-optional">optional</div>
+        </div>
+      </div>
+      <div class="train-gap"></div>
+      <div class="train-car">
+        <div class="car-num">5th</div>
+        <div class="car-body" style="background:rgba(212,131,10,0.2);border:2px solid rgba(212,131,10,0.4)">
+          <div class="car-name" style="color:var(--aa5)">-A<br>CONNECTOR</div>
+          <div class="car-example" style="color:var(--aa5)">cha<br>"of"</div>
+        </div>
+      </div>
+      <div class="train-gap"></div>
+      <div class="train-car">
+        <div class="car-num">6th</div>
+        <div class="car-body" style="background:rgba(14,122,122,0.12);border:2px solid rgba(14,122,122,0.3)">
+          <div class="car-name" style="color:var(--aa6)">POSSESSOR</div>
+          <div class="car-example" style="color:var(--aa6)">mwalimu<br>teacher</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BUILT EXAMPLES -->
+    <div style="margin-bottom:8px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted)">Built sentences — -A of Association</div>
+
+    <!-- Full example -->
+    <div class="built-sentence">
+      <div class="bs-part" style="background:rgba(37,99,199,0.2);color:#7ab3f5">
+        kitabu
+        <span class="bs-label">noun possessed</span>
+      </div>
+      <div class="bs-plus">+</div>
+      <div class="bs-part" style="background:rgba(26,138,74,0.2);color:#6adfa8">
+        kizuri
+        <span class="bs-label">adjective</span>
+      </div>
+      <div class="bs-plus">+</div>
+      <div class="bs-part" style="background:rgba(155,59,199,0.2);color:#c99bf5">
+        kimoja
+        <span class="bs-label">quantity</span>
+      </div>
+      <div class="bs-plus">+</div>
+      <div class="bs-part" style="background:rgba(199,40,40,0.2);color:#f58a8a">
+        hiki
+        <span class="bs-label">demonstrative</span>
+      </div>
+      <div class="bs-plus">+</div>
+      <div class="bs-part" style="background:rgba(212,131,10,0.25);color:#f5c16a">
+        cha
+        <span class="bs-label">-a connector</span>
+      </div>
+      <div class="bs-plus">+</div>
+      <div class="bs-part" style="background:rgba(14,122,122,0.2);color:#6adfd9">
+        mwalimu
+        <span class="bs-label">possessor</span>
+      </div>
+      <div class="bs-translation">📖 "This one good book of the teacher" — kitabu kizuri kimoja hiki cha mwalimu</div>
+    </div>
+
+    <!-- Simple: just noun + connector + possessor -->
+    <div class="built-sentence">
+      <div class="bs-part" style="background:rgba(37,99,199,0.2);color:#7ab3f5">
+        kitabu
+        <span class="bs-label">noun possessed</span>
+      </div>
+      <div class="bs-plus">+</div>
+      <div class="bs-part" style="background:rgba(212,131,10,0.25);color:#f5c16a">
+        cha
+        <span class="bs-label">-a connector</span>
+      </div>
+      <div class="bs-plus">+</div>
+      <div class="bs-part" style="background:rgba(14,122,122,0.2);color:#6adfd9">
+        mwanafunzi
+        <span class="bs-label">possessor</span>
+      </div>
+      <div class="bs-translation">📖 "The student's book" — kitabu cha mwanafunzi &nbsp;·&nbsp; <em style="color:rgba(255,255,255,0.25)">no adjective, quantity or demonstrative</em></div>
+    </div>
+
+    <!-- With adjective only -->
+    <div class="built-sentence">
+      <div class="bs-part" style="background:rgba(37,99,199,0.2);color:#7ab3f5">
+        nyumba
+        <span class="bs-label">noun possessed</span>
+      </div>
+      <div class="bs-plus">+</div>
+      <div class="bs-part" style="background:rgba(26,138,74,0.2);color:#6adfa8">
+        kubwa
+        <span class="bs-label">adjective</span>
+      </div>
+      <div class="bs-plus">+</div>
+      <div class="bs-part" style="background:rgba(212,131,10,0.25);color:#f5c16a">
+        ya
+        <span class="bs-label">-a connector</span>
+      </div>
+      <div class="bs-plus">+</div>
+      <div class="bs-part" style="background:rgba(14,122,122,0.2);color:#6adfd9">
+        baba
+        <span class="bs-label">possessor</span>
+      </div>
+      <div class="bs-translation">📖 "Father's big house" — nyumba kubwa ya baba</div>
+    </div>
+
+    <!-- With quantity only (no adjective) -->
+    <div class="built-sentence">
+      <div class="bs-part" style="background:rgba(37,99,199,0.2);color:#7ab3f5">
+        vitabu
+        <span class="bs-label">noun possessed</span>
+      </div>
+      <div class="bs-plus">+</div>
+      <div class="bs-part" style="background:rgba(155,59,199,0.2);color:#c99bf5">
+        viwili
+        <span class="bs-label">quantity</span>
+      </div>
+      <div class="bs-plus">+</div>
+      <div class="bs-part" style="background:rgba(212,131,10,0.25);color:#f5c16a">
+        vya
+        <span class="bs-label">-a connector</span>
+      </div>
+      <div class="bs-plus">+</div>
+      <div class="bs-part" style="background:rgba(14,122,122,0.2);color:#6adfd9">
+        shule
+        <span class="bs-label">possessor</span>
+      </div>
+      <div class="bs-translation">📖 "Two books of the school" — vitabu viwili vya shule &nbsp;·&nbsp; <em style="color:rgba(255,255,255,0.25)">no adjective → quantity moves to position 2</em></div>
+    </div>
+
+    <!-- Rule box -->
+    <div class="rule-box" style="background:#f0faf5;border-color:var(--aa5);margin-top:20px;">
+      <span class="rb-icon">📌</span>
+      <div>
+        <div class="rb-title" style="color:#7a5500">-A of Association Rule</div>
+        <div class="rb-body" style="color:#4a3000">
+          The <strong>-a connector and possessor always go LAST</strong>. Everything describing the noun (adjective, quantity, demonstrative) comes BEFORE the connector.<br><br>
+          <strong>Key:</strong> Noun → adjective → quantity → demonstrative → <em>cha/ya/wa/la</em> → possessor
+          <br><br>
+          If adjective is missing → quantity moves up to take its place. If quantity is also missing → demonstrative moves up. The connector always stays right before the possessor.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIDE BY SIDE COMPARISON -->
+  <div class="sec-wrap">
+    <div class="sec-label">Side by Side</div>
+    <div class="sec-title">The Big Difference</div>
+    <div class="sec-sub">Same meaning, different word orders — study this until it clicks</div>
+
+    <div class="compare-box">
+      <table>
+        <thead>
+          <tr>
+            <th>English meaning</th>
+            <th>Personal Possessive (Section A)</th>
+            <th>-A of Association (Section B)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:600">The teacher's book</td>
+            <td>
+              <span class="cmp-sw">
+                <span style="color:var(--pp1)">kitabu</span>
+                <span style="color:var(--pp2)"> changu</span>
+              </span>
+              <span class="cmp-en">if "my book" (personal)</span>
+              <span class="cmp-note">possessive right after noun</span>
+            </td>
+            <td>
+              <span class="cmp-sw">
+                <span style="color:var(--aa1)">kitabu</span>
+                <span style="color:var(--aa5)"> cha </span>
+                <span style="color:var(--aa6)">mwalimu</span>
+              </span>
+              <span class="cmp-en">book OF teacher</span>
+              <span class="cmp-note">connector + possessor go last</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-weight:600">My big house</td>
+            <td>
+              <span class="cmp-sw">
+                <span style="color:var(--aa1)">nyumba</span>
+                <span style="color:var(--pp2)"> yangu</span>
+                <span style="color:var(--pp3)"> kubwa</span>
+              </span>
+              <span class="cmp-en">noun → possessive → adjective</span>
+              <span class="cmp-note">possessive before adjective</span>
+            </td>
+            <td>
+              <span class="cmp-sw">
+                <span style="color:var(--aa1)">nyumba</span>
+                <span style="color:var(--aa2)"> kubwa</span>
+                <span style="color:var(--aa5)"> ya</span>
+                <span style="color:var(--aa6)"> baba</span>
+              </span>
+              <span class="cmp-en">noun → adjective → of → owner</span>
+              <span class="cmp-note">adjective before connector</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-weight:600">Two school books</td>
+            <td>
+              <span class="cmp-sw">
+                <span style="color:var(--aa1)">vitabu</span>
+                <span style="color:var(--pp2)"> vyangu</span>
+                <span style="color:var(--pp4)"> viwili</span>
+              </span>
+              <span class="cmp-en">noun → possessive → quantity</span>
+              <span class="cmp-note">quantity after possessive</span>
+            </td>
+            <td>
+              <span class="cmp-sw">
+                <span style="color:var(--aa1)">vitabu</span>
+                <span style="color:var(--aa3)"> viwili</span>
+                <span style="color:var(--aa5)"> vya</span>
+                <span style="color:var(--aa6)"> shule</span>
+              </span>
+              <span class="cmp-en">noun → quantity → of → school</span>
+              <span class="cmp-note">quantity before connector</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-weight:600">This good book<br>of the child</td>
+            <td>
+              <span class="cmp-sw">
+                <span style="color:var(--aa1)">kitabu</span>
+                <span style="color:var(--pp2)"> changu</span>
+                <span style="color:var(--pp3)"> kizuri</span>
+                <span style="color:var(--pp5)"> hiki</span>
+              </span>
+              <span class="cmp-en">noun · possessive · adj · demo</span>
+              <span class="cmp-note">personal possessive order</span>
+            </td>
+            <td>
+              <span class="cmp-sw">
+                <span style="color:var(--aa1)">kitabu</span>
+                <span style="color:var(--aa2)"> kizuri</span>
+                <span style="color:var(--aa4)"> hiki</span>
+                <span style="color:var(--aa5)"> cha</span>
+                <span style="color:var(--aa6)"> mtoto</span>
+              </span>
+              <span class="cmp-en">noun · adj · demo · of · child</span>
+              <span class="cmp-note">-a of association order</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- THE KEY DIFFERENCE BOX -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:36px;">
+      <div class="rule-box" style="background:#eef5ff;border-color:var(--pp2);">
+        <span class="rb-icon">👤</span>
+        <div>
+          <div class="rb-title" style="color:var(--pp2)">Personal Possessive</div>
+          <div class="rb-body" style="color:#2a3a5a;font-size:13px;">
+            Noun → <strong>Possessive</strong> → Adj → Qty → Demo<br><br>
+            The possessive <strong>jumps to position 2</strong>, right after the noun. Adjective and quantity come after the possessive.
+          </div>
+        </div>
+      </div>
+      <div class="rule-box" style="background:#fffbf0;border-color:var(--aa5);">
+        <span class="rb-icon">🔗</span>
+        <div>
+          <div class="rb-title" style="color:var(--aa5)">-A of Association</div>
+          <div class="rb-body" style="color:#4a3a00;font-size:13px;">
+            Noun → Adj → Qty → Demo → <strong>-a → Possessor</strong><br><br>
+            Everything describing the noun comes first. The connector and possessor <strong>always go last</strong>.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP BY STEP BUILDER — A OF ASSOC -->
+  <div class="builder-section">
+    <h3>🔨 Step-by-Step: Building "-A of Association" Sentences</h3>
+
+    <p style="font-size:14px;color:var(--muted);margin-bottom:20px;">Let's build <em>"The three big books of the teacher"</em> step by step to see the word order in action.</p>
+
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-num">1</div>
+        <div class="step-title">Start with the noun being possessed</div>
+      </div>
+      <div class="step-body">
+        <p>Always start with the THING that is owned. In this case: <strong>vitabu</strong> (books).</p>
+        <div class="progress-sentence">
+          <span class="ps-new" style="background:rgba(37,99,199,0.3);color:#b0cff5">vitabu</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-num">2</div>
+        <div class="step-title">Add the adjective (if there is one)</div>
+      </div>
+      <div class="step-body">
+        <p>We want to say <strong>big</strong> books. The adjective <strong>vikubwa</strong> (big, VI class) comes right after the noun.</p>
+        <div class="progress-sentence">
+          <span class="ps-existing">vitabu</span>
+          <span class="ps-new" style="background:rgba(26,138,74,0.35);color:#9ef5c8">vikubwa</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-num">3</div>
+        <div class="step-title">Add the quantity (if there is one)</div>
+      </div>
+      <div class="step-body">
+        <p>We want <strong>three</strong> books. The quantity <strong>vitatu</strong> (three, VI class) comes after the adjective.</p>
+        <div class="progress-sentence">
+          <span class="ps-existing">vitabu vikubwa</span>
+          <span class="ps-new" style="background:rgba(155,59,199,0.3);color:#d4b0f5">vitatu</span>
+        </div>
+        <div class="missing-note"><strong>⚠️ No adjective?</strong> If we didn't have an adjective, quantity would move up to position 2 right after the noun: <em>vitabu vitatu vya mwalimu</em>. The slot doesn't stay empty — the next element moves up!</div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-num">4</div>
+        <div class="step-title">Add the demonstrative (if there is one)</div>
+      </div>
+      <div class="step-body">
+        <p>If we needed "these three big books" we'd add <strong>hivi</strong> (these, VI class) here. For this example, let's skip it.</p>
+        <div class="progress-sentence">
+          <span class="ps-existing">vitabu vikubwa vitatu</span>
+          <span class="ps-existing" style="opacity:0.35">(hivi — optional)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-num">5</div>
+        <div class="step-title">Add the -a connector</div>
+      </div>
+      <div class="step-body">
+        <p>Now add the connector. Vitabu is VI class → use <strong>vya</strong>. This always comes just before the possessor.</p>
+        <div class="progress-sentence">
+          <span class="ps-existing">vitabu vikubwa vitatu</span>
+          <span class="ps-new" style="background:rgba(212,131,10,0.35);color:#f5c16a">vya</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-num">6</div>
+        <div class="step-title">Finally — add the possessor</div>
+      </div>
+      <div class="step-body">
+        <p>Last of all comes the owner: <strong>mwalimu</strong> (teacher). The sentence is complete!</p>
+        <div class="progress-sentence">
+          <span class="ps-existing">vitabu vikubwa vitatu</span>
+          <span class="ps-existing" style="color:rgba(255,255,255,0.4)">vya</span>
+          <span class="ps-new" style="background:rgba(14,122,122,0.35);color:#6adfd9">mwalimu</span>
+        </div>
+        <p style="margin-top:14px;">✅ <strong>vitabu vikubwa vitatu vya mwalimu</strong> = "The teacher's three big books"</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- COMMON MISTAKES -->
+  <div class="sec-label">Watch Out!</div>
+  <div class="sec-title" style="margin-bottom:6px">Most Common Word Order Mistakes</div>
+  <div class="sec-sub">These are the exact errors learners make most often.</div>
+
+  <div class="mistake-grid">
+    <div class="mistake-card" style="border-color:var(--red)">
+      <span class="mk-wrong">kitabu cha kizuri mwalimu ❌</span>
+      <span class="mk-right">kitabu kizuri cha mwalimu ✅</span>
+      <div class="mk-why">Adjective must come BEFORE the -a connector, not after. The connector is always close to the possessor.</div>
+    </div>
+    <div class="mistake-card" style="border-color:var(--red)">
+      <span class="mk-wrong">nyumba ya baba kubwa ❌</span>
+      <span class="mk-right">nyumba kubwa ya baba ✅</span>
+      <div class="mk-why">"Kubwa" (big) must come before the connector "ya" and possessor "baba" — not after.</div>
+    </div>
+    <div class="mistake-card" style="border-color:var(--red)">
+      <span class="mk-wrong">vitabu vya vitatu shule ❌</span>
+      <span class="mk-right">vitabu vitatu vya shule ✅</span>
+      <div class="mk-why">Quantity (vitatu) must come BEFORE the connector (vya), not after it.</div>
+    </div>
+    <div class="mistake-card" style="border-color:var(--red)">
+      <span class="mk-wrong">kitabu changu kizuri mwalimu ❌</span>
+      <span class="mk-right">kitabu kizuri cha mwalimu ✅</span>
+      <div class="mk-why">Don't mix systems! If using -a of association, don't put a personal possessive in there too. Pick one system.</div>
+    </div>
+    <div class="mistake-card" style="border-color:var(--red)">
+      <span class="mk-wrong">nyumba baba ya kubwa ❌</span>
+      <span class="mk-right">nyumba kubwa ya baba ✅</span>
+      <div class="mk-why">The possessor (baba) must always be LAST — after the connector. Adjective goes between noun and connector.</div>
+    </div>
+    <div class="mistake-card" style="border-color:var(--red)">
+      <span class="mk-wrong">kitabu cha mwalimu kizuri ❌</span>
+      <span class="mk-right">kitabu kizuri cha mwalimu ✅</span>
+      <div class="mk-why">Once you've written the connector and possessor, nothing else comes after. Adjective must go before cha.</div>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-box">
+    <h2>🧠 Test Your Word Order!</h2>
+    <div class="qdesc">Pick the correctly ordered sentence or identify the mistake.</div>
+
+    <div class="quiz-q">
+      <div class="q-text">Which is the correct word order for <em>"The student's big book"</em> using -a of association?</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="qa(this,false,'qf1')"><span class="opt-l">A</span>kitabu cha mwanafunzi kikubwa</button>
+        <button class="q-opt" onclick="qa(this,true,'qf1')"><span class="opt-l">B</span>kitabu kikubwa cha mwanafunzi</button>
+        <button class="q-opt" onclick="qa(this,false,'qf1')"><span class="opt-l">C</span>kikubwa kitabu cha mwanafunzi</button>
+        <button class="q-opt" onclick="qa(this,false,'qf1')"><span class="opt-l">D</span>cha mwanafunzi kitabu kikubwa</button>
+      </div>
+      <div class="q-fb" id="qf1"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">In a personal possessive sentence, where does the possessive (changu, yangu, etc.) go?</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="qa(this,false,'qf2')"><span class="opt-l">A</span>At the very end of the sentence</button>
+        <button class="q-opt" onclick="qa(this,true,'qf2')"><span class="opt-l">B</span>Immediately after the noun — position 2</button>
+        <button class="q-opt" onclick="qa(this,false,'qf2')"><span class="opt-l">C</span>Before the noun</button>
+        <button class="q-opt" onclick="qa(this,false,'qf2')"><span class="opt-l">D</span>After the adjective</button>
+      </div>
+      <div class="q-fb" id="qf2"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">Which sentence correctly says <em>"Father's two big houses"</em> using -a of association?</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="qa(this,false,'qf3')"><span class="opt-l">A</span>nyumba ya baba mbili kubwa</button>
+        <button class="q-opt" onclick="qa(this,false,'qf3')"><span class="opt-l">B</span>nyumba mbili ya kubwa baba</button>
+        <button class="q-opt" onclick="qa(this,true,'qf3')"><span class="opt-l">C</span>nyumba kubwa mbili za baba</button>
+        <button class="q-opt" onclick="qa(this,false,'qf3')"><span class="opt-l">D</span>nyumba za baba kubwa mbili</button>
+      </div>
+      <div class="q-fb" id="qf3"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">If there is NO adjective in a -a of association sentence, what happens to the quantity?</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="qa(this,false,'qf4')"><span class="opt-l">A</span>It stays in position 3 — leaving a gap after the noun</button>
+        <button class="q-opt" onclick="qa(this,true,'qf4')"><span class="opt-l">B</span>It moves up to position 2 — right after the noun</button>
+        <button class="q-opt" onclick="qa(this,false,'qf4')"><span class="opt-l">C</span>It goes after the -a connector</button>
+        <button class="q-opt" onclick="qa(this,false,'qf4')"><span class="opt-l">D</span>It is dropped from the sentence</button>
+      </div>
+      <div class="q-fb" id="qf4"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">What is the correct order for <em>"my good book"</em> using a PERSONAL possessive?</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="qa(this,false,'qf5')"><span class="opt-l">A</span>kitabu kizuri changu</button>
+        <button class="q-opt" onclick="qa(this,true,'qf5')"><span class="opt-l">B</span>kitabu changu kizuri</button>
+        <button class="q-opt" onclick="qa(this,false,'qf5')"><span class="opt-l">C</span>changu kitabu kizuri</button>
+        <button class="q-opt" onclick="qa(this,false,'qf5')"><span class="opt-l">D</span>kizuri changu kitabu</button>
+      </div>
+      <div class="q-fb" id="qf5"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">Where does the possessor (the owner) always go in an -a of association sentence?</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="qa(this,false,'qf6')"><span class="opt-l">A</span>Right after the noun</button>
+        <button class="q-opt" onclick="qa(this,false,'qf6')"><span class="opt-l">B</span>Before the adjective</button>
+        <button class="q-opt" onclick="qa(this,true,'qf6')"><span class="opt-l">C</span>At the very end — after the -a connector</button>
+        <button class="q-opt" onclick="qa(this,false,'qf6')"><span class="opt-l">D</span>Before the demonstrative</button>
+      </div>
+      <div class="q-fb" id="qf6"></div>
+    </div>
+
+  </div>
+
+</main>
+
+<div class="score-pill">
+  <span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:0.1em;">SCORE</span>
+  <span class="sv" id="sv">0</span>
+</div>
+
+<script>
+(function(){
+  let sc = 0;
+  const feedbacks = {
+    qf1: 'Adjective (kikubwa) must come before the connector (cha) — so: kitabu kikubwa cha mwanafunzi.',
+    qf2: 'In personal possessives, the possessive always comes right after the noun in position 2.',
+    qf3: 'Noun → adjective → quantity → connector → possessor. "nyumba kubwa mbili za baba" follows this correctly.',
+    qf4: 'There are no empty slots — if adjective is missing, quantity simply moves up to fill position 2.',
+    qf5: 'Personal possessive order: noun (kitabu) → possessive (changu) → adjective (kizuri).',
+    qf6: 'In -a of association, the possessor is always last — after the connector.',
+  };
+
+  function upd(){ document.getElementById('sv').textContent = sc; }
+
+  window.qa = function(btn, ok, fbId){
+    const opts = btn.parentElement.querySelectorAll('.q-opt');
+    if([...opts].some(o => o.classList.contains('correct') || o.classList.contains('wrong'))) return;
+    opts.forEach(o => o.classList.add('disabled'));
+    const fb = document.getElementById(fbId);
+    if(ok){
+      btn.classList.add('correct'); sc++; upd();
+      fb.textContent = '✅ Correct! ' + (feedbacks[fbId] || '');
+      fb.className = 'q-fb show ok';
+    } else {
+      btn.classList.add('wrong');
+      fb.textContent = '❌ Not quite. ' + (feedbacks[fbId] || 'Check the correct answer highlighted above.');
+      fb.className = 'q-fb show no';
+      opts.forEach(o => { if(o.onclick.toString().includes('true')) o.classList.add('correct'); });
+    }
+  };
+})();
+</script>
+</body>
+</html>
