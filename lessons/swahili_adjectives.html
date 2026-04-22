@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vivumishi – Swahili Adjectives</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:      #faf7f2;
+    --surface: #ffffff;
+    --card:    #f3ede4;
+    --border:  #e0d5c8;
+    --ink:     #1a1510;
+    --muted:   #8a7f72;
+
+    --red:    #e03e2d;
+    --blue:   #2563c7;
+    --green:  #1e8a4a;
+    --purple: #7c3fa8;
+    --orange: #d4830a;
+    --pink:   #c72870;
+    --teal:   #0e7a7a;
+
+    --gold:   #f5a623;
+    --ok:     #27ae60;
+    --no:     #e74c3c;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+    line-height: 1.65;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    padding: 52px 24px 44px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: 'VIVUMISHI';
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(60px,16vw,180px);
+    color: rgba(255,255,255,0.03);
+    white-space: nowrap; pointer-events: none;
+  }
+  .h-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 4px; padding: 4px 12px;
+    margin-bottom: 16px;
+  }
+  header h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(40px,9vw,80px);
+    color: #fff; line-height: 1;
+    margin-bottom: 10px; letter-spacing: 0.01em;
+  }
+  header h1 span { color: var(--gold); }
+  header p { font-size: 16px; color: rgba(255,255,255,0.4); max-width: 500px; margin: 0 auto; }
+
+  /* ── MAIN ── */
+  main { max-width: 900px; margin: 0 auto; padding: 48px 24px 100px; }
+
+  /* ── INTRO BOX ── */
+  .intro-box {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-left: 5px solid var(--gold);
+    border-radius: 16px;
+    padding: 28px 32px; margin-bottom: 48px;
+  }
+  .intro-box h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 22px; color: #8a6200; margin-bottom: 12px;
+  }
+  .intro-box p { font-size: 15px; color: var(--muted); margin-bottom: 10px; line-height: 1.7; }
+  .intro-box p:last-child { margin-bottom: 0; }
+  .intro-box strong { color: var(--ink); font-weight: 800; }
+
+  /* ── SECTION HEADING ── */
+  .sec-wrap { margin-bottom: 60px; }
+  .sec-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 4px; display: block;
+  }
+  .sec-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(24px,5vw,38px);
+    margin-bottom: 6px; line-height: 1.1;
+  }
+  .sec-sub { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+
+  /* ── THE BIG IDEA BOX ── */
+  .big-idea {
+    border-radius: 16px;
+    padding: 22px 26px;
+    margin-bottom: 24px;
+    display: flex; gap: 14px; align-items: flex-start;
+    border: 2px solid;
+  }
+  .bi-icon { font-size: 32px; flex-shrink: 0; }
+  .bi-title { font-family: 'Fredoka One', cursive; font-size: 18px; margin-bottom: 5px; }
+  .bi-body { font-size: 14px; line-height: 1.7; }
+  .bi-body strong { font-weight: 800; }
+
+  /* ── WORD EQUATION ── */
+  .equation {
+    background: var(--ink);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+  .eq-part {
+    font-family: 'Fredoka One', cursive;
+    font-size: 18px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 1.2;
+  }
+  .eq-note {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    font-weight: 400;
+    margin-top: 4px;
+    opacity: 0.65;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .eq-plus { color: rgba(255,255,255,0.2); font-size: 22px; }
+  .eq-result {
+    font-family: 'Fredoka One', cursive;
+    font-size: 22px; color: var(--gold);
+    padding-left: 16px;
+    border-left: 2px solid rgba(255,255,255,0.1);
+    margin-left: 6px;
+  }
+
+  /* ── EXAMPLE CARDS ── */
+  .example-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .ex-card {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 14px;
+    text-align: center;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .ex-card:hover { transform: translateY(-3px); }
+  .ex-emoji { font-size: 40px; display: block; margin-bottom: 8px; }
+  .ex-sw {
+    font-family: 'Fredoka One', cursive;
+    font-size: 20px; margin-bottom: 3px; line-height: 1.1;
+  }
+  .ex-en { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+  .ex-breakdown {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; color: var(--muted);
+    margin-top: 6px; line-height: 1.5;
+    border-top: 1px solid var(--border); padding-top: 6px;
+  }
+
+  /* ── CLASS TABLE ── */
+  .class-table-wrap {
+    overflow-x: auto; margin-bottom: 24px;
+    border-radius: 16px; border: 2px solid var(--border);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+  .class-table {
+    width: 100%; border-collapse: collapse;
+    font-size: 14px; min-width: 560px;
+  }
+  .class-table thead tr { background: var(--ink); }
+  .class-table th {
+    padding: 13px 16px; text-align: left;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45); font-weight: 500;
+  }
+  .class-table td {
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .class-table tr:last-child td { border-bottom: none; }
+  .class-table tr:hover td { background: rgba(0,0,0,0.015); }
+  .cls-badge {
+    font-family: 'Fredoka One', cursive;
+    font-size: 15px; font-weight: 400;
+    display: inline-block;
+    padding: 3px 10px; border-radius: 7px;
+    white-space: nowrap;
+  }
+  .prefix-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px; font-weight: 500;
+    display: inline-block;
+    padding: 4px 10px; border-radius: 7px;
+    margin: 2px;
+  }
+  .example-sw { font-family: 'Fredoka One', cursive; font-size: 16px; }
+  .example-en { font-size: 12px; color: var(--muted); display: block; margin-top: 2px; }
+
+  /* ── TIP BOX ── */
+  .tip-box {
+    background: #fffbf0;
+    border: 1px solid #f5c842;
+    border-left: 4px solid var(--gold);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    font-size: 14px; color: #6a4400; line-height: 1.65;
+  }
+  .tip-box strong { color: #8a5c00; font-weight: 800; }
+
+  /* ── RULE CARD ── */
+  .rule-card {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 14px;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .rule-num {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--ink); color: #fff;
+    font-family: 'Fredoka One', cursive;
+    font-size: 16px; display: flex;
+    align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .rule-body { flex: 1; }
+  .rule-body strong { font-weight: 800; font-size: 15px; display: block; margin-bottom: 4px; }
+  .rule-body p { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 8px; }
+  .rule-body p:last-child { margin-bottom: 0; }
+  .rule-example {
+    background: var(--card);
+    border-radius: 8px; padding: 8px 12px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 16px; margin-top: 6px; display: inline-block;
+  }
+
+  /* ── WORD CARDS ── */
+  .word-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .word-card {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 14px; padding: 16px 14px;
+    text-align: center; transition: transform 0.2s;
+  }
+  .word-card:hover { transform: translateY(-2px); }
+  .wc-sw {
+    font-family: 'Fredoka One', cursive;
+    font-size: 20px; margin-bottom: 3px;
+  }
+  .wc-en { font-size: 12px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* ── SENTENCE EXAMPLES ── */
+  .sent-section {
+    background: var(--ink); color: #fff;
+    border-radius: 18px; padding: 26px 28px;
+    margin-bottom: 28px;
+  }
+  .sent-section h3 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 22px; color: var(--gold);
+    margin-bottom: 18px; display: flex;
+    align-items: center; gap: 10px;
+  }
+  .sent-item {
+    padding: 13px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .sent-item:last-child { border-bottom: none; }
+  .sent-sw {
+    font-family: 'Fredoka One', cursive;
+    font-size: 19px; line-height: 1.2; margin-bottom: 3px;
+  }
+  .sent-sw .hl { border-radius: 5px; padding: 0 4px; }
+  .sent-en { font-size: 13px; color: rgba(255,255,255,0.4); }
+  .sent-note { font-size: 11px; color: rgba(255,255,255,0.25); font-family: 'DM Mono', monospace; margin-top: 3px; }
+
+  /* ── WRONG/RIGHT BOX ── */
+  .wr-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px; margin-bottom: 24px;
+  }
+  .wr-card {
+    border-radius: 14px; padding: 16px 18px;
+    border: 2px solid;
+  }
+  .wr-wrong {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px; color: var(--no);
+    text-decoration: line-through;
+    display: block; margin-bottom: 8px; line-height: 1.4;
+  }
+  .wr-right {
+    font-family: 'Fredoka One', cursive;
+    font-size: 18px; color: var(--ok);
+    display: block; margin-bottom: 4px;
+  }
+  .wr-why { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  /* ── QUIZ ── */
+  .quiz-box {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 20px; padding: 32px;
+    margin-bottom: 20px;
+  }
+  .quiz-box h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 24px; color: var(--gold);
+    margin-bottom: 24px;
+  }
+  .quiz-q { margin-bottom: 26px; padding-bottom: 26px; border-bottom: 1px solid var(--border); }
+  .quiz-q:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+  .q-text { font-size: 15px; font-weight: 700; margin-bottom: 12px; line-height: 1.5; }
+  .q-text .sw { font-family: 'Fredoka One', cursive; font-size: 18px; }
+  .q-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .q-opt {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 10px; padding: 12px 14px;
+    cursor: pointer; font-size: 15px; font-weight: 700;
+    color: var(--ink); font-family: 'Fredoka One', cursive;
+    transition: all 0.18s; text-align: center;
+  }
+  .q-opt:hover { border-color: var(--gold); background: #fffbf0; }
+  .q-opt.correct { border-color: var(--ok); background: #eafaf1; color: var(--ok); }
+  .q-opt.wrong { border-color: var(--no); background: #fdf2f2; color: var(--no); }
+  .q-opt.disabled { pointer-events: none; opacity: 0.6; }
+  .q-opt.correct.disabled { opacity: 1; }
+  .q-fb { margin-top: 10px; font-size: 13px; padding: 10px 14px; border-radius: 8px; display: none; font-weight: 700; line-height: 1.5; }
+  .q-fb.show { display: block; }
+  .q-fb.ok { background: #eafaf1; color: var(--ok); border: 1px solid #a9dfbf; }
+  .q-fb.no { background: #fdf2f2; color: var(--no); border: 1px solid #f5b7b1; }
+  .fill-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; align-items: center; }
+  .fill-in {
+    background: var(--card); border: 2px solid var(--border);
+    border-radius: 8px; padding: 10px 14px;
+    font-family: 'DM Mono', monospace; font-size: 14px;
+    color: var(--ink); outline: none; width: 140px;
+    transition: border-color 0.2s;
+  }
+  .fill-in:focus { border-color: var(--gold); }
+  .fill-in.ok { border-color: var(--ok); color: var(--ok); }
+  .fill-in.no { border-color: var(--no); color: var(--no); }
+  .chk-btn {
+    background: var(--ink); color: #fff; border: none;
+    border-radius: 8px; padding: 10px 18px;
+    font-family: 'DM Mono', monospace; font-size: 12px;
+    font-weight: 600; cursor: pointer; transition: opacity 0.2s;
+    text-transform: uppercase; letter-spacing: 0.1em;
+  }
+  .chk-btn:hover { opacity: 0.8; }
+
+  /* score */
+  .score-pill {
+    position: fixed; bottom: 20px; right: 20px;
+    background: var(--ink); color: #fff;
+    border-radius: 12px; padding: 12px 20px;
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    z-index: 100; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    text-align: center;
+  }
+  .score-pill .sv {
+    color: var(--gold); font-family: 'Fredoka One', cursive;
+    font-size: 26px; display: block; line-height: 1;
+  }
+
+  @media(max-width:600px){
+    main { padding: 32px 16px 80px; }
+    .q-opts { grid-template-columns: 1fr; }
+    .wr-grid { grid-template-columns: 1fr; }
+    .example-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="h-tag">Chapter 13 · Sarufi</div>
+  <h1>Vivumishi —<br><span>Adjectives</span> 🌈</h1>
+  <p>Words that describe nouns — and how they change to match!</p>
+</header>
+
+<main>
+
+  <!-- INTRO -->
+  <div class="intro-box">
+    <h2>🤔 What is an adjective?</h2>
+    <p>An adjective is a word that <strong>describes a noun</strong>. In English: big, red, new, good. In Swahili they work the same way — but with one big difference.</p>
+    <p>In Swahili, the adjective has to <strong>"dress up" to match the noun</strong> it describes. If the noun wears an M- hat, the adjective wears one too. This is called <strong>agreement</strong>. Think of it like wearing matching outfits! 👗👔</p>
+    <p>There are <strong>5 types</strong> of adjectives in Swahili. We'll go through each one simply and clearly.</p>
+  </div>
+
+  <!-- ═══════════════════════════════
+       SECTION A — VOWEL STEM
+  ═══════════════════════════════ -->
+  <div class="sec-wrap" id="secA">
+    <span class="sec-num">Section A</span>
+    <div class="sec-title" style="color:var(--red)">Vowel Stem Adjectives</div>
+    <div class="sec-sub">Adjectives whose stem starts with a vowel (a, e, i, o, u)</div>
+
+    <div class="big-idea" style="background:#fff5f4;border-color:#f5b3ad">
+      <span class="bi-icon">💡</span>
+      <div>
+        <div class="bi-title" style="color:var(--red)">The Big Idea</div>
+        <div class="bi-body" style="color:#7a2010">
+          Some adjectives start with a vowel — like <strong>-ekundu</strong> (red) or <strong>-ingine</strong> (other/another).<br><br>
+          When these adjectives describe a noun, you attach a <strong>prefix</strong> to the front — and the prefix + vowel sometimes <strong>blend together</strong> to make a new sound.<br><br>
+          Think of it like adding chocolate sauce to ice cream — sometimes they just mix together smoothly! 🍫🍦
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <strong>🔤 Vowels in Swahili:</strong> a, e, i, o, u — just like English. The letter Y is <strong>NOT</strong> a vowel in Swahili. So <em>-yema</em> would be a consonant stem, not vowel stem.
+    </div>
+
+    <!-- THE SIMPLE ONES FIRST -->
+    <div style="font-family:'Fredoka One',cursive;font-size:20px;margin-bottom:14px;margin-top:8px;">Let's start with the easiest noun classes first 👇</div>
+
+    <!-- KI-VI -->
+    <div class="big-idea" style="background:#f0faf5;border-color:#a9dfbf;margin-bottom:16px;">
+      <span class="bi-icon">📚</span>
+      <div>
+        <div class="bi-title" style="color:var(--green)">KI / VI Class — Objects</div>
+        <div class="bi-body" style="color:#1a4a2e">
+          KI class uses <strong>ch-</strong> before vowel stems.<br>
+          VI class uses <strong>vy-</strong> before vowel stems.<br><br>
+          <em>-ekundu (red)</em> → ki + ekundu = <strong>chekundu</strong> | vi + ekundu = <strong>vyekundu</strong><br>
+          <em>-ingine (other)</em> → ki + ingine = <strong>kingine</strong> | vi + ingine = <strong>vingine</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- N CLASS -->
+    <div class="big-idea" style="background:#f5f0ff;border-color:#c9b0f0;margin-bottom:16px;">
+      <span class="bi-icon">🐘</span>
+      <div>
+        <div class="bi-title" style="color:var(--purple)">N Class — Animals & Common Nouns</div>
+        <div class="bi-body" style="color:#3a1a5a">
+          N class uses <strong>ny-</strong> before vowel stems.<br><br>
+          <em>-ekundu (red)</em> → ny + ekundu = <strong>nyekundu</strong><br>
+          <em>-ingine (other)</em> → ny + ingine = <strong>nyingine</strong><br><br>
+          Easy rule: N class vowel adjectives always start with <strong>ny</strong>!
+        </div>
+      </div>
+    </div>
+
+    <!-- JI-MA -->
+    <div class="big-idea" style="background:#fffbf0;border-color:#f5d98a;margin-bottom:16px;">
+      <span class="bi-icon">🍋</span>
+      <div>
+        <div class="bi-title" style="color:var(--orange)">JI / MA Class — Fruits & Large Things</div>
+        <div class="bi-body" style="color:#6a3a00">
+          JI class uses <strong>j-</strong> before e/i, or <strong>l-</strong> before a/o/u.<br>
+          MA class uses <strong>m-</strong> before vowel stems (and the vowel blends in).<br><br>
+          <em>-ekundu (red)</em> → j + ekundu = <strong>jekundu</strong> | ma + ekundu = <strong>mekundu</strong><br>
+          <em>-ingine (other)</em> → l + ingine = <strong>lingine</strong> | ma + ingine = <strong>mengine</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- M-WA & M-MI -->
+    <div class="big-idea" style="background:#fdf0f0;border-color:#f5b0a0;margin-bottom:24px;">
+      <span class="bi-icon">🧍</span>
+      <div>
+        <div class="bi-title" style="color:var(--red)">M / WA Class (People) & M / MI Class (Trees)</div>
+        <div class="bi-body" style="color:#6a1a10">
+          Both use <strong>mw-</strong> for singular before vowel stems.<br>
+          WA class plural uses <strong>w-</strong> | MI class plural uses <strong>my-</strong><br><br>
+          <em>-ekundu (red)</em>:<br>
+          Person singular: <strong>mwekundu</strong> | WA plural: <strong>wekundu</strong><br>
+          Tree singular: <strong>mwekundu</strong> | MI plural: <strong>myekundu</strong><br><br>
+          <em>-ingine (other)</em>:<br>
+          Person: <strong>mwingine</strong> | WA plural: <strong>wengine</strong> | MI plural: <strong>mingine</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- THE FULL TABLE — simplified with only 2 adjectives -->
+    <div style="font-family:'Fredoka One',cursive;font-size:20px;margin-bottom:14px;">
+      Full Table — using simple adjectives <span style="color:var(--red)">-ekundu</span> (red) and <span style="color:var(--blue)">-ingine</span> (other/another)
+    </div>
+
+    <div class="class-table-wrap">
+      <table class="class-table">
+        <thead>
+          <tr>
+            <th>Noun Class</th>
+            <th>What it covers</th>
+            <th>-ekundu (red)</th>
+            <th>-ingine (another)</th>
+            <th>Quick example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="cls-badge" style="background:#fdecea;color:var(--red)">M- sing.</span></td>
+            <td style="font-size:13px;color:var(--muted)">1 person / 1 tree</td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">mwekundu</span></td>
+            <td><span class="prefix-pill" style="background:#eef3fd;color:var(--blue)">mwingine</span></td>
+            <td><span class="example-sw">mtu mwingine</span><span class="example-en">another person</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#fdecea;color:var(--red)">WA- pl.</span></td>
+            <td style="font-size:13px;color:var(--muted)">many people</td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">wekundu</span></td>
+            <td><span class="prefix-pill" style="background:#eef3fd;color:var(--blue)">wengine</span></td>
+            <td><span class="example-sw">watu wengine</span><span class="example-en">other people</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#fdecea;color:var(--red)">MI- pl.</span></td>
+            <td style="font-size:13px;color:var(--muted)">many trees</td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">myekundu</span></td>
+            <td><span class="prefix-pill" style="background:#eef3fd;color:var(--blue)">mingine</span></td>
+            <td><span class="example-sw">miti mingine</span><span class="example-en">other trees</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#fef9e7;color:var(--orange)">JI- sing.</span></td>
+            <td style="font-size:13px;color:var(--muted)">1 fruit / big thing</td>
+            <td><span class="prefix-pill" style="background:#fef9e7;color:var(--orange)">jekundu</span></td>
+            <td><span class="prefix-pill" style="background:#eef3fd;color:var(--blue)">lingine</span></td>
+            <td><span class="example-sw">tunda lingine</span><span class="example-en">another fruit</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#fef9e7;color:var(--orange)">MA- pl.</span></td>
+            <td style="font-size:13px;color:var(--muted)">many fruits</td>
+            <td><span class="prefix-pill" style="background:#fef9e7;color:var(--orange)">mekundu</span></td>
+            <td><span class="prefix-pill" style="background:#eef3fd;color:var(--blue)">mengine</span></td>
+            <td><span class="example-sw">matunda mengine</span><span class="example-en">other fruits</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#eafaf1;color:var(--green)">KI- sing.</span></td>
+            <td style="font-size:13px;color:var(--muted)">1 object / thing</td>
+            <td><span class="prefix-pill" style="background:#eafaf1;color:var(--green)">chekundu</span></td>
+            <td><span class="prefix-pill" style="background:#eef3fd;color:var(--blue)">kingine</span></td>
+            <td><span class="example-sw">kitabu kingine</span><span class="example-en">another book</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#eafaf1;color:var(--green)">VI- pl.</span></td>
+            <td style="font-size:13px;color:var(--muted)">many objects</td>
+            <td><span class="prefix-pill" style="background:#eafaf1;color:var(--green)">vyekundu</span></td>
+            <td><span class="prefix-pill" style="background:#eef3fd;color:var(--blue)">vingine</span></td>
+            <td><span class="example-sw">vitabu vingine</span><span class="example-en">other books</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#f5eef8;color:var(--purple)">N- sing/pl.</span></td>
+            <td style="font-size:13px;color:var(--muted)">animals, many nouns</td>
+            <td><span class="prefix-pill" style="background:#f5eef8;color:var(--purple)">nyekundu</span></td>
+            <td><span class="prefix-pill" style="background:#eef3fd;color:var(--blue)">nyingine</span></td>
+            <td><span class="example-sw">nyumba nyingine</span><span class="example-en">another house</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tip-box">
+      <strong>⭐ Special rule:</strong> The adjective <strong>-ema</strong> (good/kind) in N class does NOT become <em>nyema</em> as you'd expect. It becomes <strong>njema</strong> instead. This is one you just have to memorise! <em>Safari njema!</em> = Have a good journey!
+    </div>
+
+    <!-- SECTION A EXAMPLES -->
+    <div class="example-grid">
+      <div class="ex-card" style="border-color:#f5b0a0">
+        <span class="ex-emoji">🍎</span>
+        <div class="ex-sw" style="color:var(--red)">tunda jekundu</div>
+        <div class="ex-en">red fruit</div>
+        <div class="ex-breakdown">JI class → j+ekundu = jekundu</div>
+      </div>
+      <div class="ex-card" style="border-color:#f5b0a0">
+        <span class="ex-emoji">🐦</span>
+        <div class="ex-sw" style="color:var(--purple)">ndege nyekundu</div>
+        <div class="ex-en">red bird</div>
+        <div class="ex-breakdown">N class → ny+ekundu = nyekundu</div>
+      </div>
+      <div class="ex-card" style="border-color:#a9dfbf">
+        <span class="ex-emoji">📗</span>
+        <div class="ex-sw" style="color:var(--green)">kitabu kingine</div>
+        <div class="ex-en">another book</div>
+        <div class="ex-breakdown">KI class → k+ingine = kingine</div>
+      </div>
+      <div class="ex-card" style="border-color:#c9b0f0">
+        <span class="ex-emoji">🏠</span>
+        <div class="ex-sw" style="color:var(--purple)">nyumba nyingine</div>
+        <div class="ex-en">another house</div>
+        <div class="ex-breakdown">N class → ny+ingine = nyingine</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SECTION A: A OF ASSOCIATION CONNECTION ── -->
+  <div class="sec-wrap" id="secA-assoc" style="margin-top:-20px">
+    <div class="big-idea" style="background:#fff8e6;border-color:#f5c842;border-left:5px solid var(--gold)">
+      <span class="bi-icon">🔑</span>
+      <div>
+        <div class="bi-title" style="color:#8a6200">Why -A of Association matters HERE</div>
+        <div class="bi-body" style="color:#5a3a00">
+          The <strong>-a of association</strong> (ya, cha, wa, la, vya...) is the SAME set of prefixes used in adjective agreement — especially for exception adjectives in Section C. If you understand the -a connectors, you already know most adjective agreements!<br><br>
+          The pattern is: <strong>the noun class prefix + the adjective stem</strong>. The same prefix that gives you <em>cha</em> in "kitabu <em>cha</em> mwalimu" also gives you <em>ch-</em> in "kitabu <em>ch</em>ekundu" (the red book).<br><br>
+          <strong>Same prefix. Same noun class. Just used in two different ways.</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- A OF ASSOCIATION REMINDER TABLE -->
+    <div style="font-family:'Fredoka One',cursive;font-size:20px;margin-bottom:14px;margin-top:8px;">
+      📎 Quick reminder — the -A of Association prefixes you already know
+    </div>
+    <div class="class-table-wrap" style="margin-bottom:28px;">
+      <table class="class-table">
+        <thead>
+          <tr>
+            <th>Noun Class</th>
+            <th>-A connector ("of")</th>
+            <th>Example with -a</th>
+            <th>Same prefix in adjectives</th>
+            <th>Adjective example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="cls-badge" style="background:#fdecea;color:var(--red)">M- (1 person)</span></td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">wa</span></td>
+            <td>
+              <span class="example-sw">mtoto <span style="color:var(--red)">wa</span> mama</span>
+              <span class="example-en">mother's child</span>
+              <span style="font-size:11px;color:var(--muted);display:block;margin-top:3px;font-style:italic">mtoto = M class → wa</span>
+            </td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">mw–</span></td>
+            <td><span class="example-sw">mtu <span style="color:var(--red)">mwingine</span></span><span class="example-en">another person</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#fdecea;color:var(--red)">WA- (many people)</span></td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">wa</span></td>
+            <td>
+              <span class="example-sw">watoto <span style="color:var(--red)">wa</span> shule</span>
+              <span class="example-en">school children</span>
+              <span style="font-size:11px;color:var(--muted);display:block;margin-top:3px;font-style:italic">watoto = WA class → wa</span>
+            </td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">w–</span></td>
+            <td><span class="example-sw">watu <span style="color:var(--red)">wengine</span></span><span class="example-en">other people</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#fdecea;color:var(--red)">M- / MI- (trees)</span></td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">wa / ya</span></td>
+            <td>
+              <span class="example-sw">mti <span style="color:var(--red)">wa</span> machungwa</span>
+              <span class="example-en">orange tree</span>
+              <span style="font-size:11px;color:var(--muted);display:block;margin-top:3px;font-style:italic">mti = M class (sing.) → wa</span>
+              <span class="example-sw" style="margin-top:6px;display:block">miti <span style="color:var(--red)">ya</span> embe</span>
+              <span class="example-en">mango trees</span>
+              <span style="font-size:11px;color:var(--muted);display:block;margin-top:3px;font-style:italic">miti = MI class (pl.) → ya</span>
+            </td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">mw– / my–</span></td>
+            <td>
+              <span class="example-sw">mti <span style="color:var(--red)">mwingine</span></span><span class="example-en">another tree</span>
+              <span class="example-sw" style="display:block;margin-top:6px">miti <span style="color:var(--red)">mingine</span></span><span class="example-en">other trees</span>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#fef9e7;color:var(--orange)">JI- (1 fruit / big thing)</span></td>
+            <td><span class="prefix-pill" style="background:#fef9e7;color:var(--orange)">la</span></td>
+            <td>
+              <span class="example-sw">tunda <span style="color:var(--orange)">la</span> mti</span>
+              <span class="example-en">fruit of the tree</span>
+              <span style="font-size:11px;color:var(--muted);display:block;margin-top:3px;font-style:italic">tunda = JI class (sing.) → la</span>
+            </td>
+            <td><span class="prefix-pill" style="background:#fef9e7;color:var(--orange)">j– / l–</span></td>
+            <td><span class="example-sw">tunda <span style="color:var(--orange)">jekundu</span></span><span class="example-en">red fruit</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#fef9e7;color:var(--orange)">MA- (many fruits)</span></td>
+            <td><span class="prefix-pill" style="background:#fef9e7;color:var(--orange)">ya</span></td>
+            <td>
+              <span class="example-sw">matunda <span style="color:var(--orange)">ya</span> miti</span>
+              <span class="example-en">fruits of the trees</span>
+              <span style="font-size:11px;color:var(--muted);display:block;margin-top:3px;font-style:italic">matunda = MA class (pl.) → ya</span>
+            </td>
+            <td><span class="prefix-pill" style="background:#fef9e7;color:var(--orange)">m–</span></td>
+            <td><span class="example-sw">matunda <span style="color:var(--orange)">mekundu</span></span><span class="example-en">red fruits</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#eafaf1;color:var(--green)">KI- (1 object)</span></td>
+            <td><span class="prefix-pill" style="background:#eafaf1;color:var(--green)">cha</span></td>
+            <td>
+              <span class="example-sw">kitabu <span style="color:var(--green)">cha</span> mwanafunzi</span>
+              <span class="example-en">student's book</span>
+              <span style="font-size:11px;color:var(--muted);display:block;margin-top:3px;font-style:italic">kitabu = KI class (sing.) → cha</span>
+            </td>
+            <td><span class="prefix-pill" style="background:#eafaf1;color:var(--green)">ch– / k–</span></td>
+            <td><span class="example-sw">kitabu <span style="color:var(--green)">kingine</span></span><span class="example-en">another book</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#eafaf1;color:var(--green)">VI- (many objects)</span></td>
+            <td><span class="prefix-pill" style="background:#eafaf1;color:var(--green)">vya</span></td>
+            <td>
+              <span class="example-sw">vitabu <span style="color:var(--green)">vya</span> mwanafunzi</span>
+              <span class="example-en">student's books</span>
+              <span style="font-size:11px;color:var(--muted);display:block;margin-top:3px;font-style:italic">vitabu = VI class (pl.) → vya</span>
+            </td>
+            <td><span class="prefix-pill" style="background:#eafaf1;color:var(--green)">vy–</span></td>
+            <td><span class="example-sw">vitabu <span style="color:var(--green)">vingine</span></span><span class="example-en">other books</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#f5eef8;color:var(--purple)">N- sing (animal/noun)</span></td>
+            <td><span class="prefix-pill" style="background:#f5eef8;color:var(--purple)">ya</span></td>
+            <td>
+              <span class="example-sw">nyumba <span style="color:var(--purple)">ya</span> baba</span>
+              <span class="example-en">father's house</span>
+              <span style="font-size:11px;color:var(--muted);display:block;margin-top:3px;font-style:italic">nyumba = N class (sing.) → ya</span>
+            </td>
+            <td><span class="prefix-pill" style="background:#f5eef8;color:var(--purple)">ny–</span></td>
+            <td><span class="example-sw">nyumba <span style="color:var(--purple)">nyingine</span></span><span class="example-en">another house</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#f5eef8;color:var(--purple)">N- pl (animals/nouns)</span></td>
+            <td><span class="prefix-pill" style="background:#f5eef8;color:var(--purple)">za</span></td>
+            <td>
+              <span class="example-sw">nyumba <span style="color:var(--purple)">za</span> wanafunzi</span>
+              <span class="example-en">students' houses</span>
+              <span style="font-size:11px;color:var(--muted);display:block;margin-top:3px;font-style:italic">nyumba pl. = N class → za</span>
+            </td>
+            <td><span class="prefix-pill" style="background:#f5eef8;color:var(--purple)">ny–</span></td>
+            <td><span class="example-sw">nyumba <span style="color:var(--purple)">nyingine</span></span><span class="example-en">other houses</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- REINFORCE SECTION A — extra examples per class -->
+    <div style="font-family:'Fredoka One',cursive;font-size:20px;margin-bottom:6px;">📚 More examples — Section A vowel stems per class</div>
+    <div style="font-size:14px;color:var(--muted);margin-bottom:18px;">Using <strong style="color:var(--red)">-ekundu</strong> (red) and <strong style="color:var(--blue)">-ingine</strong> (other/another) across every class</div>
+
+    <!-- M-WA expanded -->
+    <div style="font-family:'Fredoka One',cursive;font-size:17px;color:var(--red);margin-bottom:10px;">👥 M / WA class (people)</div>
+    <div class="example-grid" style="margin-bottom:20px">
+      <div class="ex-card" style="border-color:#f5b0a0">
+        <span class="ex-emoji">🧑</span>
+        <div class="ex-sw" style="color:var(--red)">mtu mwingine</div>
+        <div class="ex-en">another person</div>
+        <div class="ex-breakdown">M sing → mw + ingine</div>
+      </div>
+      <div class="ex-card" style="border-color:#f5b0a0">
+        <span class="ex-emoji">👩‍🏫</span>
+        <div class="ex-sw" style="color:var(--red)">mwalimu mwingine</div>
+        <div class="ex-en">another teacher</div>
+        <div class="ex-breakdown">M sing → mw + ingine</div>
+      </div>
+      <div class="ex-card" style="border-color:#f5b0a0">
+        <span class="ex-emoji">👫</span>
+        <div class="ex-sw" style="color:var(--red)">watu wengine</div>
+        <div class="ex-en">other people</div>
+        <div class="ex-breakdown">WA pl → w + engine</div>
+      </div>
+      <div class="ex-card" style="border-color:#f5b0a0">
+        <span class="ex-emoji">👩‍🎓</span>
+        <div class="ex-sw" style="color:var(--red)">wanafunzi wekundu</div>
+        <div class="ex-en">red-skinned students</div>
+        <div class="ex-breakdown">WA pl → w + ekundu</div>
+      </div>
+    </div>
+
+    <!-- M-MI expanded -->
+    <div style="font-family:'Fredoka One',cursive;font-size:17px;color:var(--orange);margin-bottom:10px;">🌳 M / MI class (trees &amp; plants) — <em style="font-size:14px;color:var(--muted)">singular uses mw–, plural changes to my–</em></div>
+    <div class="example-grid" style="margin-bottom:20px">
+      <div class="ex-card" style="border-color:#f5d98a">
+        <span class="ex-emoji">🌴</span>
+        <div class="ex-sw" style="color:var(--orange)">mti mwingine</div>
+        <div class="ex-en">another tree</div>
+        <div class="ex-breakdown">M sing → mw + ingine = mwingine</div>
+      </div>
+      <div class="ex-card" style="border-color:#f5d98a">
+        <span class="ex-emoji">🌲</span>
+        <div class="ex-sw" style="color:var(--orange)">mti mwekundu</div>
+        <div class="ex-en">a red tree</div>
+        <div class="ex-breakdown">M sing → mw + ekundu = mwekundu</div>
+      </div>
+      <div class="ex-card" style="border-color:#f5d98a">
+        <span class="ex-emoji">🌳🌳</span>
+        <div class="ex-sw" style="color:var(--orange)">miti mingine</div>
+        <div class="ex-en">other trees</div>
+        <div class="ex-breakdown">MI pl → m + ingine = mingine ⚠️ not mwingine!</div>
+      </div>
+      <div class="ex-card" style="border-color:#f5d98a">
+        <span class="ex-emoji">🌿</span>
+        <div class="ex-sw" style="color:var(--orange)">miti myekundu</div>
+        <div class="ex-en">red trees</div>
+        <div class="ex-breakdown">MI pl → my + ekundu = myekundu ⚠️ not wekundu!</div>
+      </div>
+    </div>
+    <div class="tip-box" style="margin-bottom:20px;">
+      <strong>⚠️ M/MI class — the tricky one!</strong> Singular and plural use DIFFERENT prefixes:<br>
+      Singular (1 tree) → <strong>mw–</strong> &nbsp;|&nbsp; Plural (many trees) → <strong>my–</strong> (for vowel stems)<br>
+      <em>mti mwingine</em> (one other tree) but <em>miti <strong>m</strong>ingine</em> (other trees) — notice the change!
+    </div>
+
+    <!-- JI-MA expanded -->
+    <div style="font-family:'Fredoka One',cursive;font-size:17px;color:var(--orange);margin-bottom:10px;">🍋 JI / MA class (fruits &amp; large things) — <em style="font-size:14px;color:var(--muted)">singular uses j/l–, plural uses m–</em></div>
+    <div class="example-grid" style="margin-bottom:20px">
+      <div class="ex-card" style="border-color:#f5d98a">
+        <span class="ex-emoji">🍊</span>
+        <div class="ex-sw" style="color:var(--orange)">tunda lingine</div>
+        <div class="ex-en">another fruit</div>
+        <div class="ex-breakdown">JI sing → l + ingine = lingine</div>
+      </div>
+      <div class="ex-card" style="border-color:#f5d98a">
+        <span class="ex-emoji">🍎</span>
+        <div class="ex-sw" style="color:var(--orange)">tunda jekundu</div>
+        <div class="ex-en">a red fruit</div>
+        <div class="ex-breakdown">JI sing → j + ekundu = jekundu</div>
+      </div>
+      <div class="ex-card" style="border-color:#f5d98a">
+        <span class="ex-emoji">🍓🍊</span>
+        <div class="ex-sw" style="color:var(--orange)">matunda mengine</div>
+        <div class="ex-en">other fruits</div>
+        <div class="ex-breakdown">MA pl → m + engine = mengine ⚠️ not lingine!</div>
+      </div>
+      <div class="ex-card" style="border-color:#f5d98a">
+        <span class="ex-emoji">🍒</span>
+        <div class="ex-sw" style="color:var(--orange)">matunda mekundu</div>
+        <div class="ex-en">red fruits</div>
+        <div class="ex-breakdown">MA pl → m + ekundu = mekundu ⚠️ not jekundu!</div>
+      </div>
+    </div>
+    <div class="tip-box" style="margin-bottom:28px;">
+      <strong>⚠️ JI/MA class — also tricky!</strong> Singular and plural use DIFFERENT prefixes:<br>
+      Singular (1 fruit) → <strong>j–</strong> or <strong>l–</strong> &nbsp;|&nbsp; Plural (many fruits) → <strong>m–</strong><br>
+      <em>tunda jekundu</em> (one red fruit) but <em>matunda <strong>m</strong>ekundu</em> (red fruits) — the j becomes m in plural!
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       SECTION B — CONSONANT STEM
+  ═══════════════════════════════ -->
+  <div class="sec-wrap" id="secB">
+    <span class="sec-num">Section B</span>
+    <div class="sec-title" style="color:var(--blue)">Consonant Stem Adjectives</div>
+    <div class="sec-sub">Adjectives whose stem starts with a consonant — like -zuri (beautiful) or -baya (bad)</div>
+
+    <div class="big-idea" style="background:#eef4fd;border-color:#b0ccf5">
+      <span class="bi-icon">💡</span>
+      <div>
+        <div class="bi-title" style="color:var(--blue)">The Big Idea</div>
+        <div class="bi-body" style="color:#1a2a5a">
+          Most adjectives start with consonants — like <strong>-zuri</strong> (beautiful/good) or <strong>-baya</strong> (bad). These are simpler than vowel stems because the prefix just sticks on directly without blending.<br><br>
+          Each noun class has its own prefix. You match the prefix to the class and you're done!
+        </div>
+      </div>
+    </div>
+
+    <div class="class-table-wrap">
+      <table class="class-table">
+        <thead>
+          <tr>
+            <th>Noun Class</th>
+            <th>What it covers</th>
+            <th>-zuri (beautiful)</th>
+            <th>-baya (bad)</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="cls-badge" style="background:#fdecea;color:var(--red)">M- sing.</span></td>
+            <td style="font-size:13px;color:var(--muted)">1 person / 1 tree</td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">mzuri</span></td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">mbaya</span></td>
+            <td><span class="example-sw">mtu mzuri</span><span class="example-en">a good person</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#fdecea;color:var(--red)">WA- pl.</span></td>
+            <td style="font-size:13px;color:var(--muted)">many people</td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">wazuri</span></td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">wabaya</span></td>
+            <td><span class="example-sw">watu wazuri</span><span class="example-en">good people</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#fdecea;color:var(--red)">MI- pl.</span></td>
+            <td style="font-size:13px;color:var(--muted)">many trees</td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">mizuri</span></td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">mibaya</span></td>
+            <td><span class="example-sw">miti mizuri</span><span class="example-en">beautiful trees</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#fef9e7;color:var(--orange)">JI- sing.</span></td>
+            <td style="font-size:13px;color:var(--muted)">1 fruit / big thing</td>
+            <td><span class="prefix-pill" style="background:#fef9e7;color:var(--orange)">zuri</span></td>
+            <td><span class="prefix-pill" style="background:#fef9e7;color:var(--orange)">baya</span></td>
+            <td><span class="example-sw">tunda zuri</span><span class="example-en">a nice fruit</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#fef9e7;color:var(--orange)">MA- pl.</span></td>
+            <td style="font-size:13px;color:var(--muted)">many fruits</td>
+            <td><span class="prefix-pill" style="background:#fef9e7;color:var(--orange)">mazuri</span></td>
+            <td><span class="prefix-pill" style="background:#fef9e7;color:var(--orange)">mabaya</span></td>
+            <td><span class="example-sw">matunda mazuri</span><span class="example-en">nice fruits</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#eafaf1;color:var(--green)">KI- sing.</span></td>
+            <td style="font-size:13px;color:var(--muted)">1 object</td>
+            <td><span class="prefix-pill" style="background:#eafaf1;color:var(--green)">kizuri</span></td>
+            <td><span class="prefix-pill" style="background:#eafaf1;color:var(--green)">kibaya</span></td>
+            <td><span class="example-sw">kiti kizuri</span><span class="example-en">a nice chair</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#eafaf1;color:var(--green)">VI- pl.</span></td>
+            <td style="font-size:13px;color:var(--muted)">many objects</td>
+            <td><span class="prefix-pill" style="background:#eafaf1;color:var(--green)">vizuri</span></td>
+            <td><span class="prefix-pill" style="background:#eafaf1;color:var(--green)">vibaya</span></td>
+            <td><span class="example-sw">viti vizuri</span><span class="example-en">nice chairs</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#f5eef8;color:var(--purple)">N- sing/pl.</span></td>
+            <td style="font-size:13px;color:var(--muted)">animals, many nouns</td>
+            <td><span class="prefix-pill" style="background:#f5eef8;color:var(--purple)">nzuri</span></td>
+            <td><span class="prefix-pill" style="background:#f5eef8;color:var(--purple)">mbaya</span></td>
+            <td><span class="example-sw">nyumba nzuri</span><span class="example-en">a nice house</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- N CLASS SPECIAL RULES -->
+    <div style="font-family:'Fredoka One',cursive;font-size:20px;margin-bottom:14px;">⚠️ N class has 3 special rules</div>
+
+    <div class="rule-card">
+      <div class="rule-num">1</div>
+      <div class="rule-body">
+        <strong>Letters d, g, j, y, z → add n- in front</strong>
+        <p>If the adjective starts with d, g, j, y, or z — add n- before it in N class.</p>
+        <span class="rule-example" style="color:var(--purple)">nyumba nzuri ✅ &nbsp;|&nbsp; -zuri starts with z → nzuri</span>
+      </div>
+    </div>
+
+    <div class="example-grid" style="margin-bottom:20px">
+      <div class="ex-card" style="border-color:#c9b0f0">
+        <span class="ex-emoji">🏠</span>
+        <div class="ex-sw" style="color:var(--purple)">nyumba nzuri</div>
+        <div class="ex-en">a nice house</div>
+        <div class="ex-breakdown">-zuri starts with z → nzuri</div>
+      </div>
+      <div class="ex-card" style="border-color:#c9b0f0">
+        <span class="ex-emoji">🐕</span>
+        <div class="ex-sw" style="color:var(--purple)">mbwa ndogo</div>
+        <div class="ex-en">a small dog</div>
+        <div class="ex-breakdown">-dogo starts with d → ndogo</div>
+      </div>
+      <div class="ex-card" style="border-color:#c9b0f0">
+        <span class="ex-emoji">🐍</span>
+        <div class="ex-sw" style="color:var(--purple)">nyoka ndefu</div>
+        <div class="ex-en">a long snake</div>
+        <div class="ex-breakdown">-refu → special form ndefu (N class)</div>
+      </div>
+      <div class="ex-card" style="border-color:#c9b0f0">
+        <span class="ex-emoji">🚗</span>
+        <div class="ex-sw" style="color:var(--purple)">gari nzuri</div>
+        <div class="ex-en">a nice car</div>
+        <div class="ex-breakdown">-zuri starts with z → nzuri</div>
+      </div>
+    </div>
+
+    <div class="rule-card">
+      <div class="rule-num">2</div>
+      <div class="rule-body">
+        <strong>Letter b → add m- in front</strong>
+        <p>If the adjective starts with b — use m- instead of n- in N class. This is because b and m are both lip sounds — they naturally go together!</p>
+        <span class="rule-example" style="color:var(--purple)">nyumba mbaya ✅ &nbsp;|&nbsp; -baya starts with b → mbaya</span>
+      </div>
+    </div>
+
+    <div class="example-grid" style="margin-bottom:20px">
+      <div class="ex-card" style="border-color:#c9b0f0">
+        <span class="ex-emoji">🏠</span>
+        <div class="ex-sw" style="color:var(--purple)">nyumba mbaya</div>
+        <div class="ex-en">a bad house</div>
+        <div class="ex-breakdown">-baya starts with b → mbaya</div>
+      </div>
+      <div class="ex-card" style="border-color:#c9b0f0">
+        <span class="ex-emoji">🛣️</span>
+        <div class="ex-sw" style="color:var(--purple)">barabara mbaya</div>
+        <div class="ex-en">a bad road</div>
+        <div class="ex-breakdown">-baya starts with b → mbaya</div>
+      </div>
+      <div class="ex-card" style="border-color:#c9b0f0">
+        <span class="ex-emoji">🐈</span>
+        <div class="ex-sw" style="color:var(--purple)">paka mbaya</div>
+        <div class="ex-en">a bad cat</div>
+        <div class="ex-breakdown">-baya starts with b → mbaya</div>
+      </div>
+    </div>
+
+    <div class="rule-card">
+      <div class="rule-num">3</div>
+      <div class="rule-body">
+        <strong>All other consonants → NO prefix in N class!</strong>
+        <p>If the adjective starts with any other consonant (k, t, p, f, s, h, r, l, w, ch, sh...) — you add NOTHING in N class. The adjective stays exactly as it is!</p>
+        <span class="rule-example" style="color:var(--purple)">nyumba kubwa ✅ &nbsp;|&nbsp; -kubwa starts with k → no prefix, stays kubwa</span>
+      </div>
+    </div>
+
+    <div class="example-grid" style="margin-bottom:20px">
+      <div class="ex-card" style="border-color:#c9b0f0">
+        <span class="ex-emoji">🏡</span>
+        <div class="ex-sw" style="color:var(--purple)">nyumba kubwa</div>
+        <div class="ex-en">a big house</div>
+        <div class="ex-breakdown">-kubwa starts with k → NO prefix</div>
+      </div>
+      <div class="ex-card" style="border-color:#c9b0f0">
+        <span class="ex-emoji">🐘</span>
+        <div class="ex-sw" style="color:var(--purple)">tembo kubwa</div>
+        <div class="ex-en">a big elephant</div>
+        <div class="ex-breakdown">-kubwa starts with k → NO prefix</div>
+      </div>
+      <div class="ex-card" style="border-color:#c9b0f0">
+        <span class="ex-emoji">🐱</span>
+        <div class="ex-sw" style="color:var(--purple)">paka hodari</div>
+        <div class="ex-en">a clever cat</div>
+        <div class="ex-breakdown">hodari = invariable — stays the same!</div>
+      </div>
+      <div class="ex-card" style="border-color:#c9b0f0">
+        <span class="ex-emoji">🐦</span>
+        <div class="ex-sw" style="color:var(--purple)">ndege ndogo</div>
+        <div class="ex-en">a small bird</div>
+        <div class="ex-breakdown">-dogo starts with d → ndogo</div>
+      </div>
+    </div>
+
+    <div class="tip-box" style="margin-bottom:8px;">
+      <strong>🧠 Memory trick for N class rules:</strong><br>
+      <strong>d, g, j, y, z</strong> → add <strong>n</strong> (these letters "hiss" — n makes them softer)<br>
+      <strong>b</strong> → add <strong>m</strong> (b and m are both lip sounds — they match!)<br>
+      <strong>everything else</strong> → add <strong>nothing</strong> (just leave it alone!)
+    </div>
+
+    <!-- SPECIAL ADJECTIVES -->
+    <div style="font-family:'Fredoka One',cursive;font-size:20px;margin-top:28px;margin-bottom:14px;">Two adjectives with special forms</div>
+
+    <div class="big-idea" style="background:#fffbf0;border-color:#f5d98a;margin-bottom:14px;">
+      <span class="bi-icon">📏</span>
+      <div>
+        <div class="bi-title" style="color:var(--orange)">-refu (long/tall) → becomes ndefu in N class</div>
+        <div class="bi-body" style="color:#6a3a00">
+          Normally you'd expect -refu to become n-refu in N class. But it doesn't — it becomes <strong>ndefu</strong> instead. Just memorise this one!<br><br>
+          <em>meza ndefu</em> = the long table | <em>mti mrefu</em> = a tall tree (M class → mrefu, normal)
+        </div>
+      </div>
+    </div>
+
+    <div class="big-idea" style="background:#eef4fd;border-color:#b0ccf5">
+      <span class="bi-icon">✨</span>
+      <div>
+        <div class="bi-title" style="color:var(--blue)">-pya (new) has some irregular forms</div>
+        <div class="bi-body" style="color:#1a2a5a">
+          The adjective <strong>-pya</strong> (new) is mostly regular but these forms are special:<br><br>
+          JI class singular → <strong>jipya</strong><br>
+          N class singular → <strong>mpya</strong><br>
+          N class plural → <strong>mpya</strong><br>
+          U class plural → <strong>mpya</strong><br><br>
+          <em>kitabu kipya</em> = new book (KI — normal) | <em>nyumba mpya</em> = new house (N — special)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       SECTION C — EXCEPTION ADJECTIVES
+  ═══════════════════════════════ -->
+  <div class="sec-wrap" id="secC">
+    <span class="sec-num">Section C</span>
+    <div class="sec-title" style="color:var(--green)">Exception Adjectives</div>
+    <div class="sec-sub">4 special adjectives that have their own unique rules</div>
+
+    <div class="big-idea" style="background:#f0faf5;border-color:#a9dfbf">
+      <span class="bi-icon">💡</span>
+      <div>
+        <div class="bi-title" style="color:var(--green)">The Big Idea</div>
+        <div class="bi-body" style="color:#1a4a2e">
+          There are 4 adjectives that don't follow the usual rules above. They have their own agreements for each noun class. The good news is that most of their agreements follow the <strong>same pattern as the -a of association connectors</strong> you already know! (pa, ku, mu, cha, ya, wa etc.)<br><br>
+          The 4 adjectives are: <strong>-ote</strong> (all), <strong>-o -ote</strong> (any), <strong>-enye</strong> (having/with), and <strong>-enyewe</strong> (-self)
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION C REINFORCEMENT TABLE -->
+    <div style="font-family:'Fredoka One',cursive;font-size:20px;margin-bottom:6px;">📋 Section C — Agreement Table (All 4 Exception Adjectives)</div>
+    <div style="font-size:14px;color:var(--muted);margin-bottom:14px;">Notice how most agreements use the SAME prefix as the -a of association — because it's the same system!</div>
+
+    <div class="class-table-wrap" style="margin-bottom:28px;">
+      <table class="class-table">
+        <thead>
+          <tr>
+            <th>Noun Class</th>
+            <th>-a connector<br>(reminder)</th>
+            <th>-ote<br>(all)</th>
+            <th>-o -ote<br>(any)</th>
+            <th>-enye<br>(with/having)</th>
+            <th>-enyewe<br>(-self)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="cls-badge" style="background:#fdecea;color:var(--red)">M- sing (person)</span></td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">wa</span></td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">wote</span></td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">ye yote</span></td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">mwenye</span></td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">mwenyewe</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#fdecea;color:var(--red)">WA- pl (people)</span></td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">wa</span></td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">wote</span></td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">wo wote</span></td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">wenye</span></td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">wenyewe</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#fdecea;color:var(--red)">M- / MI- (trees)</span></td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">wa / ya</span></td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">wote / yote</span></td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">wo / yo yote</span></td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">wenye / yenye</span></td>
+            <td><span class="prefix-pill" style="background:#fdecea;color:var(--red)">wenyewe / yenyewe</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#fef9e7;color:var(--orange)">JI- sing (fruit)</span></td>
+            <td><span class="prefix-pill" style="background:#fef9e7;color:var(--orange)">la</span></td>
+            <td><span class="prefix-pill" style="background:#fef9e7;color:var(--orange)">lote</span></td>
+            <td><span class="prefix-pill" style="background:#fef9e7;color:var(--orange)">lo lote</span></td>
+            <td><span class="prefix-pill" style="background:#fef9e7;color:var(--orange)">lenye</span></td>
+            <td><span class="prefix-pill" style="background:#fef9e7;color:var(--orange)">lenyewe</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#fef9e7;color:var(--orange)">MA- pl (fruits)</span></td>
+            <td><span class="prefix-pill" style="background:#fef9e7;color:var(--orange)">ya</span></td>
+            <td><span class="prefix-pill" style="background:#fef9e7;color:var(--orange)">yote</span></td>
+            <td><span class="prefix-pill" style="background:#fef9e7;color:var(--orange)">yo yote</span></td>
+            <td><span class="prefix-pill" style="background:#fef9e7;color:var(--orange)">yenye</span></td>
+            <td><span class="prefix-pill" style="background:#fef9e7;color:var(--orange)">yenyewe</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#eafaf1;color:var(--green)">KI- sing (object)</span></td>
+            <td><span class="prefix-pill" style="background:#eafaf1;color:var(--green)">cha</span></td>
+            <td><span class="prefix-pill" style="background:#eafaf1;color:var(--green)">chote</span></td>
+            <td><span class="prefix-pill" style="background:#eafaf1;color:var(--green)">cho chote</span></td>
+            <td><span class="prefix-pill" style="background:#eafaf1;color:var(--green)">chenye</span></td>
+            <td><span class="prefix-pill" style="background:#eafaf1;color:var(--green)">chenyewe</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#eafaf1;color:var(--green)">VI- pl (objects)</span></td>
+            <td><span class="prefix-pill" style="background:#eafaf1;color:var(--green)">vya</span></td>
+            <td><span class="prefix-pill" style="background:#eafaf1;color:var(--green)">vyote</span></td>
+            <td><span class="prefix-pill" style="background:#eafaf1;color:var(--green)">vyo vyote</span></td>
+            <td><span class="prefix-pill" style="background:#eafaf1;color:var(--green)">vyenye</span></td>
+            <td><span class="prefix-pill" style="background:#eafaf1;color:var(--green)">vyenyewe</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#f5eef8;color:var(--purple)">N- sing (animal)</span></td>
+            <td><span class="prefix-pill" style="background:#f5eef8;color:var(--purple)">ya</span></td>
+            <td><span class="prefix-pill" style="background:#f5eef8;color:var(--purple)">yote</span></td>
+            <td><span class="prefix-pill" style="background:#f5eef8;color:var(--purple)">yo yote</span></td>
+            <td><span class="prefix-pill" style="background:#f5eef8;color:var(--purple)">yenye</span></td>
+            <td><span class="prefix-pill" style="background:#f5eef8;color:var(--purple)">yenyewe</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls-badge" style="background:#f5eef8;color:var(--purple)">N- pl (animals)</span></td>
+            <td><span class="prefix-pill" style="background:#f5eef8;color:var(--purple)">za</span></td>
+            <td><span class="prefix-pill" style="background:#f5eef8;color:var(--purple)">zote</span></td>
+            <td><span class="prefix-pill" style="background:#f5eef8;color:var(--purple)">zo zote</span></td>
+            <td><span class="prefix-pill" style="background:#f5eef8;color:var(--purple)">zenye</span></td>
+            <td><span class="prefix-pill" style="background:#f5eef8;color:var(--purple)">zenyewe</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tip-box" style="margin-bottom:24px;">
+      <strong>🔑 The shortcut:</strong> Look at the -a connector for that noun class. The exception adjective uses almost the SAME prefix!<br>
+      KI class → -a connector is <strong>cha</strong> → -ote becomes <strong>ch</strong>ote → -enye becomes <strong>ch</strong>enye<br>
+      VI class → -a connector is <strong>vya</strong> → -ote becomes <strong>vy</strong>ote → -enye becomes <strong>vy</strong>enye<br>
+      N plural → -a connector is <strong>za</strong> → -ote becomes <strong>z</strong>ote → -enye becomes <strong>z</strong>enye<br>
+      <em>Same prefix family — just with a different ending!</em>
+    </div>
+
+    <!-- -OTE -->
+    <div style="font-family:'Fredoka One',cursive;font-size:22px;color:var(--green);margin-bottom:12px;margin-top:8px;">1. -ote (all / whole)</div>
+    <div class="example-grid">
+      <div class="ex-card" style="border-color:#a9dfbf">
+        <span class="ex-emoji">👥</span>
+        <div class="ex-sw" style="color:var(--green)">watu wote</div>
+        <div class="ex-en">all people</div>
+        <div class="ex-breakdown">WA class → wote</div>
+      </div>
+      <div class="ex-card" style="border-color:#a9dfbf">
+        <span class="ex-emoji">📚</span>
+        <div class="ex-sw" style="color:var(--green)">vitabu vyote</div>
+        <div class="ex-en">all books</div>
+        <div class="ex-breakdown">VI class → vyote</div>
+      </div>
+      <div class="ex-card" style="border-color:#a9dfbf">
+        <span class="ex-emoji">🏠</span>
+        <div class="ex-sw" style="color:var(--green)">nyumba zote</div>
+        <div class="ex-en">all houses</div>
+        <div class="ex-breakdown">N class plural → zote</div>
+      </div>
+      <div class="ex-card" style="border-color:#a9dfbf">
+        <span class="ex-emoji">🍋</span>
+        <div class="ex-sw" style="color:var(--green)">matunda yote</div>
+        <div class="ex-en">all fruits</div>
+        <div class="ex-breakdown">MA class → yote</div>
+      </div>
+    </div>
+
+    <!-- -ENYE -->
+    <div style="font-family:'Fredoka One',cursive;font-size:22px;color:var(--teal);margin-bottom:12px;margin-top:8px;">2. -enye (having / with)</div>
+    <div class="tip-box">
+      <strong>-enye</strong> must always be followed by a <strong>noun</strong> or an <strong>infinitive verb</strong>. It means the noun "has" something or "comes with" something.
+    </div>
+    <div class="example-grid">
+      <div class="ex-card" style="border-color:#9ef5e8">
+        <span class="ex-emoji">💡</span>
+        <div class="ex-sw" style="color:var(--teal)">kandili yenye mafuta</div>
+        <div class="ex-en">a lantern with oil</div>
+        <div class="ex-breakdown">N class → yenye | followed by noun</div>
+      </div>
+      <div class="ex-card" style="border-color:#9ef5e8">
+        <span class="ex-emoji">💰</span>
+        <div class="ex-sw" style="color:var(--teal)">mtu mwenye pesa</div>
+        <div class="ex-en">a person with money</div>
+        <div class="ex-breakdown">M class → mwenye | followed by noun</div>
+      </div>
+    </div>
+
+    <!-- -ENYEWE -->
+    <div style="font-family:'Fredoka One',cursive;font-size:22px;color:var(--purple);margin-bottom:12px;margin-top:8px;">3. -enyewe (-self)</div>
+    <div class="tip-box">
+      <strong>-enyewe</strong> means "himself/herself/itself/themselves." It always comes <em>after</em> the noun or pronoun.
+    </div>
+    <div class="example-grid">
+      <div class="ex-card" style="border-color:#c9b0f0">
+        <span class="ex-emoji">👩</span>
+        <div class="ex-sw" style="color:var(--purple)">msichana mwenyewe</div>
+        <div class="ex-en">the girl herself</div>
+        <div class="ex-breakdown">M class → mwenyewe</div>
+      </div>
+      <div class="ex-card" style="border-color:#c9b0f0">
+        <span class="ex-emoji">🧑</span>
+        <div class="ex-sw" style="color:var(--purple)">mimi mwenyewe</div>
+        <div class="ex-en">I myself</div>
+        <div class="ex-breakdown">used after a pronoun</div>
+      </div>
+    </div>
+
+    <!-- WORD ORDER FOR EXCEPTION ADJECTIVES -->
+    <div style="font-family:'Fredoka One',cursive;font-size:20px;margin-top:24px;margin-bottom:14px;">📋 Word Order with Exception Adjectives</div>
+
+    <div class="big-idea" style="background:#fffbf0;border-color:#f5c842;margin-bottom:14px;">
+      <span class="bi-icon">🔢</span>
+      <div>
+        <div class="bi-title" style="color:#8a6200">The Order Rule</div>
+        <div class="bi-body" style="color:#4a3000">
+          When you use multiple adjectives together, this is the order:<br><br>
+          <strong>Noun → normal adjectives → -ote/-o ote → -enye → -enyewe</strong><br><br>
+          Example: <em>Vitabu vikubwa vyekundu vyote</em> = Take all the big red books<br>
+          (big → red → all — notice -ote comes last)
+        </div>
+      </div>
+    </div>
+
+    <div class="sent-section">
+      <h3>💬 Exception adjectives in sentences</h3>
+      <div class="sent-item">
+        <div class="sent-sw">Askari <span class="hl" style="background:rgba(39,174,96,0.3)">wote</span> wamerudi.</div>
+        <div class="sent-en">All the soldiers have returned.</div>
+        <div class="sent-note">wote = all (WA class)</div>
+      </div>
+      <div class="sent-item">
+        <div class="sent-sw">Mimi <span class="hl" style="background:rgba(124,63,168,0.3)">mwenyewe</span> sijakwenda.</div>
+        <div class="sent-en">I myself have not gone.</div>
+        <div class="sent-note">mwenyewe = myself (after pronoun)</div>
+      </div>
+      <div class="sent-item">
+        <div class="sent-sw">Karoti <span class="hl" style="background:rgba(39,174,96,0.3)">zote</span> zimeoza.</div>
+        <div class="sent-en">All the carrots have gone bad.</div>
+        <div class="sent-note">zote = all (N class plural)</div>
+      </div>
+      <div class="sent-item">
+        <div class="sent-sw">Vitabu vikubwa <span class="hl" style="background:rgba(39,174,96,0.3)">vyote</span> ni vyekundu.</div>
+        <div class="sent-en">All the big books are red.</div>
+        <div class="sent-note">vyote = all (VI class) — comes after adjective vikubwa</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       SECTION D — INVARIABLE
+  ═══════════════════════════════ -->
+  <div class="sec-wrap" id="secD">
+    <span class="sec-num">Section D</span>
+    <div class="sec-title" style="color:var(--orange)">Invariable Adjectives</div>
+    <div class="sec-sub">Adjectives that NEVER change — same for every noun class</div>
+
+    <div class="big-idea" style="background:#fffbf0;border-color:#f5d98a">
+      <span class="bi-icon">🎉</span>
+      <div>
+        <div class="bi-title" style="color:var(--orange)">The BEST type of adjective!</div>
+        <div class="bi-body" style="color:#6a3a00">
+          These adjectives are mostly from Arabic. They <strong>never change at all</strong> — it doesn't matter what noun class they're with, they always stay exactly the same. No prefixes, no blending, no rules to memorise. Just use the word as-is! 🎊
+        </div>
+      </div>
+    </div>
+
+    <div class="word-grid">
+      <div class="word-card"><div class="wc-sw" style="color:var(--orange)">safi</div><div class="wc-en">clean</div></div>
+      <div class="word-card"><div class="wc-sw" style="color:var(--orange)">ghali</div><div class="wc-en">expensive</div></div>
+      <div class="word-card"><div class="wc-sw" style="color:var(--orange)">rahisi</div><div class="wc-en">easy / cheap</div></div>
+      <div class="word-card"><div class="wc-sw" style="color:var(--orange)">tayari</div><div class="wc-en">ready</div></div>
+      <div class="word-card"><div class="wc-sw" style="color:var(--orange)">bora</div><div class="wc-en">best / better</div></div>
+      <div class="word-card"><div class="wc-sw" style="color:var(--orange)">hodari</div><div class="wc-en">clever / brave</div></div>
+      <div class="word-card"><div class="wc-sw" style="color:var(--orange)">sawa</div><div class="wc-en">equal / OK</div></div>
+      <div class="word-card"><div class="wc-sw" style="color:var(--orange)">tajiri</div><div class="wc-en">rich</div></div>
+      <div class="word-card"><div class="wc-sw" style="color:var(--orange)">maskini</div><div class="wc-en">poor</div></div>
+      <div class="word-card"><div class="wc-sw" style="color:var(--orange)">bure</div><div class="wc-en">useless / free</div></div>
+      <div class="word-card"><div class="wc-sw" style="color:var(--orange)">kila</div><div class="wc-en">every / each</div></div>
+      <div class="word-card"><div class="wc-sw" style="color:var(--orange)">imara</div><div class="wc-en">firm / stable</div></div>
+    </div>
+
+    <div class="tip-box">
+      <strong>Proof they never change:</strong><br>
+      mtu <strong>safi</strong> (a clean person) &nbsp;|&nbsp;
+      nyumba <strong>safi</strong> (a clean house) &nbsp;|&nbsp;
+      vitabu <strong>safi</strong> (clean books) &nbsp;|&nbsp;
+      matunda <strong>safi</strong> (clean fruits)<br>
+      The word <strong>safi</strong> stays <strong>safi</strong> every single time! 🙌
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       SECTION E — COMPOUND ADJECTIVES
+  ═══════════════════════════════ -->
+  <div class="sec-wrap" id="secE">
+    <span class="sec-num">Section E</span>
+    <div class="sec-title" style="color:var(--blue)">Compound Adjectives</div>
+    <div class="sec-sub">Adjectives made by joining two words with the -a of association</div>
+
+    <div class="big-idea" style="background:#eef4fd;border-color:#b0ccf5">
+      <span class="bi-icon">💡</span>
+      <div>
+        <div class="bi-title" style="color:var(--blue)">The Big Idea</div>
+        <div class="bi-body" style="color:#1a2a5a">
+          Sometimes you need to describe something but there's no single adjective for it. In Swahili, you can build your own description using the <strong>-a of association</strong> connector (ya, cha, wa, la...) + another word.<br><br>
+          Think of it like building with Lego — two words click together to describe the noun! 🧱
+        </div>
+      </div>
+    </div>
+
+    <div class="equation">
+      <div class="eq-part" style="background:rgba(37,99,199,0.2);color:#7ab3f5">
+        Noun
+        <span class="eq-note">being described</span>
+      </div>
+      <div class="eq-plus">+</div>
+      <div class="eq-part" style="background:rgba(245,166,35,0.25);color:var(--gold)">
+        -a connector
+        <span class="eq-note">ya / cha / la / wa...</span>
+      </div>
+      <div class="eq-plus">+</div>
+      <div class="eq-part" style="background:rgba(39,174,96,0.2);color:#6adfa8">
+        describing word
+        <span class="eq-note">noun / verb / direction</span>
+      </div>
+      <div class="eq-result">= compound adjective ✅</div>
+    </div>
+
+    <!-- Examples grid -->
+    <div class="example-grid">
+      <div class="ex-card" style="border-color:#b0ccf5">
+        <span class="ex-emoji">💧</span>
+        <div class="ex-sw" style="color:var(--blue)">maji ya moto</div>
+        <div class="ex-en">hot water</div>
+        <div class="ex-breakdown">maji (N) + ya + moto (hot)</div>
+      </div>
+      <div class="ex-card" style="border-color:#b0ccf5">
+        <span class="ex-emoji">📍</span>
+        <div class="ex-sw" style="color:var(--blue)">mahali pa hatari</div>
+        <div class="ex-en">dangerous place</div>
+        <div class="ex-breakdown">mahali (PA) + pa + hatari</div>
+      </div>
+      <div class="ex-card" style="border-color:#b0ccf5">
+        <span class="ex-emoji">📚</span>
+        <div class="ex-sw" style="color:var(--blue)">chumba cha kusomea</div>
+        <div class="ex-en">reading room</div>
+        <div class="ex-breakdown">chumba (KI) + cha + kusomea</div>
+      </div>
+      <div class="ex-card" style="border-color:#b0ccf5">
+        <span class="ex-emoji">👩</span>
+        <div class="ex-sw" style="color:var(--blue)">bidhaa za kike</div>
+        <div class="ex-en">women's products</div>
+        <div class="ex-breakdown">bidhaa (N) + za + kike</div>
+      </div>
+      <div class="ex-card" style="border-color:#b0ccf5">
+        <span class="ex-emoji">🧒</span>
+        <div class="ex-sw" style="color:var(--blue)">harakati za kitoto</div>
+        <div class="ex-en">childish activities</div>
+        <div class="ex-breakdown">harakati (N) + za + kitoto</div>
+      </div>
+      <div class="ex-card" style="border-color:#b0ccf5">
+        <span class="ex-emoji">✂️</span>
+        <div class="ex-sw" style="color:var(--blue)">makasi ya kunyolea</div>
+        <div class="ex-en">haircutting scissors</div>
+        <div class="ex-breakdown">makasi (N) + ya + kunyolea</div>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <strong>Fun fact about "bure":</strong> On its own, <em>bure</em> as an invariable adjective means <strong>"useless."</strong> But as a compound adjective, <em>-a bure</em> means <strong>"free (no cost)!"</strong> For example: <em>Ni bure</em> = It is useless. But <em>Chakula cha bure</em> = Free food! 🍽️
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-box">
+    <h2>🧠 Test Yourself!</h2>
+
+    <div class="quiz-q">
+      <div class="q-text">What is the correct form of <span class="sw">-ingine</span> (another) for KI class? (e.g. kitabu ___)</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="qa(this,false,'q1')">yingine</button>
+        <button class="q-opt" onclick="qa(this,true,'q1')">kingine</button>
+        <button class="q-opt" onclick="qa(this,false,'q1')">wingine</button>
+        <button class="q-opt" onclick="qa(this,false,'q1')">nyingine</button>
+      </div>
+      <div class="q-fb" id="q1"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">Invariable adjectives are great because...</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="qa(this,false,'q2')">They change with every noun class</button>
+        <button class="q-opt" onclick="qa(this,true,'q2')">They NEVER change — same for all noun classes!</button>
+        <button class="q-opt" onclick="qa(this,false,'q2')">They only work with people</button>
+        <button class="q-opt" onclick="qa(this,false,'q2')">They come before the noun</button>
+      </div>
+      <div class="q-fb" id="q2"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">Fill in: <span class="sw">nyumba ___</span> (a new house — N class, use -pya)</div>
+      <div class="fill-row">
+        <input type="text" class="fill-in" id="fi1" placeholder="answer">
+        <button class="chk-btn" onclick="qf('fi1','mpya','fb1','✅ Correct! -pya in N class = mpya. nyumba mpya!','❌ The answer is mpya — -pya has a special form in N class.')">Check</button>
+      </div>
+      <div class="q-fb" id="fb1"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">Which sentence is correct? (all the children)</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="qa(this,false,'q3')">watoto yote</button>
+        <button class="q-opt" onclick="qa(this,true,'q3')">watoto wote</button>
+        <button class="q-opt" onclick="qa(this,false,'q3')">watoto zote</button>
+        <button class="q-opt" onclick="qa(this,false,'q3')">watoto chote</button>
+      </div>
+      <div class="q-fb" id="q3"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">Fill in: <span class="sw">meza ___</span> (the long table — use -refu, N class special form)</div>
+      <div class="fill-row">
+        <input type="text" class="fill-in" id="fi2" placeholder="answer">
+        <button class="chk-btn" onclick="qf('fi2','ndefu','fb2','✅ Ndiyo! Meza ndefu — -refu becomes ndefu in N class. Special form!','❌ Answer: ndefu — -refu has a special N class form: ndefu.')">Check</button>
+      </div>
+      <div class="q-fb" id="fb2"></div>
+    </div>
+
+    <div class="quiz-q">
+      <div class="q-text">What does <span class="sw">-enye</span> mean and what must it always be followed by?</div>
+      <div class="q-opts">
+        <button class="q-opt" onclick="qa(this,false,'q4')">all — followed by a number</button>
+        <button class="q-opt" onclick="qa(this,true,'q4')">having/with — followed by a noun or infinitive verb</button>
+        <button class="q-opt" onclick="qa(this,false,'q4')">-self — followed by a pronoun</button>
+        <button class="q-opt" onclick="qa(this,false,'q4')">any — can stand alone</button>
+      </div>
+      <div class="q-fb" id="q4"></div>
+    </div>
+
+  </div>
+
+</main>
+
+<div class="score-pill">
+  <span style="font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:0.1em">SCORE</span>
+  <span class="sv" id="sv">0</span>
+</div>
+
+<script>
+(function(){
+  let sc = 0;
+  function upd(){ document.getElementById('sv').textContent = sc; }
+
+  window.qa = function(btn, ok, fbId){
+    const opts = btn.parentElement.querySelectorAll('.q-opt');
+    if([...opts].some(o => o.classList.contains('correct') || o.classList.contains('wrong'))) return;
+    opts.forEach(o => o.classList.add('disabled'));
+    const fb = document.getElementById(fbId);
+    if(ok){
+      btn.classList.add('correct'); sc++; upd();
+      fb.textContent = '✅ Correct! Well done!';
+      fb.className = 'q-fb show ok';
+    } else {
+      btn.classList.add('wrong');
+      fb.textContent = '❌ Not quite — check the correct answer highlighted above!';
+      fb.className = 'q-fb show no';
+      opts.forEach(o => { if(o.onclick.toString().includes('true')) o.classList.add('correct'); });
+    }
+  };
+
+  window.qf = function(inpId, ans, fbId, okMsg, noMsg){
+    const inp = document.getElementById(inpId);
+    const fb  = document.getElementById(fbId);
+    if(inp.disabled) return;
+    inp.disabled = true;
+    if(inp.value.trim().toLowerCase() === ans){
+      inp.classList.add('ok'); sc++; upd();
+      fb.textContent = okMsg; fb.className = 'q-fb show ok';
+    } else {
+      inp.classList.add('no');
+      fb.textContent = noMsg; fb.className = 'q-fb show no';
+    }
+  };
+})();
+</script>
+</body>
+</html>

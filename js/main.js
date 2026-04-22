@@ -96,6 +96,18 @@ const LESSONS = [
     tags: ['word order', 'possessive', 'adjective', 'demonstrative'],
     isNew: true,
   },
+  {
+  id: 'adjectives',
+  title: 'Adjectives — Vivumishi',
+  description: 'All 5 types of Swahili adjectives with noun class agreement tables and examples.',
+  icon: '🎨',
+  category: 'grammar',
+  badge: 'LESSON',
+  week: 8,
+  file: 'lessons/swahili_adjectives.html',
+  tags: ['adjectives', 'vivumishi', 'noun class'],
+  isNew: true,
+},
 
   /* ── VOCABULARY ── */
   {
