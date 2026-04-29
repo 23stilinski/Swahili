@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demonstratives — Vivumishi Viashiria</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:      #f9f6f1;
+    --surface: #ffffff;
+    --card:    #f2ede6;
+    --border:  #ddd5c8;
+    --ink:     #1a1410;
+    --muted:   #8a7f72;
+    --soft:    #b0a898;
+
+    /* type colours */
+    --prox:   #1a7a4a;  /* proximity — green */
+    --refp:   #c27a0a;  /* reference proximity — amber */
+    --dist:   #2563c7;  /* distance — blue */
+    --refd:   #1a5fa0;  /* reference distance — darker blue */
+
+    /* noun class colours */
+    --m-wa:  #e03e2d;
+    --m-mi:  #2e86c1;
+    --ki-vi: #1e8449;
+    --n:     #7d3c98;
+    --ji-ma: #d68910;
+    --u:     #b03a2e;
+    --pa:    #1a5276;
+
+    --gold:  #f5a623;
+    --green: #27ae60;
+    --red:   #e74c3c;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 400;
+    line-height: 1.65;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    padding: 56px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: 'HIZI';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(80px, 22vw, 240px);
+    font-weight: 900;
+    color: rgba(255,255,255,0.03);
+    pointer-events: none;
+    white-space: nowrap;
+    letter-spacing: 0.08em;
+  }
+  .h-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 4px;
+    padding: 4px 12px;
+    margin-bottom: 18px;
+  }
+  header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(30px, 6vw, 62px);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+  header h1 .gold { color: var(--gold); }
+  header p { font-size: 15px; color: rgba(255,255,255,0.4); max-width: 520px; margin: 0 auto; font-weight: 300; }
+
+  /* ── MAIN ── */
+  main { max-width: 900px; margin: 0 auto; padding: 48px 24px 100px; }
+
+  /* ── INTRO ── */
+  .intro-box {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-left: 5px solid var(--gold);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 48px;
+  }
+  .intro-box h2 { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: #8a6200; margin-bottom: 12px; }
+  .intro-box p { font-size: 15px; color: var(--muted); margin-bottom: 10px; line-height: 1.7; }
+  .intro-box p:last-child { margin-bottom: 0; }
+  .intro-box strong { color: var(--ink); font-weight: 700; }
+
+  /* ── SECTION ── */
+  .sec-wrap { margin-bottom: 56px; }
+  .sec-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .sec-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(22px, 4vw, 34px);
+    font-weight: 900;
+    margin-bottom: 6px;
+    line-height: 1.1;
+  }
+  .sec-sub { font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+
+  /* ── TYPE CARDS ── */
+  .type-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .type-card {
+    border-radius: 14px;
+    padding: 20px 18px;
+    position: relative;
+    overflow: hidden;
+  }
+  .type-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    opacity: 0.08;
+    transform: translate(20px, -20px);
+  }
+  .type-card.prox  { background: rgba(26,122,74,0.08);  border: 2px solid rgba(26,122,74,0.2);  }
+  .type-card.refp  { background: rgba(194,122,10,0.08); border: 2px solid rgba(194,122,10,0.2); }
+  .type-card.dist  { background: rgba(37,99,199,0.08);  border: 2px solid rgba(37,99,199,0.2);  }
+  .type-card.refd  { background: rgba(26,95,160,0.07);  border: 2px solid rgba(26,95,160,0.18); }
+  .type-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    padding: 3px 8px;
+    display: inline-block;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  .prox  .type-badge { background: rgba(26,122,74,0.15);  color: var(--prox); }
+  .refp  .type-badge { background: rgba(194,122,10,0.15); color: var(--refp); }
+  .dist  .type-badge { background: rgba(37,99,199,0.15);  color: var(--dist); }
+  .refd  .type-badge { background: rgba(26,95,160,0.13);  color: var(--refd); }
+  .type-card h3 { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 800; margin-bottom: 6px; color: var(--ink); }
+  .type-card p  { font-size: 13px; color: var(--muted); line-height: 1.55; }
+  .type-card .type-eng { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .prox  .type-eng { color: var(--prox); }
+  .refp  .type-eng { color: var(--refp); }
+  .dist  .type-eng { color: var(--dist); }
+  .refd  .type-eng { color: var(--refd); }
+
+  /* ── FORMATION BLOCKS ── */
+  .form-block {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+  }
+  .form-block h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+  .form-block p { font-size: 14px; color: var(--muted); margin-bottom: 14px; line-height: 1.65; }
+  .form-block strong { color: var(--ink); font-weight: 600; }
+
+  .formula-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    background: var(--card);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+  .f-pill {
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'DM Mono', monospace;
+  }
+  .f-pill.h    { background: rgba(26,122,74,0.15);  color: var(--prox); }
+  .f-pill.vowel{ background: rgba(194,122,10,0.15); color: var(--refp); }
+  .f-pill.pfx  { background: rgba(37,99,199,0.15);  color: var(--dist); }
+  .f-pill.suf  { background: rgba(224,62,45,0.13);  color: #c0230f; }
+  .f-pill.rel  { background: rgba(125,60,152,0.13); color: #6a2c8a; }
+  .f-pill.res  { background: var(--border); color: var(--ink); }
+  .f-eq { font-size: 16px; color: var(--soft); font-weight: 300; }
+  .f-note { font-size: 13px; color: var(--muted); font-style: italic; }
+
+  /* ── MAIN TABLE ── */
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: 16px;
+    border: 1.5px solid var(--border);
+    margin-bottom: 24px;
+  }
+  table.dem-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    min-width: 580px;
+  }
+  .dem-table th {
+    padding: 10px 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 2px solid var(--border);
+    text-align: left;
+    background: var(--card);
+  }
+  .dem-table th.th-prox { color: var(--prox); }
+  .dem-table th.th-refp { color: var(--refp); }
+  .dem-table th.th-dist { color: var(--dist); }
+  .dem-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .dem-table tr:last-child td { border-bottom: none; }
+  .dem-table tr:hover td { background: rgba(0,0,0,0.02); }
+  .dem-table td .cls { font-weight: 700; font-size: 13px; color: var(--ink); }
+  .dem-table td .noun { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); display: block; margin-top: 1px; }
+  .v-prox { color: var(--prox); font-weight: 700; font-family: 'DM Mono', monospace; font-size: 14px; }
+  .v-refp { color: var(--refp); font-weight: 700; font-family: 'DM Mono', monospace; font-size: 14px; }
+  .v-dist { color: var(--dist); font-weight: 700; font-family: 'DM Mono', monospace; font-size: 14px; }
+  .loc-row td { background: rgba(26,82,118,0.04); }
+
+  /* ── WORD ORDER ── */
+  .wo-section { margin-bottom: 36px; }
+  .wo-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    color: var(--ink);
+  }
+  .rule-card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 14px;
+  }
+  .rule-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .rule-heading { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
+
+  /* slot chain */
+  .slot-chain {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .slot {
+    border-radius: 8px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'DM Mono', monospace;
+  }
+  .slot.noun { background: rgba(26,122,74,0.12);  color: var(--prox); }
+  .slot.poss { background: rgba(37,99,199,0.12);  color: var(--dist); }
+  .slot.adj  { background: rgba(194,122,10,0.12); color: var(--refp); }
+  .slot.dem  { background: rgba(224,62,45,0.12);  color: #c0230f; }
+  .slot-arr  { color: var(--soft); font-size: 14px; }
+
+  .ex-row {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+  }
+  .ex-sw  { font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .ex-en  { font-size: 13px; color: var(--muted); }
+
+  /* ── FULL FORMULA TRAIN ── */
+  .train {
+    display: flex;
+    gap: 0;
+    align-items: stretch;
+    margin-bottom: 28px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .train-car {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 108px;
+    flex: 1;
+    position: relative;
+  }
+  .train-car:not(:last-child)::after {
+    content: '→';
+    position: absolute;
+    right: -14px;
+    top: 50%;
+    transform: translateY(-60%);
+    font-size: 18px;
+    color: var(--muted);
+    z-index: 2;
+    line-height: 1;
+  }
+  .car-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 3px;
+    letter-spacing: 0.1em;
+  }
+  .car-body {
+    border-radius: 12px;
+    padding: 14px 10px 10px;
+    width: 100%;
+    text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .car-name { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 800; line-height: 1.2; margin-bottom: 4px; }
+  .car-example { font-family: 'DM Mono', monospace; font-size: 11px; opacity: 0.8; line-height: 1.3; }
+  .car-optional { font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.55; margin-top: 5px; font-family: 'DM Mono', monospace; }
+  .train-gap { width: 28px; flex-shrink: 0; }
+
+  /* ── EXAMPLES BLOCK ── */
+  .ex-group { margin-bottom: 32px; }
+  .ex-group-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .ex-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-weight: 500;
+  }
+  .ex-tag.prox { background: rgba(26,122,74,0.15);  color: var(--prox); }
+  .ex-tag.refp { background: rgba(194,122,10,0.15); color: var(--refp); }
+  .ex-tag.dist { background: rgba(37,99,199,0.15);  color: var(--dist); }
+
+  .ex-list { display: flex; flex-direction: column; gap: 8px; }
+  .ex-item {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+  .ex-item .sw { font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 500; min-width: 200px; color: var(--ink); }
+  .ex-item .en { font-size: 13px; color: var(--muted); }
+
+  /* ── CALLOUT BOXES ── */
+  .callout {
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+  .callout strong { font-weight: 700; display: block; margin-bottom: 4px; }
+  .callout.gold   { background: rgba(245,166,35,0.1);  border-left: 4px solid var(--gold); color: #6a4800; }
+  .callout.green  { background: rgba(39,174,96,0.09);  border-left: 4px solid var(--green); color: #1a5e38; }
+  .callout.blue   { background: rgba(37,99,199,0.08);  border-left: 4px solid var(--dist); color: #183a80; }
+  .callout.amber  { background: rgba(194,122,10,0.09); border-left: 4px solid var(--refp); color: #6a4400; }
+
+  /* ── QUIZ ── */
+  .quiz-wrap {
+    background: var(--ink);
+    border-radius: 20px;
+    padding: 36px 32px;
+    margin-top: 56px;
+  }
+  .quiz-wrap h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .quiz-wrap p { font-size: 14px; color: rgba(255,255,255,0.4); margin-bottom: 28px; }
+  .q-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 22px 24px;
+    margin-bottom: 14px;
+  }
+  .q-num { font-family: 'DM Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 0.1em; margin-bottom: 6px; }
+  .q-text { font-size: 16px; color: #fff; font-weight: 500; margin-bottom: 14px; }
+  .q-text em { color: var(--gold); font-style: normal; font-weight: 700; }
+  .q-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .q-btn {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-size: 14px;
+    font-family: 'DM Mono', monospace;
+    color: rgba(255,255,255,0.75);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .q-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.25); color: #fff; }
+  .q-btn.correct { background: rgba(39,174,96,0.25) !important; border-color: #27ae60 !important; color: #6effa8 !important; }
+  .q-btn.wrong   { background: rgba(232,90,74,0.22) !important; border-color: var(--red) !important; color: #ff9e92 !important; }
+  .q-btn:disabled { cursor: default; }
+  .q-feedback { margin-top: 10px; font-size: 13px; min-height: 18px; font-family: 'DM Mono', monospace; }
+  .q-feedback.ok  { color: #6effa8; }
+  .q-feedback.bad { color: #ff9e92; }
+  .quiz-score {
+    text-align: center;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .score-num { font-family: 'Syne', sans-serif; font-size: 42px; font-weight: 900; color: var(--gold); }
+  .score-label { font-size: 14px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+  .quiz-reset {
+    margin-top: 18px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    transition: all 0.15s;
+  }
+  .quiz-reset:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+  /* ── SUMMARY BOX ── */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .sum-card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 16px;
+    text-align: center;
+  }
+  .sum-key { font-family: 'DM Mono', monospace; font-size: 24px; font-weight: 500; margin-bottom: 6px; }
+  .sum-label { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+  .sum-eng { font-size: 13px; font-weight: 600; color: var(--ink); }
+
+  @media (max-width: 600px) {
+    .type-grid { grid-template-columns: 1fr 1fr; }
+    .ex-item { flex-direction: column; gap: 4px; }
+    .ex-item .sw { min-width: unset; }
+    .train-car { min-width: 85px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="h-tag">Grammar · Week 8</div>
+  <h1>Demonstra&shy;<span class="gold">tives</span></h1>
+  <p>Vivumishi Viashiria — pointing to what's near, far, or already known</p>
+</header>
+
+<main>
+
+  <!-- INTRO -->
+  <div class="intro-box">
+    <h2>What are demonstratives?</h2>
+    <p>A demonstrative is a <strong>pointing word</strong> — it identifies exactly which thing you mean. In English the demonstratives are <strong>this, these, that, those</strong>. Swahili has all of these, plus a special fourth type: the <strong>reference demonstrative</strong>, used when the thing has already been mentioned in the conversation.</p>
+    <p>Like adjectives, every demonstrative in Swahili must <strong>agree with the noun it points to</strong> — it changes shape based on the noun's class. But each type follows a clear, logical pattern that you can learn once and apply everywhere.</p>
+    <p>Demonstratives can work as <strong>adjectives</strong> (next to a noun: <em>kitabu hiki</em> — this book) or as <strong>pronouns</strong> (standing alone: <em>Hiki ni kizuri</em> — this one is good). The form is exactly the same either way.</p>
+  </div>
+
+  <!-- SECTION A: FOUR TYPES -->
+  <div class="sec-wrap">
+    <div class="sec-label">Section A</div>
+    <div class="sec-title">The four types</div>
+    <div class="sec-sub">Swahili has four demonstrative types. Two are based on physical distance (near vs. far). Two are reference types for things already discussed.</div>
+
+    <div class="type-grid">
+      <div class="type-card prox">
+        <div class="type-badge">Proximity</div>
+        <div class="type-eng">this / these</div>
+        <h3>Near the speaker</h3>
+        <p>Always starts with <strong>H</strong>. Think: <em>"H for Here."</em> Used for things close to you right now.</p>
+      </div>
+      <div class="type-card refp">
+        <div class="type-badge">Ref. Proximity</div>
+        <div class="type-eng">this/these (ref)</div>
+        <h3>Mentioned, nearby</h3>
+        <p>Built from proximity + a <strong>relative particle</strong>. Used when the nearby thing has already come up in conversation.</p>
+      </div>
+      <div class="type-card dist">
+        <div class="type-badge">Distance</div>
+        <div class="type-eng">that / those</div>
+        <h3>Far from the speaker</h3>
+        <p>Always ends in <strong>-le</strong>. Think: <em>"-le" = pointing away.</em> Used for things away from you.</p>
+      </div>
+      <div class="type-card refd">
+        <div class="type-badge">Ref. Distance</div>
+        <div class="type-eng">that/those (ref)</div>
+        <h3>Mentioned, far away</h3>
+        <p>Same form as distance. What changes is <strong>word order</strong> — it usually precedes the noun when no adjective is present.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION B: FORMATION -->
+  <div class="sec-wrap">
+    <div class="sec-label">Section B</div>
+    <div class="sec-title">How they are formed</div>
+    <div class="sec-sub">Each type has its own formation rule. Learn the pattern once — it applies to every noun class.</div>
+
+    <div class="form-block">
+      <h3 style="color:var(--prox)">Proximity — "this / these"</h3>
+      <p>Every proximity demonstrative starts with <strong>h-</strong>, followed by a vowel that duplicates the vowel of the noun class's subject prefix, then the subject prefix itself.</p>
+      <div class="formula-row">
+        <div class="f-pill h">H</div>
+        <div class="f-eq">+</div>
+        <div class="f-pill vowel">duplicated vowel</div>
+        <div class="f-eq">+</div>
+        <div class="f-pill pfx">subject prefix</div>
+        <div class="f-eq">=</div>
+        <div class="f-pill res">proximity demonstrative</div>
+      </div>
+      <p class="f-note">WA- class: H + a + wa = <strong>hawa</strong> &nbsp;|&nbsp; MI- class: H + i + i = <strong>hii</strong> &nbsp;|&nbsp; JI- class: H + i + li = <strong>hili</strong></p>
+      <div class="callout amber" style="margin-top:14px;margin-bottom:0">
+        <strong>Exception — M-WA singular:</strong> We would expect <em>a-</em> (the subject prefix) but it uses <em>-yu</em> instead, giving H + u + yu = <strong>huyu</strong>. Also: M(W)- locative has no vowel in its prefix, so the vowel <em>u</em> is inserted → <strong>humu</strong>.
+      </div>
+    </div>
+
+    <div class="form-block">
+      <h3 style="color:var(--refp)">Reference for Proximity</h3>
+      <p>Take the <strong>first syllable</strong> of the proximity demonstrative for that class, then attach the noun class's <strong>relative particle</strong>.</p>
+      <div class="formula-row">
+        <div class="f-pill h">1st syllable of proximity</div>
+        <div class="f-eq">+</div>
+        <div class="f-pill rel">relative particle</div>
+        <div class="f-eq">=</div>
+        <div class="f-pill res">reference for proximity</div>
+      </div>
+      <p class="f-note">JI- class: hi- + -lo- = <strong>hilo</strong> &nbsp;|&nbsp; KI- class: hi- + -cho- = <strong>hicho</strong> &nbsp;|&nbsp; MA- class: ha- + -yo- = <strong>hayo</strong></p>
+      <div class="callout amber" style="margin-top:14px;margin-bottom:0">
+        <strong>Exception — M-WA singular:</strong> We would expect the relative particle <em>-ye-</em> but it uses <em>-yo</em> instead → hu- + -yo = <strong>huyo</strong>.
+      </div>
+    </div>
+
+    <div class="form-block">
+      <h3 style="color:var(--dist)">Distance — "that / those"</h3>
+      <p>Take the noun class's <strong>subject prefix</strong> (the pronominal form) and add the suffix <strong>-le</strong>.</p>
+      <div class="formula-row">
+        <div class="f-pill pfx">subject prefix</div>
+        <div class="f-eq">+</div>
+        <div class="f-pill suf">-le</div>
+        <div class="f-eq">=</div>
+        <div class="f-pill res">distance demonstrative</div>
+      </div>
+      <p class="f-note">WA- class: wa + le = <strong>wale</strong> &nbsp;|&nbsp; JI- class: li + le = <strong>lile</strong> &nbsp;|&nbsp; KI- class: ki + le = <strong>kile</strong></p>
+      <div class="callout blue" style="margin-top:14px;margin-bottom:0">
+        <strong>Exception — M-WA singular:</strong> Uses <em>yu-</em> instead of <em>a-</em> → yu + le = <strong>yule</strong>.
+      </div>
+    </div>
+
+    <div class="form-block">
+      <h3 style="color:var(--refd)">Reference for Distance</h3>
+      <p>No new forms needed! The <strong>Reference for Distance uses exactly the same forms as the Distance demonstrative</strong>. The only difference is word order — the reference form usually comes before the noun (when no adjective is present). See Section D for full word order rules.</p>
+      <div class="callout green" style="margin-bottom:0">
+        <strong>Easy rule to remember:</strong> If you already know the distance forms (wale, yule, kile, lile…), you already know the reference-for-distance forms. Just learn when to place them before vs. after the noun.
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION C: FULL TABLE -->
+  <div class="sec-wrap">
+    <div class="sec-label">Section C</div>
+    <div class="sec-title">Complete reference table</div>
+    <div class="sec-sub">All noun classes — proximity, reference for proximity, and distance side by side. Remember: reference for distance uses the same form as distance.</div>
+
+    <div class="table-wrap">
+      <table class="dem-table">
+        <thead>
+          <tr>
+            <th>Noun class</th>
+            <th>Example</th>
+            <th class="th-prox">Proximity<br><span style="font-weight:400;opacity:0.7">this / these</span></th>
+            <th class="th-refp">Ref. Proximity<br><span style="font-weight:400;opacity:0.7">this (referred to)</span></th>
+            <th class="th-dist">Distance / Ref. Distance<br><span style="font-weight:400;opacity:0.7">that / those</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="cls">M-WA</span><span class="noun">singular · people/animals</span></td>
+            <td><span style="font-family:'DM Mono',monospace;font-size:12px">mtu</span></td>
+            <td><span class="v-prox">huyu</span></td>
+            <td><span class="v-refp">huyo</span></td>
+            <td><span class="v-dist">yule</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls">M-WA</span><span class="noun">plural</span></td>
+            <td><span style="font-family:'DM Mono',monospace;font-size:12px">watu</span></td>
+            <td><span class="v-prox">hawa</span></td>
+            <td><span class="v-refp">hao</span></td>
+            <td><span class="v-dist">wale</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls">M-MI</span><span class="noun">singular</span></td>
+            <td><span style="font-family:'DM Mono',monospace;font-size:12px">mti</span></td>
+            <td><span class="v-prox">huu</span></td>
+            <td><span class="v-refp">huo</span></td>
+            <td><span class="v-dist">ule</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls">M-MI</span><span class="noun">plural</span></td>
+            <td><span style="font-family:'DM Mono',monospace;font-size:12px">miti</span></td>
+            <td><span class="v-prox">hii</span></td>
+            <td><span class="v-refp">hiyo</span></td>
+            <td><span class="v-dist">ile</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls">JI-MA</span><span class="noun">singular</span></td>
+            <td><span style="font-family:'DM Mono',monospace;font-size:12px">tunda</span></td>
+            <td><span class="v-prox">hili</span></td>
+            <td><span class="v-refp">hilo</span></td>
+            <td><span class="v-dist">lile</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls">JI-MA</span><span class="noun">plural</span></td>
+            <td><span style="font-family:'DM Mono',monospace;font-size:12px">matunda</span></td>
+            <td><span class="v-prox">haya</span></td>
+            <td><span class="v-refp">hayo</span></td>
+            <td><span class="v-dist">yale</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls">KI-VI</span><span class="noun">singular</span></td>
+            <td><span style="font-family:'DM Mono',monospace;font-size:12px">kiti</span></td>
+            <td><span class="v-prox">hiki</span></td>
+            <td><span class="v-refp">hicho</span></td>
+            <td><span class="v-dist">kile</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls">KI-VI</span><span class="noun">plural</span></td>
+            <td><span style="font-family:'DM Mono',monospace;font-size:12px">viti</span></td>
+            <td><span class="v-prox">hivi</span></td>
+            <td><span class="v-refp">hivyo</span></td>
+            <td><span class="v-dist">vile</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls">N class</span><span class="noun">singular</span></td>
+            <td><span style="font-family:'DM Mono',monospace;font-size:12px">kalamu</span></td>
+            <td><span class="v-prox">hii</span></td>
+            <td><span class="v-refp">hiyo</span></td>
+            <td><span class="v-dist">ile</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls">N class</span><span class="noun">plural</span></td>
+            <td><span style="font-family:'DM Mono',monospace;font-size:12px">kalamu</span></td>
+            <td><span class="v-prox">hizi</span></td>
+            <td><span class="v-refp">hizo</span></td>
+            <td><span class="v-dist">zile</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls">U class</span><span class="noun">singular</span></td>
+            <td><span style="font-family:'DM Mono',monospace;font-size:12px">uso</span></td>
+            <td><span class="v-prox">huu</span></td>
+            <td><span class="v-refp">huo</span></td>
+            <td><span class="v-dist">ule</span></td>
+          </tr>
+          <tr>
+            <td><span class="cls">U class</span><span class="noun">plural</span></td>
+            <td><span style="font-family:'DM Mono',monospace;font-size:12px">nyuso</span></td>
+            <td><span class="v-prox">hizi</span></td>
+            <td><span class="v-refp">hizo</span></td>
+            <td><span class="v-dist">zile</span></td>
+          </tr>
+          <tr class="loc-row">
+            <td><span class="cls" style="color:var(--pa)">PA-</span><span class="noun">definite place</span></td>
+            <td><span style="font-family:'DM Mono',monospace;font-size:12px">mahali</span></td>
+            <td><span class="v-prox">hapa</span></td>
+            <td><span class="v-refp">hapo</span></td>
+            <td><span class="v-dist">pale</span></td>
+          </tr>
+          <tr class="loc-row">
+            <td><span class="cls" style="color:var(--pa)">KU-</span><span class="noun">indefinite place / direction</span></td>
+            <td><span style="font-family:'DM Mono',monospace;font-size:12px">—</span></td>
+            <td><span class="v-prox">huku</span></td>
+            <td><span class="v-refp">huko</span></td>
+            <td><span class="v-dist">kule</span></td>
+          </tr>
+          <tr class="loc-row">
+            <td><span class="cls" style="color:var(--pa)">M(W)-</span><span class="noun">inside / within</span></td>
+            <td><span style="font-family:'DM Mono',monospace;font-size:12px">—</span></td>
+            <td><span class="v-prox">humu</span></td>
+            <td><span class="v-refp">humo</span></td>
+            <td><span class="v-dist">mle</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout blue">
+      <strong>Locative classes:</strong> PA- = a definite/specific spot (<em>hapa</em> = right here). KU- = a general direction or area (<em>huku</em> = around this way). M(W)- = the interior of a place (<em>humu</em> = inside here). The M(W)- proximity form is special — its prefix has no vowel, so <em>u</em> is inserted to make <em>humu</em>.
+    </div>
+  </div>
+
+  <!-- SECTION D: WORD ORDER -->
+  <div class="sec-wrap">
+    <div class="sec-label">Section D</div>
+    <div class="sec-title">Word order rules</div>
+    <div class="sec-sub">Where a demonstrative sits in a sentence depends on its type, and whether adjectives or possessives are also present.</div>
+
+    <!-- Proximity & Distance basic -->
+    <div class="wo-section">
+      <div class="wo-title">Proximity and Distance — basic position</div>
+      <div class="rule-card">
+        <div class="rule-label">Normal everyday usage</div>
+        <div class="rule-heading">Demonstrative comes AFTER the noun</div>
+        <div class="ex-row"><div class="ex-sw">nyumba hii</div><div class="ex-en">this house</div></div>
+        <div class="ex-row"><div class="ex-sw">watu wale</div><div class="ex-en">those people</div></div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-label">Emphatic — strong pointing</div>
+        <div class="rule-heading">Demonstrative comes BEFORE the noun for emphasis</div>
+        <div class="ex-row"><div class="ex-sw">Hii nyumba!</div><div class="ex-en">THIS house! (pointing firmly)</div></div>
+        <div class="ex-row"><div class="ex-sw">Wale watu!</div><div class="ex-en">THOSE people! (emphatic)</div></div>
+      </div>
+    </div>
+
+    <!-- Reference for Proximity word order -->
+    <div class="wo-section">
+      <div class="wo-title" style="color:var(--refp)">Reference for Proximity — three rules</div>
+
+      <div class="rule-card">
+        <div class="rule-label">Rule 1 — noun alone (no adjective)</div>
+        <div class="rule-heading">Reference demonstrative comes BEFORE the noun</div>
+        <div class="ex-row"><div class="ex-sw">Hilo ua ni zuri.</div><div class="ex-en">This (referred to) flower is nice.</div></div>
+        <div class="ex-row"><div class="ex-sw">Hayo maua ni mazuri.</div><div class="ex-en">These (referred to) flowers are nice.</div></div>
+        <div class="ex-row"><div class="ex-sw">Huyo paka alilala.</div><div class="ex-en">This (referred to) cat was asleep.</div></div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-label">Rule 2 — noun + adjective</div>
+        <div class="rule-heading">Reference demonstrative comes AFTER the noun, before the adjective</div>
+        <div class="slot-chain">
+          <div class="slot noun">Noun</div><div class="slot-arr">→</div>
+          <div class="slot dem">Ref. demonstrative</div><div class="slot-arr">→</div>
+          <div class="slot adj">Adjective</div>
+        </div>
+        <div class="ex-row"><div class="ex-sw">Ua hilo jeupe ni zuri.</div><div class="ex-en">This (referred to) white flower is nice.</div></div>
+        <div class="ex-row"><div class="ex-sw">Maua hayo meupe ni mazuri.</div><div class="ex-en">These (referred to) white flowers are nice.</div></div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-label">Rule 3 — noun + personal possessive + adjective</div>
+        <div class="rule-heading">Noun → possessive → reference demonstrative → adjective</div>
+        <div class="slot-chain">
+          <div class="slot noun">Noun</div><div class="slot-arr">→</div>
+          <div class="slot poss">Possessive</div><div class="slot-arr">→</div>
+          <div class="slot dem">Ref. demonstrative</div><div class="slot-arr">→</div>
+          <div class="slot adj">Adjective</div>
+        </div>
+        <div class="ex-row"><div class="ex-sw">Ua langu hilo jeupe ni zuri.</div><div class="ex-en">This (referred to) white flower of mine is nice.</div></div>
+        <div class="ex-row"><div class="ex-sw">Maua yangu hayo meupe ni mazuri.</div><div class="ex-en">These (referred to) white flowers of mine are nice.</div></div>
+      </div>
+    </div>
+
+    <!-- Reference for Distance -->
+    <div class="wo-section">
+      <div class="wo-title" style="color:var(--dist)">Reference for Distance — same three rules</div>
+
+      <div class="rule-card">
+        <div class="rule-label">Rule 1 — noun alone</div>
+        <div class="rule-heading">Reference demonstrative comes BEFORE the noun</div>
+        <div class="ex-row"><div class="ex-sw">Lile ua ni zuri.</div><div class="ex-en">That (referred to) flower is nice.</div></div>
+        <div class="ex-row"><div class="ex-sw">Yale maua ni mazuri.</div><div class="ex-en">Those (referred to) flowers are nice.</div></div>
+        <div class="ex-row"><div class="ex-sw">Yule paka alilala.</div><div class="ex-en">That (referred to) cat was asleep.</div></div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-label">Rule 2 — noun + adjective</div>
+        <div class="rule-heading">Reference demonstrative comes AFTER the noun, before the adjective</div>
+        <div class="slot-chain">
+          <div class="slot noun">Noun</div><div class="slot-arr">→</div>
+          <div class="slot dem">Ref. demonstrative</div><div class="slot-arr">→</div>
+          <div class="slot adj">Adjective</div>
+        </div>
+        <div class="ex-row"><div class="ex-sw">Ua lile jeupe ni zuri.</div><div class="ex-en">That (referred to) white flower is nice.</div></div>
+        <div class="ex-row"><div class="ex-sw">Maua yale meupe ni mazuri.</div><div class="ex-en">Those (referred to) white flowers are nice.</div></div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-label">Rule 3 — noun + personal possessive + adjective</div>
+        <div class="rule-heading">Noun → possessive → reference demonstrative → adjective</div>
+        <div class="slot-chain">
+          <div class="slot noun">Noun</div><div class="slot-arr">→</div>
+          <div class="slot poss">Possessive</div><div class="slot-arr">→</div>
+          <div class="slot dem">Ref. demonstrative</div><div class="slot-arr">→</div>
+          <div class="slot adj">Adjective</div>
+        </div>
+        <div class="ex-row"><div class="ex-sw">Ua langu lile jeupe ni zuri.</div><div class="ex-en">That (referred to) white flower of mine is nice.</div></div>
+        <div class="ex-row"><div class="ex-sw">Maua yangu yale meupe ni mazuri.</div><div class="ex-en">Those (referred to) white flowers of mine are nice.</div></div>
+      </div>
+
+      <div class="callout gold">
+        <strong>Key contrast to remember:</strong> Both reference types follow the exact same three word order rules. What changes is only the demonstrative form — <em>hilo/hayo</em> for reference proximity vs. <em>lile/yale</em> for reference distance.
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION E: FULL NOUN PHRASE FORMULA -->
+  <div class="sec-wrap">
+    <div class="sec-label">Section E</div>
+    <div class="sec-title">Full noun phrase formula</div>
+    <div class="sec-sub">When a noun phrase includes a possessive, adjective, quantity, demonstrative, and -a of association all together, this is the fixed order every element must follow.</div>
+
+    <div class="train">
+      <div class="train-car">
+        <div class="car-body" style="background:rgba(26,122,74,0.12)">
+          <div class="car-num">01</div>
+          <div class="car-name" style="color:var(--prox)">Noun</div>
+          <div class="car-example">Visu</div>
+        </div>
+      </div>
+      <div class="train-gap"></div>
+      <div class="train-car">
+        <div class="car-body" style="background:rgba(37,99,199,0.12)">
+          <div class="car-num">02</div>
+          <div class="car-name" style="color:var(--dist)">Personal<br>possessive</div>
+          <div class="car-example">vyangu</div>
+          <div class="car-optional">optional</div>
+        </div>
+      </div>
+      <div class="train-gap"></div>
+      <div class="train-car">
+        <div class="car-body" style="background:rgba(194,122,10,0.12)">
+          <div class="car-num">03</div>
+          <div class="car-name" style="color:var(--refp)">Adjective</div>
+          <div class="car-example">vikubwa</div>
+          <div class="car-optional">optional</div>
+        </div>
+      </div>
+      <div class="train-gap"></div>
+      <div class="train-car">
+        <div class="car-body" style="background:rgba(125,60,152,0.12)">
+          <div class="car-num">04</div>
+          <div class="car-name" style="color:#7d3c98">Quantity</div>
+          <div class="car-example">vitano</div>
+          <div class="car-optional">optional</div>
+        </div>
+      </div>
+      <div class="train-gap"></div>
+      <div class="train-car">
+        <div class="car-body" style="background:rgba(224,62,45,0.12)">
+          <div class="car-num">05</div>
+          <div class="car-name" style="color:#c0230f">Demon&shy;strative</div>
+          <div class="car-example">hivi</div>
+          <div class="car-optional">optional</div>
+        </div>
+      </div>
+      <div class="train-gap"></div>
+      <div class="train-car">
+        <div class="car-body" style="background:rgba(26,82,118,0.12)">
+          <div class="car-num">06</div>
+          <div class="car-name" style="color:var(--pa)">-A of<br>association</div>
+          <div class="car-example">vya kale</div>
+          <div class="car-optional">optional</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ex-row" style="margin-bottom:16px">
+      <div class="ex-sw" style="font-size:16px">Visu vyangu vikubwa vitano hivi vya kale.</div>
+      <div class="ex-en" style="margin-top:4px">These five big ancient knives of mine.</div>
+    </div>
+
+    <div class="callout gold">
+      <strong>Remember:</strong> Not every noun phrase uses all six slots — most of the time only two or three are present. But when multiple elements appear together, this order is fixed and must be followed. Getting the order wrong will make the sentence sound unnatural or be misunderstood.
+    </div>
+  </div>
+
+  <!-- SECTION F: EXAMPLES -->
+  <div class="sec-wrap">
+    <div class="sec-label">Section F</div>
+    <div class="sec-title">Sentences in action</div>
+    <div class="sec-sub">All four types used in real sentences across different noun classes.</div>
+
+    <div class="ex-group">
+      <div class="ex-group-title"><span class="ex-tag prox">Proximity</span> this / these</div>
+      <div class="ex-list">
+        <div class="ex-item"><span class="sw">Ua hili ni zuri.</span><span class="en">This flower is nice.</span></div>
+        <div class="ex-item"><span class="sw">Paka huyu alilala.</span><span class="en">This cat was asleep.</span></div>
+        <div class="ex-item"><span class="sw">Vitabu hivi ni vizuri.</span><span class="en">These books are good.</span></div>
+        <div class="ex-item"><span class="sw">Nyumba hii ni kubwa.</span><span class="en">This house is big.</span></div>
+        <div class="ex-item"><span class="sw">Mahali pazuri hapa ni kasri la rais.</span><span class="en">This beautiful place is the presidential palace.</span></div>
+        <div class="ex-item"><span class="sw">Kusoma kurefu huku kunapendeza.</span><span class="en">This long reading is lovely.</span></div>
+      </div>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-title"><span class="ex-tag refp">Ref. Proximity</span> this/these (referred to)</div>
+      <div class="ex-list">
+        <div class="ex-item"><span class="sw">Hilo ua ni zuri.</span><span class="en">This (referred to) flower is nice.</span></div>
+        <div class="ex-item"><span class="sw">Huyo paka alilala.</span><span class="en">This (referred to) cat was asleep.</span></div>
+        <div class="ex-item"><span class="sw">Ua hilo jeupe ni zuri.</span><span class="en">This (referred to) white flower is nice.</span></div>
+        <div class="ex-item"><span class="sw">Ua langu hilo jeupe ni zuri.</span><span class="en">This (referred to) white flower of mine is nice.</span></div>
+        <div class="ex-item"><span class="sw">Hicho chakula cha jamaa kinanukia.</span><span class="en">This (referred to) food of the relative smells good.</span></div>
+        <div class="ex-item"><span class="sw">Hizo kweli ni wazi.</span><span class="en">These (referred to) truths are self-evident.</span></div>
+      </div>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-title"><span class="ex-tag dist">Distance</span> that / those</div>
+      <div class="ex-list">
+        <div class="ex-item"><span class="sw">Ua lile ni zuri.</span><span class="en">That flower is nice.</span></div>
+        <div class="ex-item"><span class="sw">Paka yule alilala.</span><span class="en">That cat was asleep.</span></div>
+        <div class="ex-item"><span class="sw">Vitabu vile ni ghali.</span><span class="en">Those books are expensive.</span></div>
+        <div class="ex-item"><span class="sw">Simba kijana mnene yule amelala.</span><span class="en">That young fat lion has been asleep.</span></div>
+        <div class="ex-item"><span class="sw">Mahali pazuri pale ni kasri la rais.</span><span class="en">That beautiful place is the presidential palace.</span></div>
+        <div class="ex-item"><span class="sw">Kule kuimba ni kubaya.</span><span class="en">That (referred to) singing is bad.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-wrap" id="quiz-wrap">
+    <h2>Quick Quiz 🎯</h2>
+    <p>Test yourself — pick the correct demonstrative for each sentence.</p>
+    <div id="quiz-questions"></div>
+    <div class="quiz-score" id="quiz-score" style="display:none">
+      <div class="score-num" id="score-num">0/6</div>
+      <div class="score-label">answers correct</div>
+      <button class="quiz-reset" onclick="resetQuiz()">Try again ↺</button>
+    </div>
+  </div>
+
+</main>
+
+<script>
+const QUESTIONS = [
+  {
+    q: 'Mtoto ___ anacheza. (This child is playing.)',
+    opts: ['hawa', 'huyu', 'yule', 'hiki'],
+    ans: 'huyu',
+    exp: 'M-WA singular proximity → huyu'
+  },
+  {
+    q: 'Vitabu ___ ni vizuri. (Those books are good.)',
+    opts: ['hivi', 'hivyo', 'vile', 'hiki'],
+    ans: 'vile',
+    exp: 'KI-VI plural distance → vile'
+  },
+  {
+    q: 'Ua ___ jeupe ni zuri. (This referred-to white flower is nice.)',
+    opts: ['hili', 'hilo', 'lile', 'hala'],
+    ans: 'hilo',
+    exp: 'JI-MA singular reference for proximity → hilo (after noun, before adjective)'
+  },
+  {
+    q: '___ maua ni mazuri. (Those referred-to flowers are nice.)',
+    opts: ['haya', 'hayo', 'yale', 'yala'],
+    ans: 'yale',
+    exp: 'JI-MA plural reference for distance → yale (before noun, no adjective)'
+  },
+  {
+    q: 'Mahali pazuri ___ ni kasri la rais. (This beautiful place is the presidential palace.)',
+    opts: ['pale', 'hapo', 'hapa', 'huku'],
+    ans: 'hapa',
+    exp: 'PA- class proximity → hapa (after noun + adjective)'
+  },
+  {
+    q: 'Nyumba ___ ni kubwa. (That house is big.)',
+    opts: ['hii', 'hiyo', 'ile', 'zile'],
+    ans: 'ile',
+    exp: 'N class singular distance → ile'
+  },
+];
+
+let answered = 0;
+let correct  = 0;
+
+function buildQuiz() {
+  const container = document.getElementById('quiz-questions');
+  container.innerHTML = '';
+  answered = 0; correct = 0;
+  document.getElementById('quiz-score').style.display = 'none';
+
+  QUESTIONS.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.id = 'q-' + i;
+
+    const shuffled = [...q.opts].sort(() => Math.random() - 0.5);
+
+    card.innerHTML = `
+      <div class="q-num">Question ${i + 1} of ${QUESTIONS.length}</div>
+      <div class="q-text">${q.q.replace(/_+/, '<em>___</em>')}</div>
+      <div class="q-opts">
+        ${shuffled.map(o => `<button class="q-btn" onclick="answer(this, ${i}, '${o}')">${o}</button>`).join('')}
+      </div>
+      <div class="q-feedback" id="fb-${i}"></div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function answer(btn, idx, chosen) {
+  const q = QUESTIONS[idx];
+  const card = document.getElementById('q-' + idx);
+  const fb   = document.getElementById('fb-' + idx);
+  const btns = card.querySelectorAll('.q-btn');
+
+  btns.forEach(b => {
+    b.disabled = true;
+    if (b.textContent === q.ans) b.classList.add('correct');
+    if (b === btn && chosen !== q.ans) b.classList.add('wrong');
+  });
+
+  if (chosen === q.ans) {
+    fb.textContent = '✓ Correct! ' + q.exp;
+    fb.className   = 'q-feedback ok';
+    correct++;
+  } else {
+    fb.textContent = '✗ ' + q.exp;
+    fb.className   = 'q-feedback bad';
+  }
+
+  answered++;
+  if (answered === QUESTIONS.length) {
+    document.getElementById('score-num').textContent = correct + '/' + QUESTIONS.length;
+    document.getElementById('quiz-score').style.display = 'block';
+    document.getElementById('quiz-score').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+function resetQuiz() { buildQuiz(); }
+
+document.addEventListener('DOMContentLoaded', buildQuiz);
+if (document.readyState !== 'loading') buildQuiz();
+</script>
+
+</body>
+</html>
