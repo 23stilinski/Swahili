@@ -108,6 +108,18 @@ const LESSONS = [
   tags: ['adjectives', 'vivumishi', 'noun class'],
   isNew: true,
 },
+{
+  id: 'demonstratives',
+  title: 'Demonstratives — Viashiria',
+  description: 'This, these, that, those — and the reference demonstrative unique to Swahili. Full tables, word order rules, and a quiz.',
+  icon: '👆',
+  category: 'grammar',
+  badge: 'LESSON',
+  week: 9,
+  file: 'lessons/swahili_demonstratives.html',
+  tags: ['demonstratives', 'viashiria', 'this', 'that', 'these', 'those', 'huyu', 'hawa', 'yule', 'wale', 'proximity', 'distance', 'reference'],
+  isNew: true,
+},
 
   /* ── VOCABULARY ── */
   {
