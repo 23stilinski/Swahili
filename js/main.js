@@ -120,6 +120,18 @@ const LESSONS = [
   tags: ['demonstratives', 'viashiria', 'this', 'that', 'these', 'those', 'huyu', 'hawa', 'yule', 'wale', 'proximity', 'distance', 'reference'],
   isNew: true,
 },
+{
+  id: 'comparatives',
+  title: 'Comparatives & Superlatives — Kulinganisha',
+  description: 'How to compare two things and express the maximum degree of a quality in Swahili.',
+  icon: '⚖️',
+  category: 'grammar',
+  badge: 'LESSON',
+  week: 10,
+  file: 'lessons/swahili_comparatives.html',
+  tags: ['comparatives', 'superlatives', 'kulinganisha', 'kuliko', 'zaidi ya', 'bora', 'kama'],
+  isNew: true,
+},
 
   /* ── VOCABULARY ── */
   {

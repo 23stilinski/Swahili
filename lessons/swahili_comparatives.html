@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comparatives & Superlatives — Kulinganisha</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:      #f9f6f1;
+    --surface: #ffffff;
+    --card:    #f2ede6;
+    --border:  #ddd5c8;
+    --ink:     #1a1410;
+    --muted:   #8a7f72;
+    --soft:    #b0a898;
+    --gold:    #f5a623;
+    --green:   #27ae60;
+    --red:     #e74c3c;
+
+    --eq:   #1a7a4a;
+    --sup:  #2563c7;
+    --inf:  #c0230f;
+    --spl:  #7d3c98;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink); font-family: 'Outfit', sans-serif; font-weight: 400; line-height: 1.65; }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    padding: 56px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: 'BORA';
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(80px, 22vw, 240px);
+    font-weight: 900;
+    color: rgba(255,255,255,0.03);
+    pointer-events: none;
+    white-space: nowrap;
+    letter-spacing: 0.08em;
+  }
+  .h-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 4px; padding: 4px 12px; margin-bottom: 18px;
+  }
+  header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(30px, 6vw, 62px); font-weight: 900;
+    color: #fff; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 10px;
+  }
+  header h1 .gold { color: var(--gold); }
+  header p { font-size: 15px; color: rgba(255,255,255,0.4); max-width: 520px; margin: 0 auto; font-weight: 300; }
+
+  /* ── MAIN ── */
+  main { max-width: 900px; margin: 0 auto; padding: 48px 24px 100px; }
+
+  /* ── INTRO ── */
+  .intro-box {
+    background: var(--surface); border: 2px solid var(--border);
+    border-left: 5px solid var(--gold); border-radius: 16px;
+    padding: 28px 32px; margin-bottom: 48px;
+  }
+  .intro-box h2 { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: #8a6200; margin-bottom: 12px; }
+  .intro-box p  { font-size: 15px; color: var(--muted); margin-bottom: 10px; line-height: 1.7; }
+  .intro-box p:last-child { margin-bottom: 0; }
+  .intro-box strong { color: var(--ink); font-weight: 700; }
+
+  /* ── SECTION ── */
+  .sec-wrap  { margin-bottom: 56px; }
+  .sec-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .sec-title { font-family: 'Syne', sans-serif; font-size: clamp(22px, 4vw, 34px); font-weight: 900; margin-bottom: 6px; line-height: 1.1; }
+  .sec-sub   { font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+
+  /* ── CATEGORY CARDS ── */
+  .cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin-bottom: 36px; }
+  .cat-card { border-radius: 14px; padding: 20px 18px; }
+  .cat-card.eq  { background: rgba(26,122,74,0.08);  border: 2px solid rgba(26,122,74,0.2);  }
+  .cat-card.sup { background: rgba(37,99,199,0.08);  border: 2px solid rgba(37,99,199,0.2);  }
+  .cat-card.inf { background: rgba(192,35,15,0.07);  border: 2px solid rgba(192,35,15,0.18); }
+  .cat-card.spl { background: rgba(125,60,152,0.08); border: 2px solid rgba(125,60,152,0.2); }
+  .cat-badge {
+    font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em;
+    text-transform: uppercase; border-radius: 4px; padding: 3px 8px;
+    display: inline-block; margin-bottom: 10px; font-weight: 500;
+  }
+  .eq  .cat-badge { background: rgba(26,122,74,0.15);  color: var(--eq);  }
+  .sup .cat-badge { background: rgba(37,99,199,0.15);  color: var(--sup); }
+  .inf .cat-badge { background: rgba(192,35,15,0.13);  color: var(--inf); }
+  .spl .cat-badge { background: rgba(125,60,152,0.13); color: var(--spl); }
+  .cat-card h3 { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 800; margin-bottom: 6px; color: var(--ink); }
+  .cat-card p  { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+  /* ── MAIN TABLE ── */
+  .table-wrap { overflow-x: auto; border-radius: 16px; border: 1.5px solid var(--border); margin-bottom: 24px; }
+  table.cmp { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 560px; }
+  .cmp th {
+    padding: 10px 14px;
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
+    border-bottom: 2px solid var(--border); text-align: left;
+    background: var(--card); color: var(--muted);
+  }
+  .cmp td { padding: 11px 14px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.55; }
+  .cmp tr:last-child td { border-bottom: none; }
+  .cmp tr:hover td { background: rgba(0,0,0,0.02); }
+
+  .w-eq  { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; color: var(--eq);  }
+  .w-sup { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; color: var(--sup); }
+  .w-inf { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; color: var(--inf); }
+  .w-spl { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; color: var(--spl); }
+  .meaning { font-size: 13px; color: var(--muted); }
+  .ex-sw { font-family: 'DM Mono', monospace; font-size: 12.5px; font-weight: 500; color: var(--ink); }
+  .ex-en { font-size: 12px; color: var(--muted); font-style: italic; margin-top: 3px; }
+
+  /* ── CALLOUT BOXES ── */
+  .callout { border-radius: 12px; padding: 18px 22px; margin-bottom: 20px; font-size: 14px; line-height: 1.65; }
+  .callout strong { font-weight: 700; display: block; margin-bottom: 4px; }
+  .callout.gold  { background: rgba(245,166,35,0.1);  border-left: 4px solid var(--gold); color: #6a4800; }
+  .callout.green { background: rgba(39,174,96,0.09);  border-left: 4px solid var(--green); color: #1a5e38; }
+  .callout.blue  { background: rgba(37,99,199,0.08);  border-left: 4px solid var(--sup); color: #183a80; }
+  .callout.red   { background: rgba(192,35,15,0.07);  border-left: 4px solid var(--inf); color: #6a1a0a; }
+  .callout.purple{ background: rgba(125,60,152,0.07); border-left: 4px solid var(--spl); color: #4a1e60; }
+
+  /* ── QUICK REF GRID ── */
+  .ref-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+  .ref-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 14px; padding: 18px 16px; }
+  .ref-card .ref-type { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 10px; font-weight: 500; }
+  .ref-card .ref-words { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--ink); line-height: 1.9; }
+
+  /* ── QUIZ ── */
+  .quiz-wrap { background: var(--ink); border-radius: 20px; padding: 36px 32px; margin-top: 56px; }
+  .quiz-wrap h2 { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 900; color: #fff; margin-bottom: 6px; }
+  .quiz-wrap p  { font-size: 14px; color: rgba(255,255,255,0.4); margin-bottom: 28px; }
+  .q-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 22px 24px; margin-bottom: 14px; }
+  .q-num  { font-family: 'DM Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 0.1em; margin-bottom: 6px; }
+  .q-text { font-size: 16px; color: #fff; font-weight: 500; margin-bottom: 14px; }
+  .q-text em { color: var(--gold); font-style: normal; font-weight: 700; }
+  .q-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .q-btn {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px; padding: 8px 18px; font-size: 14px;
+    font-family: 'DM Mono', monospace; color: rgba(255,255,255,0.75);
+    cursor: pointer; transition: all 0.15s ease;
+  }
+  .q-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.25); color: #fff; }
+  .q-btn.correct { background: rgba(39,174,96,0.25) !important; border-color: #27ae60 !important; color: #6effa8 !important; }
+  .q-btn.wrong   { background: rgba(232,90,74,0.22) !important; border-color: var(--red) !important; color: #ff9e92 !important; }
+  .q-btn:disabled { cursor: default; }
+  .q-feedback { margin-top: 10px; font-size: 13px; min-height: 18px; font-family: 'DM Mono', monospace; }
+  .q-feedback.ok  { color: #6effa8; }
+  .q-feedback.bad { color: #ff9e92; }
+  .quiz-score { text-align: center; margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); }
+  .score-num   { font-family: 'Syne', sans-serif; font-size: 42px; font-weight: 900; color: var(--gold); }
+  .score-label { font-size: 14px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+  .quiz-reset  { margin-top: 18px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 10px 24px; font-size: 14px; color: rgba(255,255,255,0.6); cursor: pointer; font-family: 'Outfit', sans-serif; transition: all 0.15s; }
+  .quiz-reset:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+  .divider { border: none; border-top: 1.5px solid var(--border); margin: 48px 0; }
+
+  @media (max-width: 600px) {
+    .cat-grid { grid-template-columns: 1fr 1fr; }
+    .ref-grid { grid-template-columns: 1fr 1fr; }
+    .cmp td, .cmp th { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="h-tag">Grammar · Week 10</div>
+  <h1>Comparatives &amp; <span class="gold">Superlatives</span></h1>
+  <p>Kulinganisha — comparing two things and expressing the maximum degree of a quality</p>
+</header>
+
+<main>
+
+  <!-- INTRO -->
+  <div class="intro-box">
+    <h2>What are comparatives and superlatives?</h2>
+    <p>A <strong>comparative</strong> is used to compare two nouns — showing they are equal, or that one is better/worse than the other. In English: "as tall as," "taller than," "less than." Swahili does all of this using specific words and verbs.</p>
+    <p>A <strong>superlative</strong> shows that something has the <strong>maximum degree</strong> of a quality compared to everything else. In English: "the tallest," "the best," "the worst." In Swahili, superlatives are formed by combining comparative words with <strong>-ote</strong> (all) or <strong>-o-ote</strong> (any).</p>
+    <p>There are <strong>two categories of comparatives</strong> — equality (things are the same) and superiority/inferiority (one is more or less than the other) — plus superlatives.</p>
+  </div>
+
+  <!-- OVERVIEW CARDS -->
+  <div class="sec-wrap">
+    <div class="sec-label">Overview</div>
+    <div class="sec-title">Three categories at a glance</div>
+    <div class="sec-sub">Every comparison in Swahili falls into one of these three types.</div>
+    <div class="cat-grid">
+      <div class="cat-card eq">
+        <div class="cat-badge">Section A</div>
+        <h3>Equality</h3>
+        <p>Two things are the same or equal in some quality — "as ... as," "the same as," "resembles."</p>
+      </div>
+      <div class="cat-card sup">
+        <div class="cat-badge">Section B</div>
+        <h3>Superiority</h3>
+        <p>One thing is greater, better, or more than another — "... than," "better than," "more than."</p>
+      </div>
+      <div class="cat-card inf">
+        <div class="cat-badge">Section B</div>
+        <h3>Inferiority</h3>
+        <p>One thing is lesser, worse, or less than another — "less than," "become less."</p>
+      </div>
+      <div class="cat-card spl">
+        <div class="cat-badge">Section C</div>
+        <h3>Superlatives</h3>
+        <p>Something is the most or least of all — formed by adding -ote (all) or -o-ote (any).</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SECTION A -->
+  <div class="sec-wrap">
+    <div class="sec-label">Section A</div>
+    <div class="sec-title">Comparatives of Equality</div>
+    <div class="sec-sub">Used to show two things are equal or alike in some quality. Several words and verbs can be used, sometimes with or without <em>kama</em>.</div>
+
+    <div class="table-wrap">
+      <table class="cmp">
+        <thead>
+          <tr>
+            <th style="width:18%">Word / structure</th>
+            <th style="width:20%">Meaning</th>
+            <th style="width:36%">Swahili example</th>
+            <th>English translation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="w-eq">kama</span></td>
+            <td><span class="meaning">as ... as / like</span></td>
+            <td><div class="ex-sw">Kijana huyu ni shujaa kama mwanajeshi.</div></td>
+            <td><div class="ex-en">This youth is as brave as a soldier.</div></td>
+          </tr>
+          <tr>
+            <td><span class="w-eq">vilevile</span></td>
+            <td><span class="meaning">also / equally</span></td>
+            <td><div class="ex-sw">Sisi tunasoma Kiswahili vilevile.</div></td>
+            <td><div class="ex-en">We study Swahili also.</div></td>
+          </tr>
+          <tr>
+            <td><span class="w-eq">sawa</span></td>
+            <td><span class="meaning">equal (in)</span></td>
+            <td><div class="ex-sw">Mazulia yale ni sawa kwa sifa.</div></td>
+            <td><div class="ex-en">Those carpets are equal in quality.</div></td>
+          </tr>
+          <tr>
+            <td><span class="w-eq">sawasawa</span></td>
+            <td><span class="meaning">same / identical amount</span></td>
+            <td><div class="ex-sw">Televisheni na kompyuta zinatumia kiasi sawasawa cha umeme.</div></td>
+            <td><div class="ex-en">A television and a computer use the same amount of electricity.</div></td>
+          </tr>
+          <tr>
+            <td><span class="w-eq">sawa na</span></td>
+            <td><span class="meaning">equal to / the same as</span></td>
+            <td><div class="ex-sw">Miwani yangu ya jua ni sawa na yako.</div></td>
+            <td><div class="ex-en">My sunglasses are the same as yours.</div></td>
+          </tr>
+          <tr>
+            <td><span class="w-eq">lingana (na)</span></td>
+            <td><span class="meaning">match / harmonize with</span></td>
+            <td><div class="ex-sw">Urefu wako unalingana na urefu wa mpenzi wako.</div></td>
+            <td><div class="ex-en">Your height matches your girlfriend's height.</div></td>
+          </tr>
+          <tr>
+            <td><span class="w-eq">fanana (na)</span></td>
+            <td><span class="meaning">resemble / look like</span></td>
+            <td><div class="ex-sw">Sura za mapacha hawa zinafanana.</div></td>
+            <td><div class="ex-en">The faces of these twins resemble each other.</div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout green">
+      <strong>Tip:</strong> <em>kama</em>, <em>vilevile</em>, <em>sawa</em>, and <em>sawasawa</em> can all be used with or without each other. You can say <em>kama</em> alone or pair it with any of the others for more emphasis — e.g. <em>sawa kama</em> (equal as) or <em>vilevile kama</em> (also as).
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SECTION B -->
+  <div class="sec-wrap">
+    <div class="sec-label">Section B</div>
+    <div class="sec-title">Comparatives of Superiority &amp; Inferiority</div>
+    <div class="sec-sub">Used to show one thing is more or less than another. Superiority = one thing is greater. Inferiority = one thing is lesser.</div>
+
+    <div class="table-wrap">
+      <table class="cmp">
+        <thead>
+          <tr>
+            <th style="width:20%">Word / structure</th>
+            <th style="width:20%">Meaning</th>
+            <th style="width:33%">Swahili example</th>
+            <th>English translation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="w-sup">kuliko</span></td>
+            <td><span class="meaning">... than (superiority or inferiority)</span></td>
+            <td><div class="ex-sw">Mtoto wangu ni hodari kuliko mtoto wako.</div></td>
+            <td><div class="ex-en">My child is cleverer than your child.</div></td>
+          </tr>
+          <tr>
+            <td><span class="w-sup">bora kuliko</span></td>
+            <td><span class="meaning">better than</span></td>
+            <td><div class="ex-sw">Afya ni bora kuliko mali.</div></td>
+            <td><div class="ex-en">Health is better than wealth.</div></td>
+          </tr>
+          <tr>
+            <td><span class="w-sup">heri ... kuliko</span></td>
+            <td><span class="meaning">better to ... than<br><em>(starts the sentence)</em></span></td>
+            <td><div class="ex-sw">Heri kununua nyumba kuliko kununua gari.</div></td>
+            <td><div class="ex-en">Better to buy a house than to buy a car.</div></td>
+          </tr>
+          <tr>
+            <td><span class="w-sup">afadhali ... kuliko</span></td>
+            <td><span class="meaning">better to ... than<br><em>(starts the sentence)</em></span></td>
+            <td><div class="ex-sw">Afadhali kuchelewa kuliko kukosa.</div></td>
+            <td><div class="ex-en">Better late than to miss it.</div></td>
+          </tr>
+          <tr>
+            <td><span class="w-sup">zaidi ya</span></td>
+            <td><span class="meaning">more than</span></td>
+            <td><div class="ex-sw">Mfuko wangu ni mpana zaidi ya mfuko wake.</div></td>
+            <td><div class="ex-en">My bag is wider than his/her bag.</div></td>
+          </tr>
+          <tr>
+            <td><span class="w-sup">zidi</span></td>
+            <td><span class="meaning">exceed / increase more than</span></td>
+            <td><div class="ex-sw">Bei ya chakula imezidi mfumko.</div></td>
+            <td><div class="ex-en">The price of food has increased more than inflation.</div></td>
+          </tr>
+          <tr>
+            <td><span class="w-sup">shinda</span></td>
+            <td><span class="meaning">beat / be better than</span></td>
+            <td><div class="ex-sw">Timu ya mpira ya Hispania imeshinda timu ya Uholanzi.</div></td>
+            <td><div class="ex-en">The Spanish soccer team is better than the Dutch team.</div></td>
+          </tr>
+          <tr>
+            <td><span class="w-sup">pita</span></td>
+            <td><span class="meaning">exceed / surpass</span></td>
+            <td><div class="ex-sw">Unafahamu Kirusi kupita Kiingereza.</div></td>
+            <td><div class="ex-en">You understand Russian better than English.</div></td>
+          </tr>
+          <tr>
+            <td><span class="w-inf">duni ya</span></td>
+            <td><span class="meaning">less than (inferiority)</span></td>
+            <td><div class="ex-sw">Masanduku ya hati yana uzani duni ya sanduku la betri.</div></td>
+            <td><div class="ex-en">The boxes of documents weigh less than the box of batteries.</div></td>
+          </tr>
+          <tr>
+            <td><span class="w-inf">pungua</span></td>
+            <td><span class="meaning">become less / reduce</span></td>
+            <td><div class="ex-sw">Chakula kimepungua utamu.</div></td>
+            <td><div class="ex-en">The food has become less tasty.</div></td>
+          </tr>
+          <tr>
+            <td><span class="w-sup">Noun A na Noun B,<br>Noun B ni ...</span></td>
+            <td><span class="meaning">naming two, then comparing</span></td>
+            <td>
+              <div class="ex-sw">Mohammad na Henry, Henry ni mwembamba.</div>
+              <div class="ex-sw" style="margin-top:6px">Huyu na yule, yule ni mwembamba.</div>
+            </td>
+            <td>
+              <div class="ex-en">Mohammad and Henry, Henry is thinner.</div>
+              <div class="ex-en" style="margin-top:6px">This one and that one, that one is thinner.</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout blue">
+      <strong>Note on kuliko:</strong> <em>kuliko</em> can also work as a <strong>locative</strong> — meaning "where something exists" — not only as a comparative. Example: <em>Hapa ni mahali kuliko na watu wengi sana</em> — This is the place where there are many people.
+    </div>
+
+    <div class="callout gold">
+      <strong>heri and afadhali:</strong> Both mean "better" and must always appear at the <strong>start of the sentence</strong>. They also always need <em>kuliko</em> somewhere in the sentence to complete the comparison.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SECTION C -->
+  <div class="sec-wrap">
+    <div class="sec-label">Section C</div>
+    <div class="sec-title">Superlatives</div>
+    <div class="sec-sub">To say something is the best, worst, most, or least of all — combine any comparative word with <strong>-ote</strong> (all) or <strong>-o-ote</strong> (any). The same verbs and adjectives from Section B are used here.</div>
+
+    <div class="table-wrap">
+      <table class="cmp">
+        <thead>
+          <tr>
+            <th style="width:24%">Structure</th>
+            <th style="width:20%">Meaning</th>
+            <th style="width:33%">Swahili example</th>
+            <th>English translation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="w-spl">bora kuliko ... wote</span></td>
+            <td><span class="meaning">the best of all</span></td>
+            <td><div class="ex-sw">Baba yangu ni bora kuliko baba wote.</div></td>
+            <td><div class="ex-en">My dad is the best (better than all dads).</div></td>
+          </tr>
+          <tr>
+            <td><span class="w-spl">zaidi ya ... yote</span></td>
+            <td><span class="meaning">more than all</span></td>
+            <td><div class="ex-sw">Mfuko wangu ni mpana zaidi ya mifuko yote.</div></td>
+            <td><div class="ex-en">My bag is wider than all bags.</div></td>
+          </tr>
+          <tr>
+            <td><span class="w-spl">zaidi ya ... wo wote</span></td>
+            <td><span class="meaning">more than any</span></td>
+            <td><div class="ex-sw">Mfuko wangu ni mpana zaidi ya mfuko wo wote.</div></td>
+            <td><div class="ex-en">My bag is wider than any bag.</div></td>
+          </tr>
+          <tr>
+            <td><span class="w-spl">zidi ... zote</span></td>
+            <td><span class="meaning">exceed all</span></td>
+            <td><div class="ex-sw">Bei ya chakula imezidi bei zote.</div></td>
+            <td><div class="ex-en">The price of food has increased more than all prices.</div></td>
+          </tr>
+          <tr>
+            <td><span class="w-spl">duni ya ... yote</span></td>
+            <td><span class="meaning">less than all</span></td>
+            <td><div class="ex-sw">Masanduku ya hati yana uzani duni ya masanduku yote.</div></td>
+            <td><div class="ex-en">The boxes of documents weigh less than all boxes.</div></td>
+          </tr>
+          <tr>
+            <td><span class="w-spl">pungua kuliko ... vyote</span></td>
+            <td><span class="meaning">least tasty of all</span></td>
+            <td><div class="ex-sw">Chakula kimepungua utamu kuliko vyakula vyote.</div></td>
+            <td><div class="ex-en">The food has become less tasty than all foods.</div></td>
+          </tr>
+          <tr>
+            <td><span class="w-spl">shinda ... zote</span></td>
+            <td><span class="meaning">beat all / best of all</span></td>
+            <td><div class="ex-sw">Timu ya mpira ya Hispania imeshinda timu zote.</div></td>
+            <td><div class="ex-en">The Spanish soccer team has beaten all teams.</div></td>
+          </tr>
+          <tr>
+            <td><span class="w-spl">shinda ... yo yote</span></td>
+            <td><span class="meaning">able to beat any</span></td>
+            <td><div class="ex-sw">Timu ya mpira ya Hispania inaweza kushinda timu yo yote.</div></td>
+            <td><div class="ex-en">The Spanish soccer team is able to beat any team.</div></td>
+          </tr>
+          <tr>
+            <td><span class="w-spl">pita ... zote</span></td>
+            <td><span class="meaning">exceeds all others</span></td>
+            <td><div class="ex-sw">Unafahamu Kirusi kupita lugha nyingine zote.</div></td>
+            <td><div class="ex-en">Your understanding of Russian exceeds all other languages.</div></td>
+          </tr>
+          <tr>
+            <td><span class="w-spl">kuliko watu wote /<br>mtu ye yote</span></td>
+            <td><span class="meaning">more than all / any person</span></td>
+            <td>
+              <div class="ex-sw">Henry ni mwembamba kuliko watu wote.</div>
+              <div class="ex-sw" style="margin-top:6px">Henry ni mwembamba kuliko mtu ye yote.</div>
+            </td>
+            <td>
+              <div class="ex-en">Henry is thinner than all people.</div>
+              <div class="ex-en" style="margin-top:6px">Henry is thinner than any person.</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout purple">
+      <strong>-ote vs -o-ote:</strong> Use <em>-ote</em> for "all" (wote, yote, zote, vyote) and <em>-o-ote</em> for "any" (wo wote, yo yote, zo zote, cho chote). Both form superlatives — but <em>-o-ote</em> is even stronger, meaning "more than any single one imaginable."
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- QUICK REFERENCE -->
+  <div class="sec-wrap">
+    <div class="sec-label">Summary</div>
+    <div class="sec-title">All key words at a glance</div>
+    <div class="sec-sub" style="margin-bottom:20px">Every word and structure from all three sections, grouped by category.</div>
+    <div class="ref-grid">
+      <div class="ref-card">
+        <div class="ref-type" style="color:var(--eq)">Equality</div>
+        <div class="ref-words">kama<br>vilevile<br>sawa<br>sawasawa<br>sawa na<br>lingana (na)<br>fanana (na)</div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-type" style="color:var(--sup)">Superiority</div>
+        <div class="ref-words">kuliko<br>bora kuliko<br>heri ... kuliko<br>afadhali ... kuliko<br>zaidi ya<br>zidi<br>shinda<br>pita</div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-type" style="color:var(--inf)">Inferiority</div>
+        <div class="ref-words">duni ya<br>pungua<br>kuliko (with inferior adj.)</div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-type" style="color:var(--spl)">Superlatives</div>
+        <div class="ref-words">... + -ote (all)<br>... + -o-ote (any)<br>kuliko ... wote<br>zaidi ya ... yote<br>shinda ... zote<br>pita ... zote</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-wrap" id="quiz-wrap">
+    <h2>Quick Quiz 🎯</h2>
+    <p>Test what you have learned — pick the correct word or structure for each sentence.</p>
+    <div id="quiz-questions"></div>
+    <div class="quiz-score" id="quiz-score" style="display:none">
+      <div class="score-num" id="score-num">0/7</div>
+      <div class="score-label">answers correct</div>
+      <button class="quiz-reset" onclick="resetQuiz()">Try again ↺</button>
+    </div>
+  </div>
+
+</main>
+
+<script>
+const QUESTIONS = [
+  {
+    q: 'Kijana huyu ni shujaa ___ mwanajeshi. (This youth is as brave as a soldier.)',
+    opts: ['kuliko', 'kama', 'zaidi ya', 'bora'],
+    ans: 'kama',
+    exp: 'kama = "as ... as" — used for equality comparisons.'
+  },
+  {
+    q: 'Afya ni bora ___ mali. (Health is better than wealth.)',
+    opts: ['kama', 'sawa na', 'kuliko', 'duni ya'],
+    ans: 'kuliko',
+    exp: 'bora kuliko = "better than" — superiority comparative.'
+  },
+  {
+    q: '___ kununua nyumba kuliko kununua gari. (Better to buy a house than a car.)',
+    opts: ['Bora', 'Zaidi', 'Heri', 'Kuliko'],
+    ans: 'Heri',
+    exp: 'heri must start the sentence and pairs with kuliko to compare.'
+  },
+  {
+    q: 'Mfuko wangu ni mpana ___ mfuko wake. (My bag is wider than his bag.)',
+    opts: ['kuliko', 'zaidi ya', 'duni ya', 'kama'],
+    ans: 'zaidi ya',
+    exp: 'zaidi ya = "more than" — superiority comparative adjective.'
+  },
+  {
+    q: 'Chakula kimepungua ___. (The food has become less tasty.)',
+    opts: ['utamu', 'kuliko', 'sawa', 'kama'],
+    ans: 'utamu',
+    exp: 'pungua + quality noun = "become less (tastiness)" — inferiority.'
+  },
+  {
+    q: 'Baba yangu ni bora kuliko baba ___. (My dad is the best.)',
+    opts: ['wote', 'wo wote', 'yote', 'zote'],
+    ans: 'wote',
+    exp: 'baba wote = "all dads" — M-WA plural uses wote for superlatives.'
+  },
+  {
+    q: 'Sura za mapacha hawa zinafanana. What type of comparison is this?',
+    opts: ['Superiority', 'Inferiority', 'Equality', 'Superlative'],
+    ans: 'Equality',
+    exp: 'fanana = "resemble" — this is a comparative of equality.'
+  },
+];
+
+let answered = 0, correct = 0;
+
+function buildQuiz() {
+  const container = document.getElementById('quiz-questions');
+  container.innerHTML = '';
+  answered = 0; correct = 0;
+  document.getElementById('quiz-score').style.display = 'none';
+
+  QUESTIONS.forEach((q, i) => {
+    const shuffled = [...q.opts].sort(() => Math.random() - 0.5);
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.id = 'q-' + i;
+    card.innerHTML = `
+      <div class="q-num">Question ${i + 1} of ${QUESTIONS.length}</div>
+      <div class="q-text">${q.q.replace(/_+/, '<em>___</em>')}</div>
+      <div class="q-opts">
+        ${shuffled.map(o => `<button class="q-btn" onclick="answer(this,${i},'${o}')">${o}</button>`).join('')}
+      </div>
+      <div class="q-feedback" id="fb-${i}"></div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function answer(btn, idx, chosen) {
+  const q    = QUESTIONS[idx];
+  const card = document.getElementById('q-' + idx);
+  const fb   = document.getElementById('fb-' + idx);
+  card.querySelectorAll('.q-btn').forEach(b => {
+    b.disabled = true;
+    if (b.textContent === q.ans) b.classList.add('correct');
+    if (b === btn && chosen !== q.ans) b.classList.add('wrong');
+  });
+  if (chosen === q.ans) {
+    fb.textContent = '✓ Correct! ' + q.exp;
+    fb.className = 'q-feedback ok';
+    correct++;
+  } else {
+    fb.textContent = '✗ ' + q.exp;
+    fb.className = 'q-feedback bad';
+  }
+  answered++;
+  if (answered === QUESTIONS.length) {
+    document.getElementById('score-num').textContent = correct + '/' + QUESTIONS.length;
+    document.getElementById('quiz-score').style.display = 'block';
+    document.getElementById('quiz-score').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+function resetQuiz() { buildQuiz(); }
+
+if (document.readyState !== 'loading') buildQuiz();
+else document.addEventListener('DOMContentLoaded', buildQuiz);
+</script>
+
+</body>
+</html>
